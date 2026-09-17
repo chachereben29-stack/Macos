@@ -76,31 +76,81 @@
       cursor: grabbing !important;
     }
 
-    #loading {
-      width: 100%; height: 100vh; position: fixed; top: 0; left: 0;
-      background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 22px;
-    }
+    /* loading replaced by .splash-screen */
 
     /* ===== NAVBAR ===== */
     .navbar {
-      width: 100%; padding: 0.1rem 0; position: fixed; top: 0; left: 0;
-      color: var(--color-white-900);
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      display: flex; align-items: center; justify-content: space-between; z-index: 20;
+      width: 100%;
+      height: 28px;
+      padding: 0 12px 0 10px;
+      position: fixed;
+      top: 0; left: 0;
+      color: #f5f5f7;
+      background: rgba(20, 20, 22, 0.72);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
       box-shadow: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .navbar > ul { display: flex; align-items: center; }
+    .navbar > ul {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
     .navbar li {
-      position: relative; font-size: 14px; margin: 0 4px; cursor: pointer;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.288); transition: 0.2s;
+      position: relative;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin: 0;
+      cursor: default;
+      text-shadow: none;
+      color: #f5f5f7;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
-    .navbar .leftLi { padding: 4px 8px; }
-    .navbar .leftLi:hover { background-color: rgba(255,255,255,0.18); border-radius: 5px; }
-    li.app_name { display: none; font-weight: 900 !important; }
+    .navbar .leftLi {
+      padding: 0 11px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-radius: 0;
+    }
+    .navbar .leftLi:hover {
+      background-color: rgba(255,255,255,0.12);
+      border-radius: 0;
+    }
+    .navbar .leftLi.logo {
+      padding: 0 10px;
+    }
+    .navbar .leftLi.logo img {
+      height: 14px;
+      width: auto;
+      display: block;
+      opacity: 0.95;
+    }
+    /* Active app name — bold like real macOS */
+    li.app_name {
+      display: none;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      letter-spacing: -0.02em;
+    }
+    li.app_name[style*="block"],
+    li.app_name[style*="flex"],
+    li.app_name.is-active {
+      display: flex !important;
+    }
 
     li > ul {
       display: none; position: absolute; left: 0; top: 100%; margin-top: 1px;
@@ -149,7 +199,147 @@
     }
     .navbar__right .battery__popup button:hover { background: var(--color-blue-800); }
 
+
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      gap: 2px;
+    }
+    .navbar__right li {
+      margin: 0 !important;
+      padding: 0 8px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .navbar__right li:hover {
+      background: rgba(255,255,255,0.12);
+    }
+    .navbar__right .clock,
+    .navbar__right .battery__text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #f5f5f7;
+      letter-spacing: -0.01em;
+    }
+    .navbar li > ul {
+      top: 100%;
+      margin-top: 0;
+      padding: 5px;
+      min-width: 220px;
+      background: rgba(40, 40, 42, 0.88) !important;
+      backdrop-filter: blur(40px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+      border: 1px solid rgba(255,255,255,0.12) !important;
+      border-radius: 8px !important;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4) !important;
+    }
+    .navbar li > ul > li {
+      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: auto;
+      display: block;
+    }
+    .navbar li > ul > li > button {
+      color: #f5f5f7 !important;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    .navbar li > ul > li > button:hover {
+      background: #0a84ff !important;
+      color: #fff !important;
+    }
+    .navbar .leftLi.app_name p {
+      margin: 0;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* Menu bar dropdowns — click + hover like macOS */
+    .navbar {
+      overflow: visible !important;
+    }
+    .navbar__left {
+      overflow: visible !important;
+    }
+    .navbar .leftLi.menu-item,
+    .navbar .leftLi.logo {
+      position: relative;
+    }
+    .navbar .leftLi > ul {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      margin: 0;
+      padding: 6px;
+      min-width: 220px;
+      flex-direction: column;
+      z-index: 10050;
+      background: rgba(40, 40, 42, 0.92) !important;
+      backdrop-filter: blur(40px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+      border: 1px solid rgba(255,255,255,0.14) !important;
+      border-radius: 8px !important;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.45) !important;
+    }
+    .navbar .leftLi.open > ul,
+    .navbar .leftLi:hover > ul {
+      display: flex;
+    }
+    /* Once one menu is open, hovering other items switches (macOS behavior) */
+    .navbar.menus-open .leftLi:hover > ul {
+      display: flex;
+    }
+    .navbar .leftLi > ul > li {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+    }
+    .navbar .leftLi > ul > li.menu-sep {
+      height: 1px;
+      margin: 5px 8px !important;
+      background: rgba(255,255,255,0.12);
+      pointer-events: none;
+    }
+    .navbar .leftLi > ul > li > button {
+      width: 100%;
+      text-align: left;
+      color: #f5f5f7 !important;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 6px 12px;
+      border-radius: 5px;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .navbar .leftLi > ul > li > button:hover {
+      background: #0a84ff !important;
+      color: #fff !important;
+    }
+    #menu-app-name {
+      display: flex !important;
+      font-weight: 700 !important;
+    }
+    #menu-app-name p {
+      margin: 0;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+
     /* ===== DOCK - Matching original repo magnification ===== */
+    /* ===== DOCK - original repo magnification ===== */
     .dock {
       display: flex;
       align-items: flex-end;
@@ -159,12 +349,13 @@
       left: 50%;
       height: 70px;
       transform: translateX(-50%);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--color-white-200);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.35);
       border-radius: 14px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.555);
-      z-index: 10;
-      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.35);
+      z-index: 30;
+      background: rgba(255,255,255,0.18);
     }
 
     .dock .point {
@@ -184,7 +375,7 @@
       width: 1px;
       height: 45px;
       margin: 0 6px;
-      background: var(--color-white-400);
+      background: rgba(255,255,255,0.4);
       align-self: center;
     }
 
@@ -210,9 +401,11 @@
       transform: translateY(-2.5px);
       border-radius: 12px;
       filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
+      object-fit: contain;
+      display: block;
     }
 
-    /* Main hover – matches original repo */
+    /* Main hover – matches original */
     .dock .icon:hover img {
       width: 7.1rem;
       height: 7.1rem;
@@ -220,7 +413,7 @@
       transform: translateY(-8px);
     }
 
-    /* Neighbor icons scale (left & right) – matches original */
+    /* Neighbor icons scale (left & right) */
     .dock .icon:hover + .icon img {
       width: 5.6rem;
       height: 5.6rem;
@@ -1523,9 +1716,7 @@
 
     .navbar, .dock, .window, .launchpad, .spotlight_serach, #spotlight,
     .settings-window, .safari, .steam, .terminal, .note, .calculator,
-    .Vscode, .maps, #contextMenu, #loading {
-      z-index: 10;
-    }
+    .Vscode, .maps, #contextMenu, /* loading replaced by .splash-screen */
     .navbar { z-index: 30; }
     .dock { z-index: 30; }
     #contextMenu { z-index: 100; }
@@ -2237,46 +2428,1275 @@
       z-index: 5;
     }
 
+  
+    /* macos-web.app style boot splash */
+    .splash-screen {
+      cursor: var(--mac-cursor), none;
+      background-color: #000;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 99999;
+      animation-fill-mode: forwards;
+      transition: opacity 0.5s ease;
+    }
+    .splash-screen.is-done {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .splash-screen .splash-apple {
+      color: #fff;
+      width: 100px;
+      height: 100px;
+      display: block;
+    }
+    .splash-screen .progress {
+      background-color: #424242;
+      border-radius: 50px;
+      width: 150px;
+      height: 4px;
+      overflow: hidden;
+    }
+    .splash-screen .indicator {
+      background-color: #f5f5f5;
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      transform: translateX(-100%);
+      will-change: transform;
+    }
+    .splash-screen .indicator.is-animating {
+      transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+      transform: translateX(0%);
+    }
+
+  
+    /* ===== Safari (macos-web / real Safari light chrome) ===== */
+    .safari.window {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      width: min(1100px, 94vw);
+      height: min(720px, 88vh);
+      background: #f5f5f7;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 0.5px rgba(0,0,0,0.12),
+        0 22px 70px rgba(0,0,0,0.35);
+      z-index: 75;
+    }
+    .safari.window.active,
+    .safari.window[style*="flex"] {
+      display: flex !important;
+    }
+    .safari .window__taskbar { display: none !important; }
+    .safari-chrome {
+      flex-shrink: 0;
+      background: linear-gradient(180deg, #fafafa 0%, #f0f0f2 100%);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      user-select: none;
+    }
+    .safari-chrome-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px 8px;
+    }
+    .safari-traffic {
+      display: flex;
+      gap: 7px;
+      padding-right: 4px;
+      flex-shrink: 0;
+    }
+    .safari-traffic button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .safari-traffic button:nth-child(1) { background: #ff5f57; }
+    .safari-traffic button:nth-child(2) { background: #febc2e; }
+    .safari-traffic button:nth-child(3) { background: #28c840; }
+    .safari-nav {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .safari-nav button,
+    .safari-icon-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #3a3a3c;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .safari-nav button:hover,
+    .safari-icon-btn:hover {
+      background: rgba(0,0,0,0.06);
+    }
+    .safari-urlbar {
+      flex: 1;
+      min-width: 0;
+      height: 30px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 12px;
+    }
+    .safari-urlbar:focus-within {
+      border-color: rgba(0,122,255,0.55);
+      box-shadow: 0 0 0 3px rgba(0,122,255,0.18);
+    }
+    .safari-lock { color: #8e8e93; flex-shrink: 0; }
+    .safari-urlbar input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-size: 13px;
+      color: #1d1d1f;
+      text-align: center;
+    }
+    .safari-urlbar input::placeholder { color: #8e8e93; text-align: center; }
+    .safari-tabstrip {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      padding: 0 10px;
+      min-height: 34px;
+      background: #e8e8ed;
+      border-top: 1px solid rgba(0,0,0,0.04);
+    }
+    .safari-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 220px;
+      min-width: 120px;
+      height: 28px;
+      padding: 0 10px;
+      margin-top: 6px;
+      border-radius: 8px 8px 0 0;
+      background: #f5f5f7;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-bottom: none;
+      font-size: 12px;
+      color: #1d1d1f;
+    }
+    .safari-tab.active {
+      background: #ffffff;
+      box-shadow: 0 -1px 0 #fff;
+    }
+    .safari-tab-icon { font-size: 11px; line-height: 1; }
+    .safari-tab-title {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .safari-tab-close {
+      border: none;
+      background: transparent;
+      color: #8e8e93;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      padding: 0 2px;
+      border-radius: 4px;
+    }
+    .safari-tab-close:hover { background: rgba(0,0,0,0.08); color: #1d1d1f; }
+    .safari-tab-spacer { flex: 1; }
+    #safari-frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #e8e8ed;
+      min-height: 0;
+    }
+
+    /* Traffic light glyphs on hover (real macOS style) */
+    .window__taskbar--actions button,
+    .safari-traffic button {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      cursor: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .window__taskbar--actions button:nth-child(1),
+    .safari-traffic button:nth-child(1),
+    .close-safari { background: #ff5f57 !important; }
+    .window__taskbar--actions button:nth-child(2),
+    .safari-traffic button:nth-child(2),
+    .min-safari { background: #febc2e !important; }
+    .window__taskbar--actions button:nth-child(3),
+    .safari-traffic button:nth-child(3),
+    .full-safari { background: #28c840 !important; }
+
+    .window__taskbar--actions:hover button:nth-child(1)::before,
+    .safari-traffic:hover button:nth-child(1)::before {
+      content: "×";
+      position: absolute;
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      color: #4a0000;
+      font-family: Arial, sans-serif;
+    }
+    .window__taskbar--actions:hover button:nth-child(2)::before,
+    .safari-traffic:hover button:nth-child(2)::before {
+      content: "";
+      position: absolute;
+      width: 7px; height: 1.5px;
+      background: #985700;
+      border-radius: 1px;
+    }
+    .window__taskbar--actions:hover button:nth-child(3)::before,
+    .safari-traffic:hover button:nth-child(3)::before {
+      content: "+";
+      position: absolute;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      color: #006500;
+      font-family: Arial, sans-serif;
+      transform: translateY(-0.5px);
+    }
+
+    .safari-tab-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: transparent;
+    }
+    .safari-tab-icon-fallback {
+      font-size: 11px;
+      line-height: 1;
+    }
+
+
+    /* macOS cursors — distinct states via native CSS (no overlay) */
+    :root {
+      --mac-cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAACwElEQVR42u2WP0hbURjFz/fei7EpsUL/aBqNlA6d3GNK1Do6dRLp3qXUjh1qIZZOrUOlU81cBJ0qqGSQgmgSzaYE3GpR06SGYtKXfz7fe6fLE6RQuviSJWe5cLlwf5zvnu9+sCxrplqt9gEQkl6SglaI5DeSM8Vi0Q8Ah4eH11oCcnJywuPj41KlUomRvO3AeUkqzeRQdnd3z+bn52+srKw8B/CM5C0ROXNK1TyYVCrFYDBYj0Qi3NraKpGMkfQ7ziixWKw5MJlMhsPDwwRwNjY2xmQy+duBuQ4A2Wy2Q6QJ73d7e5vRaJQAbFVVzUgkws3NTZ3kG5JdTok6XQdJp9McGhqiiFBELADWyMgId3Z2fjkwN50ydboa7XQ6zXA4TBGh3++noigWgPPx8XGurq4WKpXKa5Ldl+LuCowGAJqmgSSr1SpUVVW8Xq+sra2d2bbd4/P5Xo6OjnprtVrc5/MdXcCICK8URERgGAYcIDFNEwMDAxIOhztOT08r+XzeA+CFx+PRSL4XkVOSKkn7KmE0RVGg67odCoUwODgoGxsbDAQCMjs7W+/t7f2q6/p327ZDiqLcAXCPZFlELKfHXJ0riUTCmJyctBYWFs739/fr0WjU7O7uZiKRsEg+JdlVLBbvkgxeRNoV5fN57u3t2eVy+R3JD3NzcwRgT01N8eDg4ONF22/Gp1cn+ZlkD8mHyWTyqL+/3woEAubi4uIPkk8AIJfL+dyMr2IYxqdcLvdWRH4CyIVCoeWJiQlF13W1VCoFTNN8RNIfj8cbAMRtV5SlpSVV0zQUCoXH6+vrxvT0NFOpVN0wjC8kB51zquvzCskOZ+0zDGO5VqtlGo3Gq0aj8SCbzXa4/RPLpRiKiNgkPQDuO3sFESm71cT+dkL+V7ZmjI/yj8s1AKrjiikidqvmWGnZEN1WW2211VZbLukPbDzIVWp62MEAAAAASUVORK5CYII=") 0 0, default;
+      --mac-pointer: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAErUlEQVR42u2WwW8TRxTGv5ndzdpNwFoDcSKHrOPIMaTEPSCFo0V6wJF6cCTIrQdUhApSc0CCA1IUIcQ/UNSqFySkkAQpPeBWVaNWVRoFcjAJEKlS5DgoNQQXYuMkxHa86515PdQcWolDg9tTfqfRHGa+ee977w0AKCMjIxwAQqHQUCQSoVAo9PDAgQNhADhz5owCgON/QCUiBqA9Ho9/c/fuXRobG9s8cuTIMICW+fl5zefzNQJQAKgANADsvxCiaZoGAJHTp09/u7a2RkIIisViqwB6dF1HTShXFAWqqqIWQa2eojgAZtu2AiC3vr6ef/LkCQDIzs7OFs55j2VZnYyxNsaYFEI0OI7TdO3aNckYq3LOqwCoLmkBIHRdF4yxP9bX11fT6TT6+/uZaZrMNM1P3W53v9vtfrWwsDDT3t7equv6/lKp9Es2m10iIgnArpsQ27Z1AHY6nf4tlUoVOeeNfr+/IRwOx86fP4+dnR06d+7cF/F4XAsGg+zevXvfv3z58gfDMF69fv16AcBaLTJstxFSAPgADAJoJaKS3+/viMfjndVqlWUyGTp58iTz+XwsnU4rV65cYadOncLc3FygtbW17+zZsx8nk0lWqVTmGGMiGo2qmUxG7ioiR48e/XpgYOCjQ4cOyRs3bvy+sLDgff78OcLhMAYGBqTX64XH48HQ0BA6OjrgcrkwODioNzc361LK/Y2NjR9ubGwoRO9pld7eXlpcXKQ3b97QpUuXKBAIlG/evEnlcpmIiIQQVEM6jiOJSBJRhYiqjx8/LnV1dY0D+AAAotGoumuPlEqln1OpVO+xY8eaLl++LA3DcHPOIaVELpd7W9/Y3t5mXq8XL168gGEY3DAMtVAoiEqlUqlH5Si5XC6VzWa7g8FgsKenxzlx4gTr6uriHo8HiUQCq6ur2NzcxPT0NAzDwPj4OFRVleFwWHn27Jl169atpG3bPzHGHNM0+a49oihK8sGDB18mEom2YDAYMk2zqmmaAgBbW1sol8sAAMuyYFkW8vk8FEWRAJDNZneKxWIGgACAmZmZ3Tc0x3E4gB9HR0e/m5iYAABIKQUAklJCCAEhBMrlMra3t2HbNg4ePEgrKyu4fft2EcAsAEdKyd4nRTwUCmmaptmFQmE0kUhMT01NNaiqKt96o6mpCbquQ9d16XK5xOHDh52nT5/qk5OThdnZ2fFoNLoIgBhjDIB8rzY/MjKiqqoKRVH6Y7HY/P3794mIxNLSkjU/P19dWVlxHj16JHK5nFxeXt65fv26HYlExgCYnHPUGhmr1wRWaod+0tfXl06lUlQrVVksFmlqaoomJiaIiGh4eHgHwAVN03D8+PG6T2OdiFhbW5sbwNDVq1c3ksmkyOfzzp07d3aam5uXATycnJwsXrx4scA5/4yIWHd3d0M9Lmf/nDu1vci+ffsueDyeFk3TXMViMZPL5SYAbHm93s8tyzIqlcpXQohfa2NC1msK/01c7ZUtANoBdNTW+MuPaK3tN9b10nc6mHNwzsEYAxFBCAEiYqqqkpQSUsq6vv5df1FFSuny+/0u0zT1QCCgE5ECgAcCAV1KqddSsscee+yxxx57/Fv+BIcNM6PSDkzVAAAAAElFTkSuQmCC") 0 0, pointer;
+      --mac-text: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADe0lEQVR42u1XwUscZxT/fd/u7JrZkenu2mzXw6ZxZB0MxgSFYhFCa3OIQQxWrJfeCtJTzz25kr8h0EPA3hpmLwEJaGAR7RxWpSYtbtAE3AVXdlFZtlVHRp19PXS2bJY0ccauJ99lmDe873vze9/v970HXNqlvd+Y0wAieiuGMUb1/qrPiXGXyXP7yYiI2UmwZDLJAfD6ZBuCSH08EXn+AYGdAqALK02pVIoFg8F2ACaA3xljB3ZpmgHcBuAxDONNIBDIO1nXe8ZzwRljFQAIBoMP0un0SC6XqyiK8oKIfgUQmJ2d/cwwjK7Ozk5LVdUnAB7Xx54rkWr9a1y3KpXKnWw2i3w+/4UgCA8Mw5BXV1fDoVAIiqIAwB9OUfe6KOfLjo4OfXNzsy2VSoUWFxfbDg8PEY/H97u7u/+MxWKvAWRq/6UhfCeiTzKZzDUi+jqdTj8fHR2liYkJWl5e/pmIvlxfX7++v79/1em6jhFhjBXthIqSJMX6+/vvyrKMQCCQAjCvqqorBLgLRDyTk5McgLWzs3Po9/vBOUehUDjxeDzU09Mj2JRuuKBVY4gx5rEsC0QEv9/POeeQJIncyAJ3iAYDUJmamqoAuN7S0nLz+PgYp6eniEQiN05OTiILCwuuhI07TILbm3gBfOPz+b7TdR26roNz/j2A+zWKyxt6WBOJBKanp70AIoZheFdWVqympiaUy+UggBa3bOQO2EIAKJFIIJfLHQN4KYri65GRET4+Ps5lWX4B4FWNdlAjDyvVoDhnmubTeDzOVFVllmVpANKapvkAcKetgJt+5N+7Y2ZmZrxYLP4iiiIEQbg3NjY2a7cBOMv9ci76JpPJag/ysaIo8d3dXSqXy9TV1fUpEUm2xjTGahsd0zRv5PP5r4joR13Xf+vt7aXBwUFaWlqaI6If9vb27hJR2391dK5LU6UtY8yy3x9ubGx8q2manMlkxPb2dl+pVEKhUDCGh4fNoaGh7XA4/Igx9lNViaux//ft23pwcHAtGo0iGo0eDQwMPDs6OpJSqdSdUCgkbm1tfRQOhx3T2HsW2hJRLQPmTNO0YrEY6+vrW21ubl4CcEWW5c+z2WwngL8ApBveBqytrUlE1EpE0jvKGCKi1u3tbfFCR5H5+XkvEQlEJGia5jlPM+5KR2pf6+YaVu+/kAGrfrPqNzcD1qVd2ofsb2RCqGCm5F72AAAAAElFTkSuQmCC") 13 13, text;
+      --mac-help: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADR0lEQVR42u2Wz0sjZxzGn3feiVNjx5BtLAQraMneNBKU4qEoiFiElGYIJvfaP6BFEXpSKGULSy+9tBd76GWoIL14KXiIIIJbDSy7pyo2saC22tYkm43z8+llsthlj5MelnxuA+87fHjf7/PMgKQEgFqtdp/kFyR/sW27Xq/X6XlejWSZ5OeVSiUJACQFSQUhIwDg5ubmvVgstnp8fDy5sbERu76+1i3LkgDcVCr1PJ/PX4+Ojj4C8KUQ4ilJAUAIIfzQTFqt1jBJs1QqsVAosLe3lwBcADYA9vf3s1AocHt7myR/IvlOcDJqIBQOJD87OTn5PZfL+QAauq778/PzXFpaYiaTaUvdTk1NeWdnZz7JRZKRzc1NSVINU+Tn9fX1P+LxuKeqqm0Yhlcul/+q1+u/mqb5bHp6mqqqOgMDA75pml6z2XxAMhHs1cLyUADcr1Qq/Y1GA5OTk5FisdjIZDLf6Lr+cS6XezI7OwvXdW0ppbi6ulIsy4oBeCPsYVUBjKysrCCbzSKdTiMejzsAfgPw4d7e3rsHBweQUiokmUwmqWnas2B+AIChmTiO85DkQ8uyviL5gOT3JB/t7+//PTc3x76+Pg/A7czMjHdxceGT/IhkhKQMNcYk75EcIPkWyRTJr09PT7m4uEgAHgDbMAzu7u6S5Lck77VTE/b1YG1tTQle/n61Wn1SLBYdAJamabZhGDw8PPyHpNlsNgc7VmokNZJRkgrJT46Ojiil9AA4ExMTbqlUek7yu62trbc72axKMHh20JLC932kUikRjUb9bDYrk8nkYwA/5vP5P0lGQm/UO6l5ged5HB8fx87ODizLwtDQEHp6elzHcdw7KSE6wH9EpJS4vLyEaZri/PxcGIaBTCaj6rquBXXeEYkXIqVSqf3sl8tlf3V11QPg1Go1GY/H3bGxMUcIQbJjHng5gpFEIqEMDg4qjuNgZGREiUajkVes64yIruvtr6iaTqf95eVlVqtVLiws+MPDwwAgOy0igrtXhBAeyQ8AfNpqtWzP87xoNNoH4Knruj9omvY4+InyhRCh35Fod0MwA28CSNxJhwTQAnAjhLhtr8PrjHipZeUrBtMH4L72J9GlS5cuXbr8X/wL7wjpw7pa5LEAAAAASUVORK5CYII=") 0 0, help;
+      --mac-unavailable: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAFC0lEQVR42u1YTWgcZRh+35nZye4m221tg/k7aCzZgzU0gQpCj4rS0ovkqAc9GBEPFS3eum2jl4K/IPlBTTwITRtD0RyEHnIRa1NFkVqlsVojSczuZudvZ/abme+bx8sGFlGQZpt68DkNM98MD+/7PM/3zkdKqVO+7/cREQNoA8B0NwDgFwCnAOSIiFZWVjJ3hcjVq1exsLBgX79+vQigk4joxo0bbQC0neShLS0thVNTU/m5ubkXiegFAPsGBgbCCxcu8I6SmZubQ09PT72/vx8zMzO2lLK41SYAWrFY3Bkys7OzGBoaAhGFg4ODGB8fdwEUAbQTEV27ds1k3gH9njt3DgcOHAARJYZhxIVCARMTEy6AkwA6tjSzIxUZHh4GESkiqhNRnM/ncfbs2fL6+voYgK5Gm4w7ycPQNI02NjZULpfTR0ZG0tlslsrlMjHzPt/3XyUi9n1/nIg2G+KVzJy0nIjjOLKvr88oFAryxIkT3+Xz+W+CIBDLy8uhYRh9RMTZbDbDzKJRGQagtZzM/Py8mp6elleuXLkIYKgpR/oBPBLH8dEgCA4D2Asg2xSELVUwA0CSJJ9rmvYSM//ked5jRPS0UmqAiHqTJMkYhmG3t7ff1DTtCyL6iJlXAOhElDAzWhXxHwA4CCBtWdYYgDUACRqQUqIJdhiGl4UQx4iIFhcXjZaFnmVZ9wPIeZ53WilVBQAhxC0AxTAMn3Ec51khxMtSyk+CIFAAEMfx95VK5cktN7WMTKVSeTaKIhsAbNuG4zjf1mq1g81rHMcpWJZ1PIqiZQDwff8SgP0N8W5/OwCw37btS0opOI6z5nmeJYSAUupj3/cPATAWFxeNJkKvSCkrSqlqtVotNn1ne0SiKHpOSnnT8zyvXC6PxXF8OgzDCADq9fqnYRgOAeDV1dVsQxN513VnAaBcLl8CsKvJ1rftJK1WqxV0Xd+VTqd/BjBvGMabSqmpWq0Wp9PpI1EUnSGi4d7e3qBer+vM7NTr9R+JiFKpVC8R7SciarjntqtixHG8O47jNl3XK+l0us7Mjud5Y0op6fv+8x0dHU9YlqUBKDLz1wBStm3bvu+TaZptUspdAHi7NtaYOdQ0TSVJkkmSJAcglcvlNkzTfCOKoveEEGE+nz/iOM5JAEPMHCulKJVKQQghDcOIWjIYZTKZZaWUw8z9URTdx8wxgGw2m/19z54979ZqtfcB1PL5/LFqtXoGwMNxHD9omiYHQeAQ0W/MjIY+sB3XHCqVSpcBoFQqfVitVvPNWz+AXtd13xZCbFQqFTiOs1SpVG65rqtKpdJMs2u2FfsAjLW1tbeCIEhc193c3Nx8zbKs3Q0XGI01ey3Len19fd1bXV2F53lwHOcH3/dHWmVfjZlld3f3hO/7X+ZyuXuSJBkVQky7rvsUET0A4N4oiroBCCmlbGtrIyFEBGA2m81+1khW3u5uzAB0Zla2bT9qmubxJEmO6rpOSqk1AGtKqVjX9QyALgBdYRhWTdN8Rwgx2dXVtdGqkWArmkFEVC6XDxLRMdM0H2fmwVQq1WEYBkVRRFLKP6Io+oqIFjo7Oy8y8yYAg5llS8aArf5OTU3po6OjcSNtDzuO81AQBD1JkqR1Xa/pur7c09NzmZl/bbxjElHcsjFgC8ViUQOQaswZ/4jJyckUAP2O/5oC0M6fP69vVauZaOP+HQH/DRFueoa/Xre8Ff+yOnzXTgf+x38FfwKGcMZMPz/8qAAAAABJRU5ErkJggg==") 0 0, not-allowed;
+      --mac-move: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAED0lEQVR42u2X32tTdxjGn+9J0tqadRWbxhH2A+qKYZd64T8xKnqzEW+lF4JO56Ctk/ZuJ+BNG7QTRHIzZe5msFG8kdDijd1KjQtKbSu2CZamNYSKzfE0yWc3J+MgG1PbeiF94Qvn8MLLc573eZ/ve6SdeF8DMIDZbB3rvWNis8xYbwnCkmQNDQ0FDh48GPKlzLtkIgDskqS1tbUDwHXg/PDwcLOX37UVmvlfJhoggG7gp7m5OYrFYgk4A7R5ueZtA+OBCHjPnwLpTCbD0aNH3f7+frLZ7DJwygcmuOVg/AUXFxdjwI1MJsOhQ4dcSa4kJ5FIkM1mi8C3QMtWjrZfE5YkPXny5CPg9/n5+frJkyfr4XB4wxhDKBSivb1949KlSziOU3Rdt98HZPPMeO1olqRCofAx8Kvrum6pVCoUCoX8xYsX68aYeiQSIZ1O1589ezbnOM4yUAb6vSmyNqWZmzdvBnzC/Ay48ejRI0qlUh44D1wfHx9HUjUWi9UfPHhQA34olUpJ13WZmZlZBs752tTyxj7SQG+McYDPJQ2Nj49/NTIyguM4RtIXkj4plUqSZGq1msrlMpLie/bs6Zqdna0mk8nO6enp7yT1Ah8YYypem/+VmeB/IYxEIgY4IOn7iYmJRF9fXzWXy5murq7Y4cOHv15ZWdGtW7ckyXrx4oXGxsYCa2trPa2trRobG+PatWsblmV1nj17ti8ej1vADUnFxocaY3gt275y5Uor8PPjx4/p6elxJb2UhHeqkmq+98apeTkCgQCSKslkEsdxVlzXPf2KM7+exff29jqScuFwuByPx4OS1NTUpI6ODu3bt8+KRCJm9+7d8lqotrY2RaNRE41Grfb2dgFIUjQaVSgUWjXGLPjazptcaAGgAziVzWaLx48fZ+/evW46na7ev3+/dufOndqFCxeQRGdnJ5cvX+bu3bu1ycnJum3bdUkvbdvm6dOnfwJHgDAQfJubteGibcA3U1NTy6lUitXV1XnABn67ffs2kmr79+9vTM2PwPDi4mI1lUpRKBSmgJ5Guxs138ZHWnwX2XfPnz9fqVQqxXK5nAR+mZiYQFKtu7u7Pjs7WwNS+Xx+FKBareaAI6/60WZ2jubBwUFLklWtVgeAcqVSIZfLuQMDA3VjDLFYjJGRkdrCwgJezDiOc8TnR01btQAFffT2P3z4cPnEiRNIcr0xrAeDQXd0dLS+sbGRa4Dwt3jLtzGgBTg3OTm5kkgkkFSRtG7bNvl8fhr40qcvsx1rgGmoHvgQOH3v3r0l27a5evUqS0tLf3jCbIAIaruioRnfNJ1bX18vAn8BxzxRWluiidcEs0uSMplMGDjjOM6xwcHBoKR/cu9yd7X8y3KDjZ0/PY8Js8PETmx3/A3r4FlEBVGOOAAAAABJRU5ErkJggg==") 13 13, move;
+      --mac-grab: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAFBElEQVR42u2WXUhbZxjH/+9HThJNl+rqZ5hDK6hJnGiqpYVS8WJlXrRQJ3gh9K7e2u1qlF4USgctA9lNL4rQlq4ZdjgZmzjpxK9i22DsImq21pF0dUpto/EjJznJOc8ujJsbvVl0d/7ghcN53/PyP8/7PM/7FwAY/qYUQBljbBFAbm1tbXdVVdU3ubm5Hy4vL08bhiEB2AAkAegAZPp7wm5pbW0VAJCVldXc1NT0Y3t7+wCAds5529WrVyf9fj91dXUtAvjh6NGjfceOHRssLS39GIAgItnT0yMA8F0LISIOQLhcru4bN26Q3++n5ubmMIDRmzdvrhARDQ4O0uHDh6mvr48GBgaopaXla4vFUpLeYqcIlqkO3tHRIc6fP88TiUTSZrOlamtrtba2thKLxeJZXFy0apoGVVWpoqLCOHPmTOrUqVPJ7Ozs9+LxeHtjY+MnTqez88CBA++mfypjMbyoqIhu3bqVfP78+U8jIyMvY7GYqampSSsrK7Pqum5WFAVms5kpioKVlRW+tLRkmpubc5SXl3ecPn36i5qamuuKonyw26jwy5cv64lEggPwhcPhIb/fzwoKCoTL5YKUcmsR5xBCcJvNxuPxODY3N99vaWkpvnDhArnd7pjJZLICYFJKylgIAJcQ4lMAH42Pjy+Ojo7GpJSivr6e2Ww2SqVSsFgssNvt4JxjbW0NR44cwYkTJxCLxTA1NRVbX19/AYC8Xq8AYGSUJB6PZ/jatWsL3d3dLwoLC391uVyb0WiUFhYWKBQKka7rFI1GKRgMEhHR+vo6zczMJKPRqO73+w232z0EwA4AJ0+elBlXzfHjx2l2dpaIiC5evEgejyf18OFD2iaZTP71rOs66bpORKQREQ0MDGza7fYvASiMMaT7SkYIs9lc43A4iiorK80NDQ2J/Px8JT8/H3l5eZicnMTr16+xsbEBn88Hu92OsbExCCH0nJwc8fjx41Wv19sP4DFjTE8fdUZHIyKRyM9zc3NVZWVl5XV1daiurmbFxcVMCIE7d+5geXkZRIShoSFUVFTg3r17KC0tTTkcDtnb2xsZGRn5CkCQMUa7EcKFEMH5+fnr/f39genpaQlA0zRtS6UQYIxBCAGLxQLOORRFIZvNxp49e4axsbElAE8B6IZhsIwTFYB88OCBbGxsHD948OD3BQUF1dXV1YxzngQgVVVlFosFiUQCkUgEsVgMQgg9lUrJYDAYe/To0RgRveCcg20lScZChM/nk52dnSlVVeffvHmTJ4Soa2ho4AAoFAohJyeHlZSUGIcOHdLdbrextrbGJiYmxPDw8HeBQODzK1euRAzD2G7zu7r8mMfjMQkhAMDldDq/9Xq9KhGlVlZWtNXVVS0SiRgTExP06tUrWl1dTZ47d+4XAK0mkwlOp1PZzR2zs6HR5OSkfvbsWUUIMTM7O/vZpUuXpp48eSKklCYppSkQCLDbt29H7t69u760tCSzs7P/sFqtYU3T5F5EYmfdG/fv32dExAsLC38PhULfdHV1lVdWVmYrigKfz/dbb29vj91ud4yOjraFw2FNVVVDSpnSdd2EPYD9KzoGAGk2m0s4526r1SqEEGxjY+OlqqpPAbyTlZVVbxjGejweDwBY2zNj9DZxRMQAbBseAQDpzom3eBDsdUT+mTxbJbltnmAYhki/14lo23v870J4em573kgPtiMaOvbZZ5999tlnn//On9kYTN44NO+SAAAAAElFTkSuQmCC") 0 0, grab;
+      --mac-grabbing: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAE0ElEQVR42u2WTWhUVxTHf/fd914mmZlM1CRmGJshNRKjwQgFEapQW0yUQqUWCbgqFaEWN4JIN+lIUaqIUEFwoQstqUKFLqpdaSjB0tqpsTCRmI9pkqokNZOY6WQ+Mu/rduEE0oWFJukuPzg8uIvz/vd83HMk/0QAEtDmLRaLidraWq2/v1/ftGmTXlNTI1OplAYo/ie0AwcOSCklSikBCCEE8wYgpcQwDDRNoyTYLJm21J+LBd/5GwaBwrp164znz593mKb5lm3bCcuyfgTWAnVAn6Zp96WUeJ6H67pLjoIERCwWEz09PRWVlZXvRKPRDyORyPbh4eEd7e3tnxw8ePDtSCTyRiKRaGpra3uvvb39fSnl60+fPrU8zzOVUtXAdOkiYiliynRdB9i+bdu2nnPnzqnTp0+rQCCgTp06pZRSxe7ubrVmzRp18+ZNpZRSR48edX0+30BLS0t3Y2Pjt4FAoLkkQltsmvRwOCynpqYAGlpaWl47fvy4cl3XefDggSwvLxeAbhiGt2PHDtXQ0KAAVq1aJfbv3994+PDhpt7e3uLZs2d/yGazf0gp867rGoC3qDoxTRPg3T179vzU19enlFJWIpFwBwcHleu6anp6Wj18+NBLp9Oe67peIpFQyWTSzuVy6vLly8VQKPQ5sEpKCVC22NTUVVdXf7Z58+be9evXTx46dMi1bdtTSnnq3ylms1nv4sWL+WAweBKoKgkxF5Ua4IPdu3d/1NHRER0cHGRyclKV2pe+vj5CoRDBYJDR0VGampoYGRlBCEFzc7NmWZbIZDJC07Q8sKTW0YEtbW1tYt++fRbgDQ0N+QCUUty4cYPW1lY2btzI1atXOXbsGLdv38YwDOrr6xFCkMlkFDAFWCWfi6oPDfhtZGSkmEqlTEBs2LABwzAQQjA+Ps6LFy8oFotMTExQLBZJp9PMzs4q0zSV4ziMjY0px3HGgKJSisW+uBrwy61bt6b6+/sByGazquSQ2tpaKioqME2Turo6pJRIKfH7/crn84mJiQni8fizXC43DLBz50590RGJxWJ9jx49+urChQtT8Xi8LBgMFizLUgCFQoG5uTlc1yWfz5PP55mZmaGqqsp5/PixvH79+l9jY2NXgD+FEPT09Cw6IvLevXteIBD4fWhoSGQymS2tra2VNTU1ChBPnjyhvr6etWvX4nmet2vXLjefz3vBYFC7e/eu29XV9V06nf5CCDFbKvAlDUJD13X8fn9tKBQ6eeTIkecDAwOWUsoeHx+3UqmUXSgU7GQyqUZHR5Vt27k7d+54e/fu/Ql4c8GQ1JbaNbbjOD5N0yZzudyXly5d0guFwqdnzpyR4XBYAWJycpLu7m56e3vtzs5Oc25uTliWlYzFYr8CuhDCW661QESjUZ9SSlRVVUXD4fDEtWvXnHg8bt2/f989f/58tqKi4mfg687OzmcnTpxwt27d+g2wZkE0xHKsAQAGYAOrpZTHQ6FQtKyszHAcp7xQKAxls9kuYMjv938M7HYc5/tisXgFmFuwRqjlEDLvTAdCgG/BNM0BU5qm4XleJbAayAAzy5aSVxbPy9WA+VfWdV3xckmTDoDnecy/N8uB/gpxZiQSEYZhqGQyOS/WBtzSmNcBp3S2wgorrLDCCiv8F/4G6F5b5Oa3G2UAAAAASUVORK5CYII=") 0 0, grabbing;
+      --mac-crosshair: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAC40lEQVR42u2Xy2ojVxCGvzpHLaGLgwZaRMZjJIPxysYLbUIukJWNN1nqCbzIE2Uxj6BFFtnIS0EuZNN4EbIxBiNEMLEVpxVdhnbrnMpiJFA8TmYsxwYz/qFp6FNV/FT9VacanvGMDwWqKqoq942TWdZRRPDemyiK7IyQExH/5DMrS5TCiIhX1RXgM+CL2dH3/X7/x0qlMpzbPLQmsrP3yziOX11dXelgMNDhcPhKVV8u2jyKRgDt9Xqjo6Oj1BjD3t7eaHt7Wx9drADOOZMkSQAwnU7Ng3aNqlrALnzKtlotBwTGmEwQBABYazNA0Gq1LJBV/UdynIi4exGZBVgMcj0jOJxMJiPv32hyMpmMgGGz2XTA6H/LiKqKiOjl5eVKGIYvgOmCTwJ8XKvVysViEYBarVYG1lQ1A+QW7fv9/p+zbhIR0btmxAAuDMPPkyT56uTk5LVzzlhrM+PxeLK+vl4+Ozv75OLiAoDT09NPnXOm1+vFxWKx4Jybiojf2trKl8vl74D2POZ7E1FViaJo7vRlmqZft9ttnHNYa/Hek8vlOD8/p9PpAJAkyc7q6upOkiQYY3DOISLU63Xy+fxfQDuKIqOq/rasmPfsDuZauAuMMVhrl9eIiKiq+llbdrLZ7EcHBwevVfWt0uRyuR2A/f39XzY2Nn5eLI211gdBkAc6AI1Gwy+jEQ8Qx/EPYRj+uru7+5ZYrbX++Ph4B2Bzc/OnarX6zdra2u+3iXUx5p2IzJlXKpUhMLxFR9NutxuPx2MAut1uXK1WfxORP94V8986450DTVWzC09pNrRWCoVCyRiDMYZCoVACVlqtllXV0g0fe+/JenOgqSrNZtOpauqcm6Zp+ibn3k+BdHZ2LSLXj3bXZDIZn8/nU+891lr/oHfNfyWrXq+XDg8PA+ccxpjSMvvNfYhMAfr9/iAMw2+By/liBAwWbT6MVfHm2jhfnhuNhjPG+BvX/9P7nXjGM54M/gZcy5Nrj77ODgAAAABJRU5ErkJggg==") 13 13, crosshair;
+      --mac-col-resize: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADnklEQVR42u1Wz0tjVxg9996XlxjUPqTSZtEf/hv+Ba1LIQs309IKM9qNLZiUYonOQBkd0OlY3eimCEMJdaEurKDo0oVSFLIRStrQomNiTOI8f8R73+miL/CQyhjHQgdyNu/Cd+/3zjvfd8/7gAYaaOANhaj3AEkBQAGgEMJciVn+0ggh+J+xJikCLwNJec0+VW9uq04lpBBCHx8fO5ZlhQHkA/EmAG2FQqEihDjxyXh3qgxJmUqlpL9u0VontdafBFUh6ZD8Rmv9FclIQEFxl+VQfkJhjHlKskIy6cdt/+sFyZ9IXmit+4KlvAkZeYNyhIQQJpPJhEg+MsZ86rqufXJyUiYZWl5eFplMRpEUxWKxAMDWWg9qrR/4ZfEA2K+rRBMAFIvFt0g+ymazxfHxcW5sbBRJfv4vZ54sLS2ZZDJJrfUfJO/H43EV6KHblcNft5H8NpfLVXp7e9nR0aHX1tZckmmS90h+QbLPf25MTU15Sik9NjbGarX6O8neGolAieu7NSRjxpjPcrnc4MzMTMvs7Oyl4zhyd3dXNjc3f1QoFD4OhUIe/4FwHEdks9kLY4yVSCQuW1tbP+ju7h5yHEeSnAdQqkeJGmNFcuzg4OB8YGDAA3BhWRZDoZARQrxUSp3Ytn1m2/apbdun4XD4VEpZAfBSSmmklARwNjk5yWq1ul9r4Ov851pF0um0DeCd8/Pz8P7+vgEAIUQtSZQktdYMSk0yrJQSSimhtQYAuK4LY0xYStl8Y0OrmQ9Jsb29rQE8jMVip8lk8oFt25ybm7tsb2+3EomE6OzsFK7rQkpZI4FIJIKFhQVMTEzQ8zw9Ojoa6enpySulHiulngdMzqunRDWjep/kDzs7O15XVxdjsZheXV09I/kLySGSoyS/I/mY5K/T09MEoIeGhlgqlV6Q/JJky6ua9UbXl2SM5Mzm5mY1mUxyZWUlT7IPABYXF6OpVCoSj8ebSH4/Pz9v+vv7WS6XX5AcTKfTTbe+vsGmIhkGgEql8jbJH4+OjqqHh4fnpVLpPkm1tbUVWl9ftwAgn88/1VqzXC7/6TuvTKVSkmT4ta3eJ6MAYG9vr9UY8zNJTXLQj0dqNk7yOUmjtf66Xot/5d9XCOH5ZIQQouK67kA0Gv0LwKm/pQqAAFoA/GaMeaiUegYAw8PDAoA3MjLCu55Fag38Lsn3gnMHySjJD0ulUtutG/M21n/VmK74iVVv7jdzVGyggQb+T/gbbpflqRDc3C8AAAAASUVORK5CYII=") 13 13, col-resize;
+      --mac-row-resize: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADnUlEQVR42u2XS0hjVxjH/989V5I7TuKICgouapfdyFA3upB0VRhcFLfiaqQvkEL6UpDiQAd8dKWlBbvoLLoSqVTEvaW48AER3dq00RjaJNhE8eY+/92cQBA7isaBDn6rc+899zs//vd7XeDeXlcjKSTltn6M106J2yqjbgoBwJicnMT6+joBNACQRCIBAKLvvRIlogCwvb3dRHKa5I+5XO4N/TxK0ngVEBG9bvU8bzKXy9npdJqu6y6QvHsYDWFWIUh+dXBwUE4mk+HQ0JC3s7NDkt+R7NR7zLrD1AYiyUaSz7LZbHl8fDwEUAHgDA8Pe3t7eyT5A8lH9UztWghVc/08nU7/MzIyQsMwXKUUTdOkiHgDAwPc2tpySL7I5/OxusJUIY6Pj9uCIJgjeTI3N8eurq6wvb09UEoFSil2dnaGHR0d4djYGG3brpD8meSb2odx1WeSKyBMAAGAliAIniqlvqhUKg83NzfLruta+/v7KplMhgAezM7Ooru72yV51tPTYzU3N5sAvrdt+xvLso4AmCLi/ddZ5lWCiAhJGkqpLIDnZ2dndn9/vw/gnXg8/sQwDEUy7OvrM3p7e38F8EuhUPAAWAAcAKJ9hC876KUgIhLoZV5EfrqgllssFp8opUzP83h+fg4Av4nIt5fFWY2vm/eaqiokIxsbG5aOm5hpmgKAeg8AWCsrKw/W1tYiJCPVuBCRKyvttfNcREIAXjweD/Th7iXb/NXVVc+yrACAp9+5lpnXzJxoqVSyROSEJEQkJKm0CgAghmEAgDo5OTETiYSr32sC4IqIfSsQkqaI+ABampqahkm+VSwWy57nOQDejsViEgSBDyDa0NAAAO8uLi4+LBQKYWtr66MwDP8wDOMFgLQGD26siP7Ojq6g77W0tMSWl5dxdHSEw8NDT6c3lpaWsLu7+7itre3x4OAgAHgkvwZQ0T7ktgWtoWb9keM4aV3afQBhJBKhUooayBsdHeXp6WmW5Fi1GFZ7VF1KfLVM+77/oe/7f87MzNA0TUdEKCJUSjkTExMsl8t/kfyytjLXu98Yeh0h+b7jOJmFhQUCsAHYU1NTLJVKf5P8jKRV96Z32RiQSqUaST7N5/O/z8/Pc3p6mplMJkfyE50p1TGgvhAXUxkAMpmM5fv+B77vZ23bLvi+/2mhUIjXqHZ3EBdHxXQ6HfV9/2OSn6dSqcaa6exuIS6mdW1rv5N4+L/+3xh3PrXf270B+BcmDKHI55GfPgAAAABJRU5ErkJggg==") 13 13, row-resize;
+      --mac-nwse-resize: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADhUlEQVR42u2Wv08jRxTHv7M/vNhIsEK+3HHElwIhiuugAllYSMgSBQh3gQKk/AGpwlVUoTkpJ12RAGlIGqCliy2hYIQhhSNXyDJgQIqlNDYnLVjE9to73zTjk3XJ6XxAkxzfZrTaeW8/O+87Mw940IMe9HESdwkmqQPQPzDNE0J4n8yK9AB4BOBK5dKar9TocxzHsW37WgghSQohBP8tl3GLjwsAQgghXdft8/l8XwGwz87O/rq5uWFXV5cGQEopRX9/v2Xb9q7jOL8AcBSody8gShoA6XneNQATwOzFxYV1eHiIzs5ONBoNAMDs7CxCoZCwbftAgej3BqKWtqGMWgCwCKBgWdbXqVSqb39/3wWg6bqOer1uzM3NVQYGBhrt/Flb5VAl+Ue8EKKytbX1UyQSOV9YWIBpmtLzPK9er8M0TRqG0ZYXjY8wtQ6g3rpthRBuoVDoCYVCLzKZzOD29rYUQoiOjg5Wq1UJwNA0ra2fNdpYDU0IIQFIBYAmBMnPACxms9lvlpaWkEgk3OnpaSsWi2FzcxO1Wk1eXV3d7QxploJkkOTzcrn8WD0banxE8uXx8THHx8cbAKrRaJTpdPqK5O+JRKK0u7vLfD6/RvKJivHdBsSnxkGSr0mukPQDgOM4PSRf5XI5jo6O1gHUwuGwl8/nXZKrqVTqGclFklWSP98XyBOVrEbyRTwe7yX5KpvNupFIRAJwR0ZG3NPTU5JcK5VKT1WcX8G/Jjl4LyAnJydrOzs7jMfjlyR/S6fTbyYnJwmgOjY2Vj8/PyfJH0iGWsyMcrn8mORzksHWct8WpO/o6Oj75eVlb2Jiguvr65yZmSEANxqNMpfLkeSPJD9veiiZTBotxgZJ7S5mfQtSLBZXV1ZWCKDm9/urgUCgNjU15WUymSLJ1cvLyz4110wmk0ZLDrNdiPYmaZrUdZ0AtEqlAs/zZCwW04aGhs4ODg5eBoPBP0nqmUwGagc11Wi5AO8MQtd14bqusCwLhmHojUZD29jYwN7e3hfhcPhLtZvk8PCwfPc6eN9te5uT1ejt7fXPz8/DNE1DCAEpJYrFIqrV6lMA3wJ4VqlUvgsEAn+oc8ZrF6AdEE+dGde2bf/a3d3NWCxW0zSNnudppVJJWpYlAAQA1HVd71Zx8l4bo2YTQ1JzHKcLgG3btvtOnFQe6AZwKYR482k0z//LJvlBD/rP62+p5zHCZSPKCwAAAABJRU5ErkJggg==") 13 13, nwse-resize;
+      --mac-nesw-resize: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADhUlEQVR42u2Wv08jRxTHv7M/vNhIsEK+3HHElwIhiuugAllYSMgSBQh3gQKk/AGpwlVUoTkpJ12RAGlIGqCliy2hYIQhhSNXyDJgQIqlNDYnLVjE9to73zTjk3XJ6XxAkxzfZrTaeW8/O+87Mw940IMe9HESdwkmqQPQPzDNE0J4n8yK9AB4BOBK5dKar9TocxzHsW37WgghSQohBP8tl3GLjwsAQgghXdft8/l8XwGwz87O/rq5uWFXV5cGQEopRX9/v2Xb9q7jOL8AcBSody8gShoA6XneNQATwOzFxYV1eHiIzs5ONBoNAMDs7CxCoZCwbftAgej3BqKWtqGMWgCwCKBgWdbXqVSqb39/3wWg6bqOer1uzM3NVQYGBhrt/Flb5VAl+Ue8EKKytbX1UyQSOV9YWIBpmtLzPK9er8M0TRqG0ZYXjY8wtQ6g3rpthRBuoVDoCYVCLzKZzOD29rYUQoiOjg5Wq1UJwNA0ra2fNdpYDU0IIQFIBYAmBMnPACxms9lvlpaWkEgk3OnpaSsWi2FzcxO1Wk1eXV3d7QxploJkkOTzcrn8WD0banxE8uXx8THHx8cbAKrRaJTpdPqK5O+JRKK0u7vLfD6/RvKJivHdBsSnxkGSr0mukPQDgOM4PSRf5XI5jo6O1gHUwuGwl8/nXZKrqVTqGclFklWSP98XyBOVrEbyRTwe7yX5KpvNupFIRAJwR0ZG3NPTU5JcK5VKT1WcX8G/Jjl4LyAnJydrOzs7jMfjlyR/S6fTbyYnJwmgOjY2Vj8/PyfJH0iGWsyMcrn8mORzksHWct8WpO/o6Oj75eVlb2Jiguvr65yZmSEANxqNMpfLkeSPJD9veiiZTBotxgZJ7S5mfQtSLBZXV1ZWCKDm9/urgUCgNjU15WUymSLJ1cvLyz4110wmk0ZLDrNdiPYmaZrUdZ0AtEqlAs/zZCwW04aGhs4ODg5eBoPBP0nqmUwGagc11Wi5AO8MQtd14bqusCwLhmHojUZD29jYwN7e3hfhcPhLtZvk8PCwfPc6eN9te5uT1ejt7fXPz8/DNE1DCAEpJYrFIqrV6lMA3wJ4VqlUvgsEAn+oc8ZrF6AdEE+dGde2bf/a3d3NWCxW0zSNnudppVJJWpYlAAQA1HVd71Zx8l4bo2YTQ1JzHKcLgG3btvtOnFQe6AZwKYR482k0z//LJvlBD/rP62+p5zHCZSPKCwAAAABJRU5ErkJggg==") 13 13, nesw-resize;
+      --mac-zoom-in: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADYElEQVR42u2VT0hjVxjFz73vvaSaxBjSpChYcSFC7AQxQosUlQRciEjpouAqdVk7pXVTGAlkIbjuRoTORpBQrLiSaW1J20WrGEkZSygoVi1t/AOWGN8kk38vObN5QphNF31MN/nBt333vHO+cy8AqADQ19f3BoCPAfzS3d39rL+/ny6X6xLAVwAiUkoAEE1jKUIIAU3TBmq12udTU1Pvzs7Ovt7T0+N2uVxKLpcrp1IpfXNz8/Tw8HCN5GMpJUkqAOqWKnE6nT4hxJdzc3NMp9OsVqvUdZ3ZbJaGYTCfzzORSHB0dPRvAO+HQiEtHo/Leyet5JOJiYlsJpMhyWelUsmIxWKMRCJMJpMkWSZZTSQS9Pv9PwPoM2PSLI1IUZTf1tbW8uVyuXFzc2OkUikODw8TAJeXl5nNZlkqlar5fL4+OTlZs9ls7wGQlrvS1dVV3t3dNXRdZywW48jICP1+P+12OwcGBjgzM9PY3t42qtUqFxYW6PP5HgHoUBTl3hVLUN1ut93hcKBYLOLg4ADpdBptbW1QVRXHx8e4uLgQ4XBYSCnR2dnZUFXV0STAumjcbvdlMpl8XqlUuL+/31hZWWEgEKAQgtFolFtbWzw/PzeKxSKj0SgdDsdDAJq5J5Yu7NeLi4v/FAoFg+Tz29vbxvT0NNvb27m+vk6SNZK1k5OTWjAY/APAO1JKxONx1UpHFLvdrudyuaDH43kzEAhA0zR0dHRgaGiI4XCYXq+XR0dH6urqKnZ2dp7U6/XHUsr62dmZ7e7uzrDMDlVVAeCjsbGxi42NDV5fX7NSqdAwDBYKBWYyGc7Pz9cAVAB8r2naAyEEAEhzrLlZAYh4PC6WlpY+8Hg8nwaDwdDg4KDmdDpxdXWFvb2989PT019JugFESP4I4DMAvwOwA6gBaFghRAohGiRtAHoADHq93gEppatSqVzquv4UwJ8Oh8NXLBa/ABAB8B2ARwCemg0yANCSXRFCwGwCALgAeAHYhBAw7wwAeAvAN+ahTwCMNH1DWhWRCkAjKRVFwf2Mj4+rvb29rzVVdRjAt6aYHwC8bYoQABQr6yxNu20vvSfS3AkACAH4CcBfAD5sEmn5Q/hvIu+dmQPQ+ZKzr4zmw1T8z1j+58p/jEmxqrYtWrRo0aJFi1fNCz9yabnl3awcAAAAAElFTkSuQmCC") 0 0, zoom-in;
+      --mac-zoom-out: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADLUlEQVR42u2Vv0trZxjHP+97fsTEXI1W06mKLlIigdZCC3aICqmDQ+ng3AoOUkrrcqEuZ9A/4EJwaRc7SMC9LRV6O7Ti4sU4FMEfabE1kZoSzcVocnLO0+VYcl063MPtkg882+G83/f7fZ7nBTABRkZGXgc+BX4ZGhp6Pj4+Lr29vSUgD8xorQFUW4WKUkphWdZYs9l8PDc39/78/PxAf39/r23bhuu6dwcHB7Wtra3TQqGwISJfa61FRAzAC1VJPB4fVEp9tbCwIHt7e9JqtaSdWq0m+XxeJicn/wA+mpiYsBzH0fdOhslnmUzmz8PDQxGR5yLyohKROxFp5vN5SSaTPwMjQUxWqBEZhnGwsbFx5XmeX6lUWmdnZ1IqlaRUKsn5+bkUi0W5vb1tXl9fe9ls1rVt+0NAh+2KmUwmx0ZHR03f99X6+rqxvb1NT08PWmvq9TqxWEyWlpZ0NpvVqVRK7+/vv3l5efl0bW2tBhihCUkkEpFYLEaj0aBQKLCzs/PCB7Ztq0wmo2ZnZ0kkEr5pmt1BLIQZjVkul8vVajURjUaji4uLMj09rbq6utBa47ouvu8zNTUlrutSLBZ1rVa7AGoiAuCH2axbKysrlXq93hKRuoj4D5rVFRH39PTUTafTJ8B7WmscxzFDbdZIJPJBOp3e3dzcFM/zmsHUeG3lHh0dyfLysheJRL4BIoZhMDw83BWmG4ZS6rRcLtuVSuWtaDSaGBgY0L7vq0ajoe7u7tTJyYnO5XKtXC7neZ73t2VZzzzP++vq6soPHJFQNiugHMdRq6ur8319fZ+n0+mJVCplxeNxLi4u2N3d/e34+PiZiPQCMyLyFPgC+BWIAG4YvaIArZTyRcQG3gBSg4ODY1rrR81ms1StVveB37u7uwdvbm6eADPAD8CXwH4wQa2wnDGUUgQbE+AR8BpgK6UwjH/XxTjwXXDot8A7bf/QYUVkApaIaMMwuC/HccygMe+36NvA94GYH4F3AxEqzAV3fzMLsB+8JzroCYAJ4CfgDPi4TWToD+F/ibx35hMg8cDZV0b7YSb/M6Hf3HjJmIywxrZDhw4dOnTo8Kr5B+SHgxJNqZ9kAAAAAElFTkSuQmCC") 0 0, zoom-out;
+      --mac-alias: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAACq0lEQVR42u2WvU9TYRTGn/PetlQIqJU2NMXCQkwT4+BESyiGhIQwYFjowugkxvgHKFeifwGrcXPpIoZAkIQw8HWBrkw1MQQJFIiEwL239uP2cfDiYmIcvGXpM53kXX7v857zvEdwDSIpAAIiUrYsKxYMBp9cBwf29/dvAMDp6Wkrydckv9bbCUWyya3DpmnqBwcH5ycnJ9TqCQFARKRCsh3A5Ozs7LPFxcVQMBgs1QVC13XlgoBkK0l9fX39PJVKMRaLFTc3N+k5hIhgd3c34EK0kNQ3NjYuBgcHCaCUTqe5s7PDejxJEICQbCM5vba2dplKpahpWhVArb+/n1tbW/R0RF0IkLxDcnp7e/v7wMAAATgi4ogIk8kkDcOglzlxVd+ybfvl/Pz88cjICAFUlFJOW1sbRYS9vb3egLhOCADYtn2X5JuVlZWL4eFhAvjR3Nxc8/v9VErVALCvr4+GYfzq5P/shBIRkrzt9/ufAnh+dHQUUEpZExMTge7ubiEJn88HAKxUKhART7LiKrgeknxP8qNpmjMkFwqFQnFoaIjhcLg2NjZW6+rqchKJhOPp1LijGjNNM+pOzOTy8rITCoWYTqedfD5fy2azzGQyztLSUtnnYX5YACwXqn1vb+/e3NycOjs7w+joqOrp6ZmJRCJOIpF4EYlE/F7/Ky1unclms9+i0Wi1s7PTMQxjn2SSZAfJDySLysssA1Ak2QrgkWVZnaZpauPj4yoejy8AOBaRwuHh4dtyufzOyzBTAFAqlR6Q/JTL5YpTU1NcXV2tFgqFx5qmXbmm6bquvI53lc/nmy4vL+9Xq9VXtm3nyuXyZ9u24+75794Qj0FEROjWNwF0ANAAfHHXAakHxx9J+1fgOi5FPvfmjog4bjNfj/7FnYYaaqihhhrySj8BYXq9iclkVF4AAAAASUVORK5CYII=") 25 0, alias;
+      --mac-pen: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAEu0lEQVR42u2XT2gUdxTH329mdiOIBjRJlxi3NiWxVVIaBC89WMGDggo5lCpqQSiNKAiKPfWgh4CiNBEMhWixF1PaVJD4LyZID4YiNAgV1hoiSQxuooaN68bN7OzO/ObTgzNhtYW22cSTD5YZWOY3n/m+73u/9xN5G2/jDQag5vqsMc8Qaq4waj4hXllYKf9NKqIAQ0QspZR/7NgxQ0QsETEA8016wgQsEZGpqalPbNtuz+Vye4v+t0rxzX+GUOrlO6amptYCV3gZgzMzM9vCVAWwxkIqYQT37wO92WyWsbGxgm3bAA8dx9na1dVlhsosBIQBREVEksnkaqAX0C0tLcTj8fzx48c1gOu6E9lsdiuggp853xCLREQSicTHwHVAnzhxgqqqKi0ifiwW06dOnQqyxEPHcbYFVSTzAlOsRCKRWA9cBmhtbfWXL1/uiYhfVlaGiFBdXa1bW1v18+fPcV03kcvlvkwkEtEgpXPuNa94YmhoqBHoBjhz5owuLy8viAimaVJWVkY0GkVEiEajhTt37rgAtm1/19HREQk+xpgTSPgVIiLDw8P1wDWA9vZ2d8mSJXkRIRKJYBgGlmURKKObmpoYHx/XQHc6nf40SE1JEKaIyOTkZB1wQ2vtt7W16fLy8oJSalYB0zTDq7dz505s29ZAbyqVWhOsFZkTxNGjR2eNOT4+/gHQA+iTJ09SUVHhhUoUp0VECrt27dLpdNoHbjiOU1fkL2NOe0cIcevWrTXALyFEZWWlFhHfsixM0yQSiYSqOPv27XOfPXsGcC2ZTNaXVC3Fbbu/v38t0Al4p0+f9pctW+aFCliWhWVZGIaBiBSam5u9VCoFcHl0dLSxSAmzpOpIJpP1wAVAnzt3Ti9dujQvIrMAoTFFxNuzZ4+fyWQALicSifXBWtG5pmPW0alUqgb4CdDnz5/3KisrHaXU36ojEonoHTt2kE6nNXD93r17oRKLSvFEVERkYmLiXeAi4HZ0dPixWKwQ9AVCRUzTxDAMb/fu3WSzWQ30JpPJ1SUpUfzw48eP3wN+ANyzZ88Sj8e90JhKKSzLCoHyhw4d0rlcDqAnl8u9X5InXu8VwFfAzKVLlwjbdrEKQa9wjhw5oqenp32gK5PJrC5S1SxlD4kopWRwcPAjoO/p06fU1tbmGxoa9IYNG6iqqio2ZuHw4cP+9PS0B1y4e/duQ9EAZJa6mVnB9Rsg09bW5kYiEd3X18fIyAhNTU2IiB+NRvX+/fvJ5/MF4Mfbt29/WJIx/8monZ2dFcCVkZERGhsb8xs3bvRHR0eZmJhg+/bt/uLFi73m5mYAF/i5v7+/dl4hwpicnPwcGO3u7kYpld+0aRMHDhzw4/G4p5RyWlpafNd1PeCibdsrF2weBVozmYx38OBBT0QcEcnHYrHC3r173YGBARzHAfj+wYMHK4uMOa9zqBUsXj80NCT3798vbNmyZdHmzZvVunXrZNWqVTMrVqy4ISI9Y2NjPXV1dY/CM8z/Pbf8a9i2/QUw/OLFC65evcrAwADASDCBfZ1MJhuLK2zBjgdBA/sD+DOYQb+1bfuzmzdvvvMagCULGJaIVIvI71rr3548efJrTU3No2KA4NZTSrGQIH8B/lQH1Mgrn2cAAAAASUVORK5CYII=") 0 25, crosshair;
+    }
+    html, body {
+      cursor: var(--mac-cursor);
+    }
+    a, button, .icon, .child-launchpad, [role="button"],
+    .dock button, .navbar button, .fav, .safari-icon-btn, .safari-nav button,
+    .window__taskbar--actions button, .safari-traffic button,
+    .lib-game, .game-tile, .featured-card, .wallpaper-card, .steam-tab,
+    .steam-play-btn, .cta, .cta-sm, .leftLi, .open_Search, .battery, .clock,
+    .game-app-dock, .spotlight-item, .steam-nav button, .settings-sidebar button {
+      cursor: var(--mac-pointer);
+    }
+    input, textarea, [contenteditable="true"], .cursor, .terminal_content .cursor {
+      cursor: var(--mac-text);
+    }
+    [title*="Help"], .help {
+      cursor: var(--mac-help);
+    }
+    .ui-draggable-dragging,
+    .ui-draggable-dragging * {
+      cursor: var(--mac-grabbing) !important;
+    }
+    .window__taskbar {
+      cursor: var(--mac-grab);
+    }
+    button:disabled, .unavailable, [aria-disabled="true"] {
+      cursor: var(--mac-unavailable);
+    }
+    .col-resize, [data-resize="col"] { cursor: var(--mac-col-resize); }
+    .row-resize, [data-resize="row"] { cursor: var(--mac-row-resize); }
+    .nwse-resize { cursor: var(--mac-nwse-resize); }
+    .nesw-resize { cursor: var(--mac-nesw-resize); }
+    .zoom-in { cursor: var(--mac-zoom-in); }
+    .zoom-out { cursor: var(--mac-zoom-out); }
+
+    /* ===== Per-game macOS app windows ===== */
+    .game-app {
+      display: none;
+      position: absolute;
+      top: 8%;
+      left: 10%;
+      width: min(960px, 90vw);
+      height: min(640px, 82vh);
+      background: #0e0e10;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+      z-index: 88;
+      flex-direction: column;
+      overflow: hidden;
+      color: #f5f5f7;
+      font-family: "Inter", "Lexend", system-ui, sans-serif;
+    }
+    .game-app.active {
+      display: flex !important;
+    }
+    .game-app.is-maximized {
+      position: fixed !important;
+      top: 28px !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: calc(100vh - 28px) !important;
+      border-radius: 0 !important;
+      z-index: 95 !important;
+    }
+    .game-app .window__taskbar {
+      background: rgba(40,40,44,0.94) !important;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 10px;
+    }
+    .game-app .window__taskbar--actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .game-app .window__taskbar--actions button {
+      width: 12px; height: 12px; border-radius: 50%;
+      border: none; padding: 0; cursor: pointer;
+    }
+    .game-app .window__taskbar--actions button.close-game-app { background: #ff5f56; }
+    .game-app .window__taskbar--actions button.min-game-app { background: #ffbd2e; }
+    .game-app .window__taskbar--actions button.full-game-app { background: #27c93f; }
+    .game-app .game-app-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
+    }
+    .game-app .game-app-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #222;
+    }
+    .game-app .window__taskbar--content h2,
+    .game-app .game-app-title {
+      color: #f5f5f7 !important;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .game-app-body {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      background: #000;
+    }
+    .game-app-body iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
+    }
+    .game-app-loading {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      background: #0e0e10;
+      color: #aaa;
+      font-size: 14px;
+      z-index: 2;
+    }
+    .game-app-loading.show { display: flex; }
+    .game-app-loading .spinner {
+      width: 28px; height: 28px;
+      border: 2.5px solid rgba(255,255,255,0.12);
+      border-top-color: #66c0f4;
+      border-radius: 50%;
+      animation: gp-spin 0.7s linear infinite;
+    }
+    @keyframes gp-spin { to { transform: rotate(360deg); } }
+    /* Dynamic dock icons for running games */
+    .dock .icon.game-app-dock img {
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .dock .icon.game-app-dock .point {
+      display: block;
+    }
+
+
+    /* ===== Safari dark mode ===== */
+    .safari.window.dark-mode {
+      background: #1c1c1e !important;
+      border-color: rgba(255,255,255,0.12) !important;
+    }
+    .safari.window.dark-mode .safari-chrome {
+      background: linear-gradient(180deg, #2c2c2e 0%, #1c1c1e 100%) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    }
+    .safari.window.dark-mode .safari-nav button,
+    .safari.window.dark-mode .safari-icon-btn {
+      color: #f5f5f7 !important;
+    }
+    .safari.window.dark-mode .safari-nav button:hover,
+    .safari.window.dark-mode .safari-icon-btn:hover {
+      background: rgba(255,255,255,0.1) !important;
+    }
+    .safari.window.dark-mode .safari-urlbar {
+      background: rgba(0,0,0,0.35) !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      box-shadow: none !important;
+    }
+    .safari.window.dark-mode .safari-urlbar:focus-within {
+      border-color: rgba(10,132,255,0.7) !important;
+      box-shadow: 0 0 0 3px rgba(10,132,255,0.25) !important;
+    }
+    .safari.window.dark-mode .safari-urlbar input {
+      color: #f5f5f7 !important;
+    }
+    .safari.window.dark-mode .safari-urlbar input::placeholder {
+      color: #8e8e93 !important;
+    }
+    .safari.window.dark-mode .safari-lock {
+      color: #8e8e93 !important;
+    }
+    .safari.window.dark-mode .safari-tabstrip {
+      background: #1c1c1e !important;
+      border-top: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    .safari.window.dark-mode .safari-tab {
+      background: #2c2c2e !important;
+      border-color: rgba(255,255,255,0.08) !important;
+      color: #f5f5f7 !important;
+    }
+    .safari.window.dark-mode .safari-tab.active {
+      background: #3a3a3c !important;
+      color: #fff !important;
+    }
+    .safari.window.dark-mode .safari-tab-close {
+      color: #8e8e93 !important;
+    }
+    .safari.window.dark-mode .safari-tab-close:hover {
+      background: rgba(255,255,255,0.12) !important;
+      color: #fff !important;
+    }
+    .safari.window.dark-mode #safari-frame {
+      background: #000 !important;
+    }
+    .safari-theme-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .safari-theme-btn:hover {
+      background: rgba(0,0,0,0.06);
+    }
+    .safari.window.dark-mode .safari-theme-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+
+    /* ===== Steam Library — real-client look ===== */
+    .steam-topbar {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 0 16px !important;
+      height: 42px !important;
+      background: #171d25 !important;
+      border-bottom: 1px solid #000 !important;
+      flex-shrink: 0 !important;
+    }
+    .steam-nav {
+      display: flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      height: 100% !important;
+    }
+    .steam-nav button.steam-tab {
+      background: transparent !important;
+      border: none !important;
+      color: #dcdedf !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em !important;
+      padding: 0 14px !important;
+      height: 100% !important;
+      border-radius: 0 !important;
+      cursor: pointer !important;
+      position: relative !important;
+    }
+    .steam-nav button.steam-tab:hover {
+      color: #fff !important;
+      background: transparent !important;
+    }
+    .steam-nav button.steam-tab.active {
+      color: #fff !important;
+      background: transparent !important;
+    }
+    .steam-nav button.steam-tab.active::after {
+      content: "" !important;
+      position: absolute !important;
+      left: 10px; right: 10px; bottom: 0 !important;
+      height: 3px !important;
+      background: #1a9fff !important;
+      border-radius: 2px 2px 0 0 !important;
+    }
+    .steam-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .steam-icon-btn {
+      background: transparent;
+      border: none;
+      color: #8f98a0;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 3px;
+    }
+    .steam-icon-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .steam-user {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      color: #dcdedf !important;
+      font-size: 12px !important;
+    }
+    .steam-user .avatar {
+      width: 28px !important;
+      height: 28px !important;
+      border-radius: 2px !important;
+      background: linear-gradient(135deg, #1a9fff, #66c0f4) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-weight: 700 !important;
+      font-size: 12px !important;
+      color: #fff !important;
+    }
+
+    .steam-library {
+      background: #1b2838 !important;
+    }
+    .lib-sidebar {
+      width: 240px !important;
+      min-width: 240px !important;
+      background: #1b2838 !important;
+      border-right: 1px solid #000 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+    }
+    .lib-home-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      color: #dcdedf;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .lib-home-link:hover,
+    .lib-home-link.active {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+    }
+    .lib-collections {
+      padding: 4px 10px 8px;
+    }
+    .lib-coll-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 6px;
+      color: #8f98a0;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: none;
+    }
+    .lib-search {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      margin: 0 10px 8px !important;
+      padding: 6px 10px !important;
+      background: #316282 !important;
+      border-radius: 3px !important;
+      border: none !important;
+    }
+    .lib-search input {
+      flex: 1 !important;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      color: #fff !important;
+      font-size: 12px !important;
+      padding: 0 !important;
+    }
+    .lib-search input::placeholder { color: #8f98a0; }
+    .lib-filter-row {
+      padding: 4px 14px 6px;
+      color: #8f98a0;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .lib-games {
+      flex: 1 !important;
+      overflow-y: auto !important;
+      padding: 0 0 8px !important;
+    }
+    .lib-game {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      padding: 6px 12px !important;
+      cursor: pointer !important;
+      color: #dcdedf !important;
+      font-size: 13px !important;
+      border-left: 2px solid transparent !important;
+    }
+    .lib-game:hover {
+      background: rgba(255,255,255,0.06) !important;
+      color: #fff !important;
+    }
+    .lib-game.active {
+      background: rgba(26,159,255,0.15) !important;
+      border-left-color: #1a9fff !important;
+      color: #fff !important;
+    }
+    .lib-game img {
+      width: 22px !important;
+      height: 22px !important;
+      border-radius: 3px !important;
+      object-fit: cover !important;
+      flex-shrink: 0 !important;
+    }
+    .lib-game .lib-game-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .lib-main {
+      flex: 1 !important;
+      overflow-y: auto !important;
+      background: #1b2838 !important;
+      padding: 16px 20px 28px !important;
+    }
+    .lib-shelf {
+      margin-bottom: 22px;
+    }
+    .lib-shelf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .lib-shelf-header h3 {
+      margin: 0 !important;
+      font-size: 15px !important;
+      font-weight: 500 !important;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lib-shelf-chevron, .lib-gear {
+      color: #8f98a0;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .lib-shelf-sub {
+      margin: -4px 0 10px;
+      color: #8f98a0;
+      font-size: 12px;
+    }
+    .lib-shelf-nav {
+      display: flex;
+      gap: 4px;
+    }
+    .lib-shelf-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.06);
+      color: #dcdedf;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .lib-shelf-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+    /* What's New cards */
+    .lib-news-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+    }
+    .lib-news-card {
+      flex: 0 0 280px;
+      width: 280px;
+      background: #16202d;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .lib-news-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .lib-news-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      background: #0e1621;
+    }
+    .lib-news-meta {
+      padding: 10px 12px 12px;
+    }
+    .lib-news-date {
+      font-size: 11px;
+      color: #8f98a0;
+      margin-bottom: 4px;
+    }
+    .lib-news-title {
+      font-size: 13px;
+      color: #fff;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .lib-news-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #8f98a0;
+    }
+    .lib-news-tag img {
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      object-fit: cover;
+    }
+
+    /* Recent / shelf tiles */
+    .lib-recent-row,
+    .lib-playnext-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+    .lib-capsule {
+      flex: 0 0 160px;
+      width: 160px;
+      height: 240px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: #16202d;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .lib-capsule:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+    }
+    .lib-capsule img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .lib-capsule-overlay {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 28px 10px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .lib-capsule.featured {
+      flex: 0 0 280px;
+      width: 280px;
+      height: 240px;
+    }
+    .lib-capsule.featured .lib-capsule-play {
+      position: absolute;
+      left: 12px;
+      bottom: 40px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #1a9fff;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .lib-capsule.featured .lib-capsule-stats {
+      position: absolute;
+      left: 64px;
+      bottom: 42px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.35;
+    }
+
+    /* All games grid */
+    .lib-sort {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #8f98a0;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .lib-sort select {
+      background: rgba(255,255,255,0.06);
+      border: none;
+      color: #dcdedf;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      outline: none;
+    }
+    .all-games-row {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+      gap: 10px !important;
+      flex-wrap: unset !important;
+      overflow: visible !important;
+      max-height: none !important;
+    }
+    .game-tile {
+      position: relative !important;
+      border-radius: 4px !important;
+      overflow: hidden !important;
+      cursor: pointer !important;
+      aspect-ratio: 16 / 9 !important;
+      background: #16202d !important;
+      height: auto !important;
+      width: auto !important;
+      min-width: 0 !important;
+      transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    }
+    .game-tile:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35) !important;
+    }
+    .game-tile img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+    .game-tile .game-tile-title {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 18px 8px 8px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .steam-content {
+      background: #1b2838 !important;
+    }
+    .steam.window,
+    .window.steam {
+      background: #171d25 !important;
+    }
+
+    /* Liquid glass appearance */
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.18);
+      --glass-bg-dark: rgba(30, 30, 32, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.35);
+      --glass-border-dark: rgba(255, 255, 255, 0.12);
+      --glass-blur: blur(28px) saturate(180%);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .navbar {
+      background: rgba(20, 20, 22, 0.72) !important;
+      backdrop-filter: blur(40px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+      box-shadow: none !important;
+      color: #f5f5f7 !important;
+    }
+    .dock, .dock-container, #dock {
+      background: rgba(255, 255, 255, 0.28) !important;
+      backdrop-filter: blur(40px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.06) !important;
+      border-radius: 22px !important;
+    }
+    .window, .terminal, .note, .calculator, .Vscode, .maps, .steam, .settings-window, .safari.window {
+      backdrop-filter: blur(20px) saturate(160%) !important;
+      -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.35),
+        0 0 0 0.5px rgba(255, 255, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+    }
+    .window__taskbar, .safari-chrome {
+      background: rgba(255, 255, 255, 0.55) !important;
+      backdrop-filter: blur(24px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    .Vscode .window__taskbar {
+      background: rgba(40, 40, 42, 0.72) !important;
+      backdrop-filter: blur(24px) saturate(160%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+    }
+    .spotlight_serach, #spotlight, .contextMenu, #contextMenu {
+      background: rgba(255, 255, 255, 0.55) !important;
+      backdrop-filter: blur(40px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.45) !important;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.5) !important;
+      border-radius: 14px !important;
+    }
+    .launchpad, #launchpad {
+      background: rgba(20, 20, 24, 0.35) !important;
+      backdrop-filter: blur(48px) saturate(140%) !important;
+      -webkit-backdrop-filter: blur(48px) saturate(140%) !important;
+    }
+    .widgets-panel, .widgets-panel__calendar {
+      background: rgba(255, 255, 255, 0.28) !important;
+      backdrop-filter: blur(32px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.35) !important;
+      box-shadow: var(--glass-shadow) !important;
+      border-radius: 16px !important;
+    }
+
+    /* Universal liquid glass — menus, dock menus, panels, chrome */
+    .context-menu,
+    #contextMenu,
+    #dockContextMenu,
+    .dock-context-menu {
+      background: rgba(255, 255, 255, 0.22) !important;
+      backdrop-filter: blur(40px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.06) !important;
+      border-radius: 12px !important;
+      overflow: hidden;
+      min-width: 200px;
+      z-index: 10000 !important;
+      color: #1d1d1f;
+    }
+    .context-menu ul,
+    #contextMenu ul,
+    #dockContextMenu ul {
+      list-style: none;
+      margin: 0;
+      padding: 6px;
+    }
+    .context-menu ul li,
+    #contextMenu ul li,
+    #dockContextMenu ul li {
+      margin: 0;
+      border: none !important;
+      padding: 0 !important;
+    }
+    .context-menu ul li button,
+    #contextMenu ul li button,
+    #dockContextMenu ul li button {
+      color: #1d1d1f !important;
+      width: 100%;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: "Inter", "Lexend", system-ui, sans-serif;
+    }
+    .context-menu ul li button:hover,
+    #contextMenu ul li button:hover,
+    #dockContextMenu ul li button:hover {
+      background: rgba(0, 122, 255, 0.85) !important;
+      color: #fff !important;
+    }
+    .context-menu ul li.separator,
+    #dockContextMenu ul li.separator {
+      height: 1px;
+      margin: 4px 8px;
+      background: rgba(0, 0, 0, 0.12);
+      pointer-events: none;
+    }
+    .context-menu ul li button.danger:hover,
+    #dockContextMenu ul li button.danger:hover {
+      background: rgba(255, 59, 48, 0.9) !important;
+      color: #fff !important;
+    }
+    /* Glass on more surfaces */
+    .navbar li > ul {
+      background: rgba(255, 255, 255, 0.28) !important;
+      backdrop-filter: blur(36px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(36px) saturate(200%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4) !important;
+      border-radius: 10px !important;
+    }
+    .navbar li > ul > li > button {
+      color: #1d1d1f !important;
+      border-radius: 6px;
+    }
+    .navbar li > ul > li > button:hover {
+      background: rgba(0, 122, 255, 0.85) !important;
+      color: #fff !important;
+    }
+    .calculator {
+      background: rgba(30, 30, 32, 0.45) !important;
+      backdrop-filter: blur(40px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    }
+    .terminal .terminal_content {
+      background: rgba(8, 12, 40, 0.55) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+    }
+    .note, .maps {
+      background: rgba(252, 255, 251, 0.72) !important;
+      backdrop-filter: blur(28px) saturate(160%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
+    }
+    .steam {
+      background: rgba(27, 40, 56, 0.82) !important;
+      backdrop-filter: blur(24px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+    }
+    .steam .window__taskbar,
+    .steam-nav,
+    .lib-sidebar,
+    .steam-footer-bar {
+      background: rgba(23, 26, 33, 0.55) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+    }
+    .settings-window {
+      background: rgba(44, 44, 46, 0.72) !important;
+      backdrop-filter: blur(36px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(36px) saturate(180%) !important;
+    }
+    .settings-sidebar {
+      background: rgba(0, 0, 0, 0.2) !important;
+    }
+    .game-app {
+      background: rgba(14, 14, 16, 0.75) !important;
+      backdrop-filter: blur(28px) saturate(160%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
+    }
+    .game-app .window__taskbar {
+      background: rgba(40, 40, 44, 0.55) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+    }
+    .safari.window {
+      background: rgba(245, 245, 247, 0.78) !important;
+      backdrop-filter: blur(28px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+    }
+    .safari-chrome {
+      background: rgba(250, 250, 252, 0.65) !important;
+      backdrop-filter: blur(24px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    }
+    .battery__popup {
+      background: rgba(255, 255, 255, 0.28) !important;
+      backdrop-filter: blur(36px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(36px) saturate(200%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow: var(--glass-shadow) !important;
+    }
+    .searchContainer {
+      background: rgba(255, 255, 255, 0.18) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+    }
+
   </style>
 </head>
 
 <body onload="digi(); lockload(); calculateBattery();">
   <div id="desktop-bg"></div>
-  <div id="loading">Loading macOS...</div>
+  <div id="bootup-screen" class="splash-screen" aria-label="Loading macOS">
+    <svg class="splash-apple" viewBox="0 0 24 24" width="100" height="100" aria-hidden="true">
+      <path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47c-1.34.03-1.77-.79-3.29-.79c-1.53 0-2 .77-3.27.82c-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51c1.28-.02 2.5.87 3.29.87c.78 0 2.26-1.07 3.81-.91c.65.03 2.47.26 3.64 1.98c-.09.06-2.17 1.28-2.15 3.81c.03 3.02 2.65 4.03 2.68 4.04c-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5c.13 1.17-.34 2.35-1.04 3.19c-.69.85-1.83 1.51-2.95 1.42c-.15-1.15.41-2.35 1.05-3.11"/>
+    </svg>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Loading up macOS">
+      <div class="indicator" id="splash-indicator"></div>
+    </div>
+    <iframe id="splash-audio" src="https://macos-web.app/sounds/mac-startup-sound.mp3" allow="autoplay" title="" hidden></iframe>
+  </div>
 
   <!-- NAVBAR -->
   <div class="navbar">
-    <ul>
+    <ul class="navbar__left">
       <li class="leftLi logo">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/apple-white.png" alt="Apple" height="15">
+        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/apple-white.png" alt="Apple" height="14">
         <ul>
-          <li><button>About This Mac</button></li>
+          <li><button type="button">About This Mac</button></li>
           <li><button type="button" class="open_settings_menu">System Settings...</button></li>
-          <li><button>Recent Items</button></li>
-          <li><button>Force Quit Finder</button></li>
-          <li>
-            <button>Sleep</button>
-            <button onclick="location.reload()">Restart...</button>
-            <button>Shut Down...</button>
-          </li>
-          <li><button>Lock Screen</button><button>Log Out</button></li>
+          <li><button type="button">Recent Items</button></li>
+          <li><button type="button">Force Quit...</button></li>
+          <li class="menu-sep"></li>
+          <li><button type="button">Sleep</button></li>
+          <li><button type="button" onclick="location.reload()">Restart...</button></li>
+          <li><button type="button">Shut Down...</button></li>
+          <li class="menu-sep"></li>
+          <li><button type="button">Lock Screen</button></li>
+          <li><button type="button">Log Out...</button></li>
         </ul>
       </li>
-      <li class="leftLi app_name" id="Terminal"><p>Terminal</p></li>
-      <li class="leftLi app_name" id="Notes"><p>Notes</p></li>
-      <li class="leftLi app_name" id="calculator"><p>Calculator</p></li>
-      <li class="leftLi app_name" id="VScode"><p>VS Code</p></li>
-      <li class="leftLi app_name" id="map"><p>Maps</p></li>
-      <li class="leftLi app_name" id="Steam"><p>Steam</p></li>
-      <li class="leftLi">File
+      <li class="leftLi app_name is-active" id="menu-app-name"><p>Finder</p></li>
+      <li class="leftLi menu-item" data-menu="file">File
         <ul>
-          <li><button>New File</button><button>New Window</button></li>
-          <li><button>Open File</button></li>
-          <li><button>Save</button><button>Save as</button></li>
-          <li><button>Exit</button></li>
+          <li><button type="button" data-action="new-window">New Window</button></li>
+          <li><button type="button" data-action="open">Open...</button></li>
+          <li><button type="button" data-action="close">Close Window</button></li>
+          <li class="menu-sep"></li>
+          <li><button type="button" data-action="save">Save</button></li>
+          <li><button type="button" data-action="save-as">Save As...</button></li>
         </ul>
       </li>
-      <li class="leftLi">Help</li>
+      <li class="leftLi menu-item" data-menu="edit">Edit
+        <ul>
+          <li><button type="button" data-action="undo">Undo</button></li>
+          <li><button type="button" data-action="redo">Redo</button></li>
+          <li class="menu-sep"></li>
+          <li><button type="button" data-action="cut">Cut</button></li>
+          <li><button type="button" data-action="copy">Copy</button></li>
+          <li><button type="button" data-action="paste">Paste</button></li>
+          <li class="menu-sep"></li>
+          <li><button type="button" data-action="select-all">Select All</button></li>
+        </ul>
+      </li>
+      <li class="leftLi menu-item" data-menu="view">View
+        <ul>
+          <li><button type="button" data-action="reload">Reload</button></li>
+          <li><button type="button" data-action="fullscreen">Enter Full Screen</button></li>
+        </ul>
+      </li>
+      <li class="leftLi menu-item" data-menu="window">Window
+        <ul>
+          <li><button type="button" data-action="minimize">Minimize</button></li>
+          <li><button type="button" data-action="zoom">Zoom</button></li>
+          <li class="menu-sep"></li>
+          <li><button type="button" data-action="front">Bring All to Front</button></li>
+        </ul>
+      </li>
+      <li class="leftLi menu-item" data-menu="help">Help
+        <ul>
+          <li><button type="button">macOS Help</button></li>
+        </ul>
+      </li>
     </ul>
 
     <ul class="navbar__right">
@@ -2319,6 +3739,16 @@
     </ul>
   </div>
 
+
+  <!-- Dock context menu (right-click running apps) -->
+  <div id="dockContextMenu" class="context-menu dock-context-menu" style="opacity:0;pointer-events:none;position:fixed;display:none;z-index:10000">
+    <ul>
+      <li><button type="button" id="dock-ctx-open">Open</button></li>
+      <li class="separator"></li>
+      <li><button type="button" id="dock-ctx-close" class="danger">Close</button></li>
+    </ul>
+  </div>
+
   <!-- DOCK -->
   <div class="dock">
     <button class="icon">
@@ -2344,24 +3774,6 @@
     <button class="icon open_vscode">
       <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg" alt="VS Code">
       <div class="point" id="point-vscode"></div>
-    </button>
-    <button class="icon">
-      <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/mail.png" alt="Mail">
-    </button>
-    <button class="icon">
-      <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/photos.png" alt="Photos">
-    </button>
-    <button class="icon open_map">
-      <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/maps.png" alt="Maps">
-      <div class="point" id="point-maps"></div>
-    </button>
-    <button class="icon open-cal">
-      <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/calculator.png" alt="Calculator">
-      <div class="point" id="point-cal"></div>
-    </button>
-    <button class="icon openNote">
-      <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/notes.png" alt="Notes">
-      <div class="point" id="point-note"></div>
     </button>
     <button class="icon opening">
       <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Terminal">
@@ -2403,9 +3815,9 @@
         <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png">
         <strong>Safari</strong>
       </div>
-      <div class="child-launchpad" data-keywords="Mail">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/mail.png">
-        <strong>Mail</strong>
+      <div class="child-launchpad open-tiktok" data-keywords="TikTok">
+        <img src="https://www.google.com/s2/favicons?domain=tiktok.com&sz=128" alt="TikTok" style="border-radius:18px;background:#111">
+        <strong>TikTok</strong>
       </div>
       <div class="child-launchpad" data-keywords="Messages">
         <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/messages.png">
@@ -2522,6 +3934,9 @@
       <iframe src="https://maps.google.com/maps?q=Apple+Park&output=embed" style="width:100%;height:calc(100% - 38px);border:none"></iframe>
     </div>
 
+    <!-- Dynamic per-game app windows are created here -->
+    <div id="game-apps-host"></div>
+
     <!-- STEAM WINDOW -->
     <div class="window steam">
       <div class="window__taskbar">
@@ -2534,21 +3949,24 @@
       </div>
       <div class="steam-content">
         <div class="steam-topbar">
-          <div class="steam-logo">STEAM</div>
           <div class="steam-nav">
-            <button class="steam-tab active" data-tab="store">STORE</button>
-            <button class="steam-tab" data-tab="library">LIBRARY</button>
+            <button class="steam-tab" data-tab="store">STORE</button>
+            <button class="steam-tab active" data-tab="library">LIBRARY</button>
             <button class="steam-tab" data-tab="community">COMMUNITY</button>
             <button class="steam-tab" data-tab="profile">BENGTAGGFD</button>
           </div>
-          <div class="steam-user">
-            <div class="avatar">B</div>
-            <span>bengtaggfd</span>
+          <div class="steam-topbar-right">
+            <button type="button" class="steam-icon-btn" title="Messages">💬</button>
+            <button type="button" class="steam-icon-btn" title="Notifications">🔔</button>
+            <div class="steam-user">
+              <div class="avatar">B</div>
+              <span>bengtaggfd ▾</span>
+            </div>
           </div>
         </div>
 
         <!-- STORE VIEW -->
-        <div class="steam-store active" id="steam-store">
+        <div class="steam-store" id="steam-store">
           <div class="steam-subnav">
             <a>Browse ▾</a>
             <a>Recommendations ▾</a>
@@ -2621,20 +4039,68 @@
         </div>
 
         <!-- LIBRARY VIEW -->
-        <div class="steam-library" id="steam-library">
+        <div class="steam-library active" id="steam-library">
           <div class="lib-sidebar">
-            <div class="lib-sidebar-header">LIBRARY</div>
+            <div class="lib-home-link active" id="steam-lib-home">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              Home
+            </div>
+            <div class="lib-collections">
+              <div class="lib-coll-header">
+                <span>Games</span>
+                <span class="lib-coll-chevron">▾</span>
+              </div>
+            </div>
             <div class="lib-search">
-              <input type="search" id="steam-lib-search" placeholder="Search games">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#8f98a0"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input type="search" id="steam-lib-search" placeholder="Search by name">
+            </div>
+            <div class="lib-filter-row">
+              <span class="lib-filter-all">ALL <span id="steam-game-count-side">(0)</span></span>
             </div>
             <div class="lib-games" id="steam-lib-games">
               <!-- populated by JS -->
             </div>
           </div>
           <div class="lib-main" id="steam-lib-main">
-            <div class="lib-section">
-              <h3>All Games <span id="steam-game-count"></span></h3>
-              <div class="all-games-row" id="steam-all-tiles" style="flex-wrap:wrap; overflow-y:auto; max-height:none;">
+            <div class="lib-shelf lib-whats-new">
+              <div class="lib-shelf-header">
+                <h3>What's New <span class="lib-gear">⚙</span></h3>
+              </div>
+              <div class="lib-news-row" id="steam-whats-new">
+                <!-- news cards -->
+              </div>
+            </div>
+            <div class="lib-shelf">
+              <div class="lib-shelf-header">
+                <h3>Recent Games <span class="lib-shelf-chevron">▾</span></h3>
+                <div class="lib-shelf-nav">
+                  <button type="button" class="lib-shelf-btn" data-scroll="recent" data-dir="-1">‹</button>
+                  <button type="button" class="lib-shelf-btn" data-scroll="recent" data-dir="1">›</button>
+                </div>
+              </div>
+              <div class="lib-recent-row" id="steam-recent-games">
+                <!-- recent tiles -->
+              </div>
+            </div>
+            <div class="lib-shelf">
+              <div class="lib-shelf-header">
+                <h3>Play Next <span class="lib-shelf-chevron">▾</span></h3>
+              </div>
+              <p class="lib-shelf-sub">Players like you love these unplayed games in your library</p>
+              <div class="lib-playnext-row" id="steam-play-next">
+                <!-- play next -->
+              </div>
+            </div>
+            <div class="lib-shelf lib-all-section">
+              <div class="lib-shelf-header">
+                <h3>All Games <span id="steam-game-count"></span> <span class="lib-shelf-chevron">▾</span></h3>
+                <div class="lib-sort">
+                  <span>SORT BY</span>
+                  <select id="steam-lib-sort"><option>Alphabetical</option><option>Recent</option></select>
+                </div>
+              </div>
+              <div class="all-games-row" id="steam-all-tiles">
                 <!-- populated by JS -->
               </div>
             </div>
@@ -2744,18 +4210,57 @@
     </div>
 
     
+    
     <!-- SAFARI -->
-    <div class="safari window" id="safari-window">
-      <div class="window__taskbar">
-        <div class="window__taskbar--actions">
-          <button type="button" class="close-safari" title="Close"></button>
-          <button type="button" class="min-safari" title="Minimize"></button>
-          <button type="button" class="full-safari" title="Maximize"></button>
+    <div class="safari window dark-mode" id="safari-window">
+      <div class="safari-chrome">
+        <div class="safari-chrome-top">
+          <div class="window__taskbar--actions safari-traffic">
+            <button type="button" class="close-safari" title="Close"></button>
+            <button type="button" class="min-safari" title="Minimize"></button>
+            <button type="button" class="full-safari" title="Maximize"></button>
+          </div>
+          <button type="button" class="safari-icon-btn" title="Sidebar" aria-label="Sidebar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+          </button>
+          <div class="safari-nav">
+            <button type="button" id="safari-back" title="Back" aria-label="Back">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button type="button" id="safari-fwd" title="Forward" aria-label="Forward">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+          <div class="safari-urlbar">
+            <svg class="safari-lock" width="11" height="11" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1a2.5 2.5 0 00-2.5 2.5V5H3a1 1 0 00-1 1v4a1 1 0 001 1h6a1 1 0 001-1V6a1 1 0 00-1-1H8.5V3.5A2.5 2.5 0 006 1zm1.5 4H4.5V3.5a1.5 1.5 0 113 0V5z"/></svg>
+            <input id="safari-url" type="text" placeholder="Search or enter website name" spellcheck="false" autocomplete="off">
+          </div>
+          <button type="button" class="safari-icon-btn" title="Reload" id="safari-reload" aria-label="Reload">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          </button>
+          <button type="button" class="safari-icon-btn" title="Share" aria-label="Share">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
+          <button type="button" class="safari-icon-btn" title="New Tab" aria-label="New Tab">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <button type="button" class="safari-icon-btn" title="Tabs" aria-label="Tabs">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </button>
+          <button type="button" class="safari-theme-btn" id="safari-theme-toggle" title="Toggle dark mode" aria-label="Dark mode">☾</button>
         </div>
-        <div class="window__taskbar--content"><h2>Safari</h2></div>
+        <div class="safari-tabstrip">
+          <div class="safari-tab active">
+            <img class="safari-tab-icon" id="safari-tab-favicon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23e8e8ed' stroke='%23c7c7cc'/%3E%3Cpath d='M8 3a5 5 0 100 10A5 5 0 008 3z' fill='none' stroke='%238e8e93' stroke-width='1'/%3E%3C/svg%3E" alt="">
+            <span class="safari-tab-title" id="safari-tab-title">Start Page</span>
+            <button type="button" class="safari-tab-close" title="Close tab">×</button>
+          </div>
+          <div class="safari-tab-spacer"></div>
+        </div>
       </div>
       <iframe id="safari-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads allow-modals allow-presentation"></iframe>
     </div>
+
 
     <div class="calculator">
       <div class="calculator__top">
@@ -3051,11 +4556,14 @@
 
     function close_window(win, point, appName) {
       if (!win) return;
-      win.style.display = "none";
-      win.classList.remove("maximized", "minimized", "is-maximized");
+      win.classList.remove("maximized", "minimized", "is-maximized", "active", "open");
+      win.style.setProperty("display", "none", "important");
+      win.style.visibility = "hidden";
+      win.style.opacity = "0";
+      win.style.pointerEvents = "none";
       try { _winGeom.delete(win); } catch (e) {}
       if (point) point.style.display = "none";
-      if (appName) appName.style.display = "none";
+      if (typeof setMenuAppName === "function") setMenuAppName("Finder");
     }
     function open_window(win, point, appName) {
       if (!win) return;
@@ -3078,9 +4586,44 @@
       win.style.opacity = "1";
       win.style.zIndex = "50";
       try { if (win.parentElement) win.parentElement.appendChild(win); } catch (e) {}
-      if (appName) appName.style.display = "block";
+      if (typeof setMenuAppName === "function") {
+        setMenuAppName(inferMenuAppName(win, appName));
+      }
       if (point) point.style.display = "block";
     }
+
+    function inferMenuAppName(win, appName) {
+      if (typeof appName === "string" && appName.trim()) return appName.trim();
+      if (appName && (appName.textContent || appName.innerText)) {
+        const t = (appName.textContent || appName.innerText).trim();
+        if (t) return t;
+      }
+      if (!win || !win.classList) return "Finder";
+      if (win.classList.contains("terminal")) return "Terminal";
+      if (win.classList.contains("note")) return "Notes";
+      if (win.classList.contains("calculator")) return "Calculator";
+      if (win.classList.contains("Vscode")) return "Code";
+      if (win.classList.contains("maps")) return "Maps";
+      if (win.classList.contains("steam")) return "Steam";
+      if (win.classList.contains("safari")) return "Safari";
+      if (win.classList.contains("settings-window")) return "System Settings";
+      if (win.classList.contains("game-app")) {
+        const t = win.querySelector(".game-app-title");
+        return (t && t.textContent.trim()) || "Games";
+      }
+      return "Finder";
+    }
+
+    function setMenuAppName(name) {
+      const el = document.getElementById("menu-app-name");
+      if (!el) return;
+      const p = el.querySelector("p") || el;
+      p.textContent = name || "Finder";
+      el.style.display = "flex";
+      el.classList.add("is-active");
+    }
+    window.setMenuAppName = setMenuAppName;
+
 
     function minimize_steam() {
       if (!steam_window) return;
@@ -3118,7 +4661,11 @@
     if (close) close.addEventListener("click", () => close_window(terminal, point_terminal, app_name_terminal));
     if (closenote) closenote.addEventListener("click", () => close_window(note, point_note, app_name_notes));
     if (closecal) closecal.addEventListener("click", () => close_window(calculator, point_cal, app_name_calculator));
-    if (close_Vscode) close_Vscode.addEventListener("click", () => close_window(Vscode_window, point_vscode, app_name_VScode));
+    if (close_Vscode) close_Vscode.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      close_window(Vscode_window || document.querySelector(".Vscode"), point_vscode, app_name_VScode);
+    });
     if (close_map) close_map.addEventListener("click", () => close_window(maps_window, point_map, app_name_maps));
     // Prevent jQuery UI drag from eating window control clicks
     [close_steam, min_steam, full_steam].forEach(btn => {
@@ -3194,27 +4741,110 @@
       const list = document.getElementById("steam-lib-games");
       const tiles = document.getElementById("steam-all-tiles");
       const countEl = document.getElementById("steam-game-count");
+      const countSide = document.getElementById("steam-game-count-side");
+      const recent = document.getElementById("steam-recent-games");
+      const news = document.getElementById("steam-whats-new");
+      const playNext = document.getElementById("steam-play-next");
       if (!list || !tiles || typeof STEAM_GAMES === "undefined") return;
       const q = (filter || "").toLowerCase().trim();
-      const filtered = STEAM_GAMES.filter(g => !q || g.title.toLowerCase().includes(q));
+      const filtered = STEAM_GAMES.filter(g => !q || (g.title || "").toLowerCase().includes(q));
+
       if (countEl) countEl.textContent = "(" + filtered.length + ")";
-      // Sidebar list (capped for performance)
-      const sideGames = q ? filtered.slice(0, 120) : filtered.slice(0, 80);
-      list.innerHTML = sideGames.map((g, i) => {
-        const initials = g.title.split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+      if (countSide) countSide.textContent = "(" + filtered.length + ")";
+
+      // Sidebar list
+      list.innerHTML = filtered.map((g, i) => {
         const idx = STEAM_GAMES.indexOf(g);
-        const img = '<img src="' + g.image + '" alt="" loading="lazy" decoding="async" width="28" height="28" onerror="this.style.display=\'none\';this.parentNode.textContent=\'' + initials + '\';">';
-        return '<div class="lib-game" data-idx="' + idx + '"><div class="icon-sm">' + img + '</div><span class="lib-game-title">' + g.title.replace(/</g,"&lt;") + '</span></div>';
+        const img = g.image || g.img || "";
+        return '<div class="lib-game" data-idx="' + idx + '">' +
+          (img ? '<img src="' + img + '" alt="" loading="lazy" onerror="this.style.opacity=0.3">' : '<span style="width:22px;height:22px;background:#316282;border-radius:3px;display:inline-block"></span>') +
+          '<span class="lib-game-name">' + (g.title || "Game") + '</span></div>';
       }).join("");
-      // Tiles grid — fewer tiles for faster first paint
-      const tileGames = filtered.slice(0, 48);
-      tiles.innerHTML = tileGames.map(g => {
+
+      // All games grid
+      tiles.innerHTML = filtered.map((g) => {
         const idx = STEAM_GAMES.indexOf(g);
-        return '<div class="game-tile" data-idx="' + idx + '" title="' + g.title.replace(/"/g,"&quot;") + '">' +
-          '<img class="cover" src="' + g.image + '" alt="" loading="lazy" decoding="async" width="184" height="86" onerror="this.style.background=\'#0e1621\';this.removeAttribute(\'src\')">' +
-          '<div class="meta"><div class="title">' + g.title.replace(/</g,"&lt;") + '</div></div></div>';
+        const img = g.image || g.img || "";
+        return '<div class="game-tile" data-idx="' + idx + '">' +
+          (img ? '<img src="' + img + '" alt="" loading="lazy">' : '') +
+          '<div class="game-tile-title">' + (g.title || "Game") + '</div></div>';
       }).join("");
-      // clicks via event delegation (see setTimeout below)
+
+      // Recent Games shelf (first 10)
+      if (recent) {
+        const recentGames = STEAM_GAMES.slice(0, Math.min(10, STEAM_GAMES.length));
+        recent.innerHTML = recentGames.map((g, i) => {
+          const idx = STEAM_GAMES.indexOf(g);
+          const img = g.image || g.img || "";
+          const featured = i === 0 ? " featured" : "";
+          let extra = "";
+          if (i === 0) {
+            extra = '<button type="button" class="lib-capsule-play" data-idx="' + idx + '">▶</button>' +
+              '<div class="lib-capsule-stats">TIME PLAYED<br>Last two weeks: 24.8 hrs<br>Total: 24.8 hrs</div>';
+          }
+          return '<div class="lib-capsule' + featured + '" data-idx="' + idx + '">' +
+            (img ? '<img src="' + img + '" alt="" loading="lazy">' : '') +
+            extra +
+            '<div class="lib-capsule-overlay">' + (g.title || "Game") + '</div></div>';
+        }).join("");
+      }
+
+      // What's New — use first 4 games as news cards
+      if (news) {
+        const dates = ["This week", "August", "2 weeks ago", "August"];
+        const blurbs = [
+          "New update available — check out what's changed.",
+          "ADVANCED ACCESS STARTS NOW!",
+          "New Release is now Live!",
+          "Party with the community and earn in-game rewards!"
+        ];
+        const slice = STEAM_GAMES.slice(0, 4);
+        news.innerHTML = slice.map((g, i) => {
+          const idx = STEAM_GAMES.indexOf(g);
+          const img = g.image || g.img || "";
+          return '<div class="lib-news-card" data-idx="' + idx + '">' +
+            (img ? '<img src="' + img + '" alt="">' : '') +
+            '<div class="lib-news-meta">' +
+            '<div class="lib-news-date">' + dates[i % dates.length] + '</div>' +
+            '<div class="lib-news-title">' + (g.title || "Game") + " — " + blurbs[i % blurbs.length] + '</div>' +
+            '<div class="lib-news-tag">' +
+            (img ? '<img src="' + img + '" alt="">' : '') +
+            (g.title || "Game") + '</div></div></div>';
+        }).join("");
+      }
+
+      // Play Next — games further in list
+      if (playNext) {
+        const next = STEAM_GAMES.slice(Math.min(3, STEAM_GAMES.length - 1), Math.min(8, STEAM_GAMES.length));
+        playNext.innerHTML = next.map((g) => {
+          const idx = STEAM_GAMES.indexOf(g);
+          const img = g.image || g.img || "";
+          return '<div class="lib-capsule featured" data-idx="' + idx + '">' +
+            (img ? '<img src="' + img + '" alt="" loading="lazy">' : '') +
+            '<div class="lib-capsule-overlay">' + (g.title || "Game") + '</div></div>';
+        }).join("");
+      }
+
+      // Wire clicks
+      const openIdx = (idx) => {
+        if (typeof showSteamDetail === "function") showSteamDetail(idx);
+        else if (typeof playSteamGame === "function") playSteamGame(idx);
+      };
+      list.querySelectorAll(".lib-game").forEach(el => {
+        el.addEventListener("click", () => openIdx(+el.dataset.idx));
+      });
+      tiles.querySelectorAll(".game-tile").forEach(el => {
+        el.addEventListener("click", () => openIdx(+el.dataset.idx));
+      });
+      [recent, news, playNext].forEach(row => {
+        if (!row) return;
+        row.querySelectorAll("[data-idx]").forEach(el => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            openIdx(+el.dataset.idx);
+          });
+        });
+      });
     }
 
     let _currentPlayUrl = "";
@@ -3294,6 +4924,193 @@
     }
 
 
+
+    // ===== Per-game macOS apps (one window + dock icon per game) =====
+    const _gameAppWindows = {}; // idx -> element
+
+    function ensureGameAppDockIcon(idx, g) {
+      const dock = document.querySelector(".dock");
+      if (!dock) return null;
+      let btn = document.getElementById("dock-game-app-" + idx);
+      if (!btn) {
+        btn = document.createElement("button");
+        btn.className = "icon game-app-dock";
+        btn.id = "dock-game-app-" + idx;
+        btn.title = g.title;
+        btn.innerHTML = '<img src="' + (g.image || "").replace(/"/g, "&quot;") + '" alt="' +
+          g.title.replace(/"/g, "&quot;") + '" onerror="this.style.background=\'#2EBA42\'">' +
+          '<div class="point" style="display:block"></div>';
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          focusGameApp(idx);
+        });
+        // Insert before the trash column or at end before trash
+        const col = dock.querySelector(".column");
+        if (col) dock.insertBefore(btn, col);
+        else dock.appendChild(btn);
+      } else {
+        btn.title = g.title;
+        const img = btn.querySelector("img");
+        if (img && g.image) img.src = g.image;
+        const pt = btn.querySelector(".point");
+        if (pt) pt.style.display = "block";
+      }
+      return btn;
+    }
+
+    function focusGameApp(idx) {
+      const win = _gameAppWindows[idx];
+      if (!win) {
+        if (typeof STEAM_GAMES !== "undefined" && STEAM_GAMES[idx]) {
+          openGameApp(idx);
+        }
+        return;
+      }
+      win.classList.add("active");
+      win.style.display = "flex";
+      win.style.zIndex = String(88 + (idx % 10));
+      try { if (win.parentElement) win.parentElement.appendChild(win); } catch (e) {}
+      const dockBtn = document.getElementById("dock-game-app-" + idx);
+      if (dockBtn) {
+        const pt = dockBtn.querySelector(".point");
+        if (pt) pt.style.display = "block";
+      }
+    }
+
+    function closeGameApp(idx) {
+      const win = _gameAppWindows[idx];
+      if (win) {
+        const frame = win.querySelector("iframe");
+        if (frame) {
+          try { frame.src = "about:blank"; frame.removeAttribute("srcdoc"); } catch (e) {}
+        }
+        win.remove();
+        delete _gameAppWindows[idx];
+      }
+      const dockBtn = document.getElementById("dock-game-app-" + idx);
+      if (dockBtn) dockBtn.remove();
+    }
+
+    function openGameApp(idx) {
+      const g = STEAM_GAMES[idx];
+      if (!g || !g.url) return;
+
+      // Reuse existing window for this game
+      if (_gameAppWindows[idx]) {
+        focusGameApp(idx);
+        return;
+      }
+
+      const host = document.getElementById("game-apps-host") || document.body;
+      const win = document.createElement("div");
+      win.className = "window game-app active";
+      win.id = "game-app-" + idx;
+      win.dataset.gameIdx = String(idx);
+      // Stagger position so multiple games don't stack perfectly
+      const offset = (Object.keys(_gameAppWindows).length % 6) * 28;
+      win.style.top = (8 + offset / 10) + "%";
+      win.style.left = (10 + offset / 8) + "%";
+      win.style.zIndex = String(88 + (idx % 10));
+      win.style.display = "flex";
+
+      const safeTitle = (g.title || "Game").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+      const safeImg = (g.image || "").replace(/"/g, "&quot;");
+
+      win.innerHTML =
+        '<div class="window__taskbar">' +
+          '<div class="window__taskbar--actions">' +
+            '<button type="button" class="close-game-app" title="Close"></button>' +
+            '<button type="button" class="min-game-app" title="Minimize"></button>' +
+            '<button type="button" class="full-game-app" title="Maximize"></button>' +
+          '</div>' +
+          '<div class="game-app-title-wrap">' +
+            '<img class="game-app-icon" src="' + safeImg + '" alt="" onerror="this.style.display=\'none\'">' +
+            '<h2 class="game-app-title">' + safeTitle + '</h2>' +
+          '</div>' +
+        '</div>' +
+        '<div class="game-app-body">' +
+          '<div class="game-app-loading show"><div class="spinner"></div><div>Loading ' + safeTitle + '…</div></div>' +
+          '<iframe src="about:blank" allow="fullscreen; autoplay; gamepad; keyboard-map; clipboard-write" allowfullscreen></iframe>' +
+        '</div>';
+
+      host.appendChild(win);
+      _gameAppWindows[idx] = win;
+      ensureGameAppDockIcon(idx, g);
+      if (typeof setMenuAppName === "function") setMenuAppName(g.title || "Games");
+
+      // Controls
+      win.querySelector(".close-game-app").addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeGameApp(idx);
+      });
+      win.querySelector(".min-game-app").addEventListener("click", (e) => {
+        e.stopPropagation();
+        win.style.display = "none";
+        win.classList.remove("active");
+      });
+      win.querySelector(".full-game-app").addEventListener("click", (e) => {
+        e.stopPropagation();
+        win.classList.toggle("is-maximized");
+      });
+
+      // Draggable
+      if (window.jQuery) {
+        try {
+          $(win).draggable({
+            handle: ".window__taskbar",
+            cancel: "button, iframe",
+            containment: "window",
+            start: function(ev) {
+              if (this.classList.contains("is-maximized")) {
+                ev.preventDefault();
+                return false;
+              }
+            }
+          });
+        } catch (e) {}
+      }
+
+      // Load game
+      const frame = win.querySelector("iframe");
+      const loading = win.querySelector(".game-app-loading");
+      const url = g.url;
+
+      fetch(url, { mode: "cors" })
+        .then(r => {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.text();
+        })
+        .then(htmlText => {
+          let base = url.replace(/\/[^\/]*$/, "/");
+          if (!/<base\s/i.test(htmlText)) {
+            if (/<head[^>]*>/i.test(htmlText)) {
+              htmlText = htmlText.replace(/<head([^>]*)>/i, '<head$1><base href="' + base + '">');
+            } else {
+              htmlText = '<base href="' + base + '">' + htmlText;
+            }
+          }
+          frame.srcdoc = htmlText;
+          if (loading) loading.classList.remove("show");
+        })
+        .catch(errObj => {
+          console.warn("Game app fetch failed, direct src", errObj);
+          frame.src = url;
+          if (loading) loading.classList.remove("show");
+        });
+
+      try {
+        if (typeof navbar !== "undefined" && navbar) navbar.style.display = "flex";
+        if (typeof launchpad !== "undefined" && launchpad) launchpad.style.display = "none";
+        if (typeof container !== "undefined" && container) container.style.display = "flex";
+      } catch (e) {}
+    }
+    window.openGameApp = openGameApp;
+    // set menu name when game opens — patched in openGameApp body
+
+    window.closeGameApp = closeGameApp;
+    window.focusGameApp = focusGameApp;
+
     function playSteamGame(idx) {
       if (idx == null || idx === undefined) idx = _currentGameIdx;
       const g = STEAM_GAMES[idx];
@@ -3303,64 +5120,34 @@
       }
       _currentPlayUrl = g.url;
       _currentGameIdx = idx;
-      const playView = document.getElementById("steam-play-view");
-      const frame = document.getElementById("steam-play-frame");
-      const title = document.getElementById("steam-play-title");
-      const err = document.getElementById("steam-play-error");
-      const detail = document.getElementById("steam-detail-view");
-      const lib = document.getElementById("steam-library");
-      if (detail) { detail.classList.remove("active"); detail.style.display = "none"; }
-      if (lib) {
-        lib.classList.add("has-playing");
-        lib.classList.remove("has-detail");
-        lib.classList.add("active");
-        lib.style.display = "none";
-      }
-      if (title) title.textContent = g.title + " — Loading…";
-      if (err) err.style.display = "none";
-      if (playView) {
-        playView.classList.add("active");
-        playView.style.display = "flex";
-      }
-      if (!frame) return;
 
-      // Clear previous
-      frame.removeAttribute("srcdoc");
-      frame.src = "about:blank";
+      // Each game is its own macOS app (window + dock icon with game art)
+      openGameApp(idx);
 
-      // Many CDNs serve HTML as text/plain which blocks iframe rendering.
-      // Fetch the HTML (CORS is open) and inject via srcdoc instead.
-      fetch(g.url, { mode: "cors" })
-        .then(r => {
-          if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.text();
-        })
-        .then(htmlText => {
-          // Fix relative asset paths by injecting <base href="...">
-          let base = g.url.replace(/\/[^\/]*$/, "/");
-          // if url ends with .html directly under a folder, base is that folder
-          if (!/<base\s/i.test(htmlText)) {
-            if (/<head[^>]*>/i.test(htmlText)) {
-              htmlText = htmlText.replace(/<head([^>]*)>/i, '<head$1><base href="' + base + '">');
-            } else {
-              htmlText = '<base href="' + base + '">' + htmlText;
-            }
-          }
-          if (title) title.textContent = g.title;
-          frame.srcdoc = htmlText;
-        })
-        .catch(errObj => {
-          console.warn("Steam embed failed, trying direct src", errObj);
-          // Fallback: try direct iframe src, then external tab
-          frame.src = g.url;
-          if (title) title.textContent = g.title;
-          setTimeout(() => {
-            // If still blank-ish, show error with open external option
-            try {
-              // cannot read cross-origin; just offer external
-            } catch (e) {}
-          }, 2000);
-        });
+      // Keep Steam on the game detail page
+      try {
+        const playView = document.getElementById("steam-play-view");
+        const frame = document.getElementById("steam-play-frame");
+        if (playView) {
+          playView.classList.remove("active");
+          playView.style.display = "none";
+        }
+        if (frame) {
+          try { frame.src = "about:blank"; frame.removeAttribute("srcdoc"); } catch (e) {}
+        }
+        const lib = document.getElementById("steam-library");
+        if (lib) {
+          lib.classList.remove("has-playing");
+          lib.classList.add("has-detail");
+        }
+        if (typeof showSteamDetail === "function") showSteamDetail(idx);
+      } catch (e) {}
+    }
+    window.playSteamGame = playSteamGame;
+
+    function openCurrentGameExternal() {
+      if (_currentGameIdx >= 0) openGameApp(_currentGameIdx);
+      else if (_currentPlayUrl) window.open(_currentPlayUrl, "_blank", "noopener");
     }
 
     function backToSteamLibrary() {
@@ -3401,10 +5188,6 @@
     // Global so inline onclick works even if listeners fail
     window.backToSteamLibrary = backToSteamLibrary;
     window.hideSteamDetail = function() { backToSteamLibrary(); };
-
-    function openCurrentGameExternal() {
-      if (_currentPlayUrl) window.open(_currentPlayUrl, "_blank", "noopener");
-    }
 
     setTimeout(() => {
       renderSteamLibrary();
@@ -3602,6 +5385,29 @@
           else if (command === "pwd") output = path + "/<br>";
           else if (command.startsWith("mkdir ")) { dirs.push(command.slice(6)); output = ""; }
           else if (command === "clear") { $(".terminal_content").html(""); output = ""; }
+          else if (/^sudo\s+apt(?:-get)?\s+install\b/i.test(command)) {
+            const pkg = (command.match(/^sudo\s+apt(?:-get)?\s+install\s+(\S+)/i) || [])[1] || "dev";
+            const name = pkg.trim() || "dev";
+            output = [
+              "Reading package lists... Done",
+              "Building dependency tree... Done",
+              "Reading state information... Done",
+              "The following NEW packages will be installed:",
+              "  " + name,
+              "0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.",
+              "Need to get 4,218 kB of archives.",
+              "After this operation, 18.6 MB of additional disk space will be used.",
+              "Get:1 https://archive.nyx.local/ubuntu jammy/main amd64 " + name + " amd64 1.0.0-1 [4,218 kB]",
+              "Fetched 4,218 kB in 0s (42.1 MB/s)",
+              "Selecting previously unselected package " + name + ".",
+              "(Reading database ... 184221 files and directories currently installed.)",
+              "Preparing to unpack ..." + name + "_1.0.0-1_amd64.deb ...",
+              "Unpacking " + name + " (1.0.0-1) ...",
+              "Setting up " + name + " (1.0.0-1) ...",
+              "Processing triggers for man-db (2.10.2-1) ..."
+            ].join("<br>") + "<br>";
+          }
+
           $(this).removeAttr("contenteditable").removeClass("cursor");
           $(".terminal_content").append(output).append(terminal_line_html.replace("~", path));
           placeCaretAtEnd(document.querySelector(".cursor"));
@@ -3639,10 +5445,14 @@
       menu.classList.remove("is-open");
     });
     document.addEventListener("contextmenu", e => {
+      // Dock icons handled by wireDockContextMenu (capture)
+      if (e.target.closest && e.target.closest(".dock .icon")) return;
       e.preventDefault();
       const menu = document.getElementById("contextMenu");
       if (!menu) return;
+      menu.style.display = "block";
       menu.style.opacity = "1";
+      menu.style.pointerEvents = "auto";
       menu.classList.add("is-open");
       menu.style.left = Math.min(e.pageX, window.innerWidth - 260) + "px";
       menu.style.top = Math.min(e.pageY, window.innerHeight - 320) + "px";
@@ -3650,32 +5460,35 @@
 
     
     // ===== Desktop backgrounds (user-controlled only) =====
-    const DESKTOP_BACKGROUNDS = [
-      { name: "Iridescence", version: "macOS Sonoma-style", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/iridescence.jpg" },
-      { name: "Big Sur Waves", version: "macOS Big Sur", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/2.jpg" },
-      { name: "Lock Screen", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/lock.gif" },
-      { name: "Puma", version: "Mac OS X 10.0 / 10.1", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.0-10.1-puma.jpeg" },
-      { name: "Jaguar", version: "Mac OS X 10.2 Jaguar", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.2-jaguar.jpeg" },
-      { name: "Panther", version: "Mac OS X 10.3 Panther", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.3-panther.jpeg" },
-      { name: "Tiger", version: "Mac OS X 10.4 Tiger", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.4-tiger.jpeg" },
-      { name: "Leopard", version: "Mac OS X 10.5 Leopard", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.5-leopard.jpeg" },
-      { name: "Snow Leopard", version: "Mac OS X 10.6 Snow Leopard", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.6-snow-leopard.jpeg" },
-      { name: "Snow Leopard Server", version: "Mac OS X 10.6 Server", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.6-snow-leopard-server.jpeg" },
-      { name: "Lion", version: "OS X 10.7 Lion", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.7-lion.jpeg" },
-      { name: "Mountain Lion", version: "OS X 10.8 Mountain Lion", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.8-mountain-lion.jpeg" },
-      { name: "Mavericks", version: "OS X 10.9 Mavericks", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.9-mavericks.jpeg" },
-      { name: "Yosemite", version: "OS X 10.10 Yosemite", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.10-yosemite.jpeg" },
-      { name: "El Capitan", version: "OS X 10.11 El Capitan", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/classic-os-x/10.11-el-capitan.jpeg" },
-      { name: "Sierra", version: "macOS 10.12 Sierra", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/10.12-sierra.jpeg" },
-      { name: "High Sierra", version: "macOS 10.13 High Sierra", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/10.13-high-sierra.jpeg" },
-      { name: "Mojave Day", version: "macOS 10.14 Mojave", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/10.14-mojave-day.jpeg" },
-      { name: "Mojave Night", version: "macOS 10.14 Mojave", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/10.14-mojave-night.jpeg" },
-      { name: "Catalina Day", version: "macOS 10.15 Catalina", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/10.15-catalina-day.jpeg" },
-      { name: "Catalina Night", version: "macOS 10.15 Catalina", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/10.15-catalina-night.jpeg" },
-      { name: "Big Sur Day", version: "macOS 11 Big Sur", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/11.0-big-sur-day.jpeg" },
-      { name: "Big Sur Night", version: "macOS 11 Big Sur", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/11.0-big-sur-night.jpeg" },
-      { name: "Big Sur Colorful Day", version: "macOS 11 Big Sur", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/11.0-big-sur-colorful-day.jpeg" },
-      { name: "Big Sur Colorful Night", version: "macOS 11 Big Sur", url: "https://raw.githubusercontent.com/kiralabs/macos-wallpapers/main/modern-macos/11.0-big-sur-colorful-night.jpeg" }
+        const DESKTOP_BACKGROUNDS = [
+      { name: "Ventura Default", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/ventura.jpg" },
+      { name: "Monterey Default", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/monterey.jpeg" },
+      { name: "Big Sur Waves", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/bigsur.jpg" },
+      { name: "Catalina Coast", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/catalina.jpg" },
+      { name: "Mojave Day", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/mojave-day.jpg" },
+      { name: "Mojave Night", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/mojave-night.jpg" },
+      { name: "High Sierra", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/highsierra.jpg" },
+      { name: "Sierra", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/sierra.jpg" },
+      { name: "El Capitan", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/elcapitan.jpg" },
+      { name: "Yosemite", version: "macOS", url: "https://cdn.jsdelivr.net/gh/sickcodes/Docker-OSX@master/wallpaper/yosemite.jpg" },
+      { name: "Iridescence", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/iridescence.jpg" },
+      { name: "Big Sur Graphic", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/bigsur.jpg" },
+      { name: "Monterey Blue", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/monterey.jpg" },
+      { name: "Ventura Abstract", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/ventura.jpg" },
+      { name: "Sonoma Horizon", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/sonoma.jpg" },
+      { name: "Sequoia", version: "macOS", url: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/background/sequoia.jpg" },
+      { name: "Peak", version: "macOS", url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=2560&q=80" },
+      { name: "Lake", version: "macOS", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=2560&q=80" },
+      { name: "Desert Dunes", version: "macOS", url: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=2560&q=80" },
+      { name: "Aurora", version: "macOS", url: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=2560&q=80" },
+      { name: "Ocean", version: "macOS", url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?w=2560&q=80" },
+      { name: "Forest Mist", version: "macOS", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2560&q=80" },
+      { name: "Night City", version: "macOS", url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=2560&q=80" },
+      { name: "Soft Gradient", version: "macOS", url: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=2560&q=80" },
+      { name: "Purple Haze", version: "macOS", url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=2560&q=80" },
+      { name: "Blue Abstract", version: "macOS", url: "https://images.unsplash.com/photo-1557683316-973635b45613?w=2560&q=80" },
+      { name: "Dark Waves", version: "macOS", url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2560&q=80" },
+      { name: "Minimal Light", version: "macOS", url: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=2560&q=80" },
     ];
 
     let _bgIndex = 0;
@@ -3778,6 +5591,8 @@ window.setDesktopBackground = setDesktopBackground;
     let _settingsDragWired = false;
     function openSettings() {
       window.openSettings = openSettings;
+      if (typeof setMenuAppName === "function") setMenuAppName("System Settings");
+
       const win = document.getElementById("settings-window");
       if (!win) { console.warn("settings-window missing"); return; }
       try {
@@ -3970,8 +5785,9 @@ window.setDesktopBackground = setDesktopBackground;
     const point_safari = document.getElementById("point-safari");
 
 
-    // ===== Safari in-window browser (plain chrome; transport unchanged) =====
-    const NYX_PROXY_HTML = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n  <meta name=\"color-scheme\" content=\"dark\">\n  <title>Safari</title>\n  <style>\n    :root {\n      color-scheme: dark;\n      --bg: #1c1c1e;\n      --bar: #2c2c2e;\n      --line: rgba(255,255,255,0.08);\n      --text: #f5f5f7;\n      --muted: #98989d;\n      --accent: #0a84ff;\n      --ok: #30d158;\n      --bad: #ff453a;\n      font-family: -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI\", Inter, system-ui, sans-serif;\n    }\n    * { box-sizing: border-box; }\n    html, body { margin: 0; width: 100%; height: 100%; background: var(--bg); color: var(--text); overflow: hidden; }\n    .app { display: grid; grid-template-rows: auto 1fr; height: 100%; }\n    .top {\n      display: flex; align-items: center; gap: 8px;\n      padding: 8px 12px; background: var(--bar);\n      border-bottom: 1px solid var(--line);\n    }\n    .nav-btns { display: flex; gap: 4px; flex-shrink: 0; }\n    .nav-btns button {\n      width: 28px; height: 28px; border-radius: 6px;\n      background: rgba(255,255,255,0.08); color: var(--text);\n      border: none; cursor: pointer; font-size: 14px;\n      display: flex; align-items: center; justify-content: center;\n    }\n    .nav-btns button:hover { background: rgba(255,255,255,0.16); }\n    .nav-btns button:disabled { opacity: 0.35; cursor: default; }\n    .urlbar {\n      flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0;\n      height: 30px; border-radius: 8px;\n      background: rgba(0,0,0,0.35); border: 1px solid transparent;\n      padding: 0 12px;\n    }\n    .urlbar:focus-within { border-color: rgba(10,132,255,0.55); box-shadow: 0 0 0 2px rgba(10,132,255,0.2); }\n    .lock {\n      width: 12px; height: 12px; flex-shrink: 0; opacity: 0.55;\n    }\n    .urlbar input {\n      flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;\n      color: var(--text); font-size: 13px; padding: 0;\n    }\n    .urlbar input::placeholder { color: var(--muted); }\n    .go {\n      height: 28px; padding: 0 14px; border-radius: 7px; border: none;\n      background: var(--accent); color: #fff; font-size: 13px; font-weight: 600;\n      cursor: pointer; flex-shrink: 0;\n    }\n    .go:hover { background: #0071e3; }\n    .status-dot {\n      width: 7px; height: 7px; border-radius: 50%; background: var(--muted);\n      flex-shrink: 0; margin-left: 4px;\n    }\n    .status-dot.ok { background: var(--ok); }\n    .status-dot.bad { background: var(--bad); }\n    .stage { position: relative; min-height: 0; background: #fff; }\n    #view { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }\n    .boot {\n      position: absolute; inset: 0; display: grid; place-items: center; z-index: 3;\n      background: var(--bg); transition: opacity .15s, visibility .15s;\n    }\n    .boot.hidden { opacity: 0; visibility: hidden; pointer-events: none; }\n    .boot-inner { text-align: center; max-width: 22rem; padding: 1.5rem; }\n    .spinner {\n      width: 28px; height: 28px; margin: 0 auto 14px;\n      border: 2.5px solid rgba(255,255,255,.12); border-top-color: var(--accent);\n      border-radius: 50%; animation: spin .7s linear infinite;\n    }\n    @keyframes spin { to { transform: rotate(360deg); } }\n    .boot h1 { margin: 0 0 6px; font-size: 15px; font-weight: 600; color: var(--text); }\n    .boot p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }\n    .boot .err { color: var(--bad); margin-top: 10px; font-size: 12px; }\n    .adv {\n      display: none; position: absolute; top: 44px; right: 12px; z-index: 20;\n      background: #2c2c2e; border: 1px solid var(--line); border-radius: 10px;\n      padding: 12px; width: 280px; box-shadow: 0 12px 40px rgba(0,0,0,0.45);\n      font-size: 12px; color: var(--muted);\n    }\n    .adv.open { display: block; }\n    .adv label { display: block; margin-bottom: 8px; }\n    .adv select, .adv input[type=\"text\"] {\n      width: 100%; margin-top: 4px; background: rgba(0,0,0,0.4);\n      border: 1px solid var(--line); color: var(--text); border-radius: 6px;\n      padding: 7px 8px; font-size: 12px;\n    }\n    .adv button {\n      margin-top: 8px; width: 100%; border: none; border-radius: 6px;\n      padding: 8px; background: var(--accent); color: #fff; font-weight: 600;\n      cursor: pointer; font-size: 12px;\n    }\n    .gear {\n      width: 28px; height: 28px; border-radius: 6px; border: none;\n      background: transparent; color: var(--muted); cursor: pointer; font-size: 14px;\n      flex-shrink: 0;\n    }\n    .gear:hover { color: var(--text); background: rgba(255,255,255,0.08); }\n    .gear, .adv, #gear, #adv, .status-dot { display: none !important; visibility: hidden !important; pointer-events: none !important; width: 0 !important; height: 0 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; border: 0 !important; }\n  <\/style>\n</head>\n<body>\n  <div class=\"app\">\n    <div class=\"top\">\n      <div class=\"nav-btns\">\n        <button type=\"button\" id=\"back\" title=\"Back\" aria-label=\"Back\">\u2190</button>\n        <button type=\"button\" id=\"fwd\" title=\"Forward\" aria-label=\"Forward\">\u2192</button>\n        <button type=\"button\" id=\"reload\" title=\"Reload\" aria-label=\"Reload\">\u21bb</button>\n      </div>\n      <div class=\"urlbar\">\n        <svg class=\"lock\" viewBox=\"0 0 12 12\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M6 1a2.5 2.5 0 00-2.5 2.5V5H3a1 1 0 00-1 1v4a1 1 0 001 1h6a1 1 0 001-1V6a1 1 0 00-1-1H8.5V3.5A2.5 2.5 0 006 1zm1.5 4H4.5V3.5a1.5 1.5 0 113 0V5z\"/></svg>\n        <input id=\"url\" type=\"text\" value=\"https://example.com\" placeholder=\"Search or enter website name\" spellcheck=\"false\" autocomplete=\"off\">\n        <span class=\"status-dot\" id=\"dot\" title=\"Connection\"></span>\n      </div>\n      <button type=\"button\" class=\"go\" id=\"go\">Go</button>\n    </div>\n    <div class=\"adv\" id=\"adv\">\n      <label>Server\n        <select id=\"wispSelect\">\n          <option value=\"wss://copium-wisp-9529463.onrender.com/wisp/\" selected>Nyx</option>\n          <option value=\"wss://anura.pro/\">Anura</option>\n          <option value=\"wss://wisp.mercurywork.shop/\">Mercury</option>\n          <option value=\"custom\">Custom\u2026</option>\n        </select>\n      </label>\n      <label id=\"customWrap\" hidden>Custom URL\n        <input id=\"wispCustom\" type=\"text\" placeholder=\"wss://host/\" spellcheck=\"false\">\n      </label>\n      <button type=\"button\" id=\"reconnect\">Apply</button>\n    </div>\n    <div class=\"stage\">\n      <div class=\"boot\" id=\"boot\">\n        <div class=\"boot-inner\">\n          <div class=\"spinner\" id=\"spin\"></div>\n          <h1 id=\"bootTitle\">Loading</h1>\n          <p id=\"bootStatus\">Starting browser\u2026</p>\n          <p class=\"err\" id=\"bootErr\" hidden></p>\n        </div>\n      </div>\n      <iframe id=\"view\" title=\"Page\" sandbox=\"allow-scripts allow-same-origin allow-forms allow-popups allow-modals\"></iframe>\n    </div>\n  </div>\n\n  <script type=\"module\">\n  const $ = (id) => document.getElementById(id);\n  const urlInput = $(\"url\");\n  const view = $(\"view\");\n  const boot = $(\"boot\");\n  const bootStatus = $(\"bootStatus\");\n  const bootTitle = $(\"bootTitle\");\n  const bootErr = $(\"bootErr\");\n  const dot = $(\"dot\");\n  const wispSelect = $(\"wispSelect\");\n  const wispCustom = $(\"wispCustom\");\n  const customWrap = $(\"customWrap\");\n  const adv = $(\"adv\");\n\n  let ready = false;\n  let historyStack = [];\n  let histIdx = -1;\n  let currentPageUrl = \"\";\n\n  function setConn(ok) {\n    dot.classList.toggle(\"ok\", !!ok);\n    dot.classList.toggle(\"bad\", !ok);\n  }\n  function showBoot(title, msg, err) {\n    boot.classList.remove(\"hidden\");\n    if (bootTitle) bootTitle.textContent = title || \"Loading\";\n    bootStatus.textContent = msg || \"Please wait\u2026\";\n    if (err) { bootErr.hidden = false; bootErr.textContent = err; }\n    else { bootErr.hidden = true; bootErr.textContent = \"\"; }\n  }\n  function hideBoot() { boot.classList.add(\"hidden\"); }\n\n  function currentWisp() {\n    if (wispSelect.value === \"custom\") {\n      let u = (wispCustom.value || \"\").trim();\n      if (u && !u.endsWith(\"/\")) u += \"/\";\n      return u;\n    }\n    return wispSelect.value;\n  }\n\n  function normalizeUrl(raw, base) {\n    let u = (raw || \"\").trim();\n    if (!u) return \"\";\n    if (/^https?:\\/\\//i.test(u)) {\n      try { return new URL(u).href; } catch { return u; }\n    }\n    if (u.startsWith(\"//\")) {\n      try { return new URL(\"https:\" + u).href; } catch { return \"https:\" + u; }\n    }\n    if (/^(?:\\.\\/|\\.\\.\\/|\\/|\\?|#)/.test(u)) {\n      const baseHref = base || currentPageUrl || \"https://example.com/\";\n      try { return new URL(u, baseHref).href; } catch { return u; }\n    }\n    if (/^[a-z0-9_-]+\\.(html?|php|aspx?|jsp|cgi)(\\?.*)?$/i.test(u)) {\n      const baseHref = base || currentPageUrl || \"https://example.com/\";\n      try { return new URL(u, baseHref).href; } catch { return u; }\n    }\n    if (/^localhost(:\\d+)?(\\/.*)?$/i.test(u)\n        || /^[a-z0-9.-]+\\.[a-z]{2,}(:\\d+)?(\\/.*)?$/i.test(u)\n        || /^\\d{1,3}(\\.\\d{1,3}){3}(:\\d+)?(\\/.*)?$/.test(u)) {\n      try { return new URL(\"https://\" + u).href; } catch { return \"https://\" + u; }\n    }\n    if (u.includes(\".\") && !u.includes(\" \")) {\n      try { return new URL(\"https://\" + u).href; } catch { return \"https://\" + u; }\n    }\n    const baseHref = base || currentPageUrl || \"https://example.com/\";\n    try { return new URL(u, baseHref).href; } catch { return \"https://\" + u; }\n  }\n\n  async function loadLibcurl() {\n    showBoot(\"Loading\", \"Preparing browser\u2026\");\n    const mod = await import(\"https://cdn.jsdelivr.net/npm/libcurl.js@0.7.4/libcurl_full.mjs\");\n    const libcurl = mod.libcurl || mod.default || mod;\n    if (typeof libcurl.load_wasm === \"function\") {\n      try { await libcurl.load_wasm(); } catch (_) {}\n    }\n    if (typeof libcurl.set_websocket !== \"function\" || typeof libcurl.fetch !== \"function\") {\n      throw new Error(\"Browser engine failed to initialize\");\n    }\n    return libcurl;\n  }\n\n  let libcurl = null;\n\n  async function connectWisp() {\n    const wisp = currentWisp();\n    if (!wisp) {\n      setConn(false);\n      showBoot(\"Unavailable\", \"Could not start browsing\", \"No server configured\");\n      return false;\n    }\n    showBoot(\"Loading\", \"Connecting\u2026\");\n    setConn(false);\n    try {\n      if (!libcurl) libcurl = await loadLibcurl();\n      libcurl.set_websocket(wisp);\n      showBoot(\"Loading\", \"Opening page\u2026\");\n      const probe = await libcurl.fetch(\"https://example.com/\", { redirect: \"follow\" });\n      const ok = probe && (probe.status >= 200 && probe.status < 500);\n      if (!ok) throw new Error(\"Connection check failed\");\n      ready = true;\n      setConn(true);\n      try { localStorage.setItem(\"nyx_wisp\", wisp); } catch (_) {}\n      hideBoot();\n      return true;\n    } catch (e) {\n      ready = false;\n      setConn(false);\n      showBoot(\n        \"Can\u2019t connect\",\n        \"Check your connection and try again\",\n        String(e && e.message ? e.message : e)\n      );\n      return false;\n    }\n  }\n\n  function rewriteHtml(html, pageUrl) {\n    try {\n      const base = new URL(pageUrl);\n      const baseTag = `<base href=\"${base.href}\">`;\n      if (/<head[^>]*>/i.test(html)) {\n        html = html.replace(/<head([^>]*)>/i, `<head$1>${baseTag}`);\n      } else {\n        html = baseTag + html;\n      }\n    } catch (_) {}\n    return html;\n  }\n\n  async function navigate(raw, push = true) {\n    const u = normalizeUrl(raw);\n    if (!u) return;\n    urlInput.value = u;\n    if (!ready || !libcurl) {\n      const ok = await connectWisp();\n      if (!ok) return;\n    }\n    showBoot(\"Loading\", u.replace(/^https?:\\/\\//, \"\"));\n    try {\n      const res = await libcurl.fetch(u, { redirect: \"follow\" });\n      const status = res.status;\n      const ctype = (res.headers && (res.headers.get && res.headers.get(\"content-type\"))) || \"\";\n      let body;\n      if (ctype.includes(\"text/\") || ctype.includes(\"json\") || ctype.includes(\"xml\") || ctype.includes(\"javascript\") || !ctype) {\n        body = await res.text();\n      } else {\n        const buf = await res.arrayBuffer();\n        const blob = new Blob([buf], { type: ctype || \"application/octet-stream\" });\n        const blobUrl = URL.createObjectURL(blob);\n        view.src = blobUrl;\n        currentPageUrl = u;\n        if (push) {\n          historyStack = historyStack.slice(0, histIdx + 1);\n          historyStack.push(u);\n          histIdx = historyStack.length - 1;\n        }\n        hideBoot();\n        return;\n      }\n\n      if (ctype.includes(\"text/html\") || /^\\s*</.test(body)) {\n        const html = rewriteHtml(body, u);\n        view.srcdoc = html;\n      } else {\n        view.srcdoc = `<pre style=\"white-space:pre-wrap;padding:16px;font:13px/1.45 ui-monospace,monospace\">${\n          body.replace(/[&<>]/g, (c) => ({ \"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\" }[c]))\n        }</pre>`;\n      }\n      currentPageUrl = u;\n      if (push) {\n        historyStack = historyStack.slice(0, histIdx + 1);\n        historyStack.push(u);\n        histIdx = historyStack.length - 1;\n      }\n      hideBoot();\n      setConn(true);\n    } catch (e) {\n      showBoot(\"Page failed\", \"This page couldn\u2019t be loaded\", String(e && e.message ? e.message : e));\n      setConn(false);\n    }\n  }\n\n  wispSelect.addEventListener(\"change\", () => {\n    customWrap.hidden = wispSelect.value !== \"custom\";\n  });\n  $(\"go\").addEventListener(\"click\", () => navigate(urlInput.value));\n  urlInput.addEventListener(\"keydown\", (e) => { if (e.key === \"Enter\") navigate(urlInput.value); });\n  $(\"back\").addEventListener(\"click\", () => {\n    if (histIdx > 0) { histIdx--; navigate(historyStack[histIdx], false); }\n  });\n  $(\"fwd\").addEventListener(\"click\", () => {\n    if (histIdx < historyStack.length - 1) { histIdx++; navigate(historyStack[histIdx], false); }\n  });\n  $(\"reload\").addEventListener(\"click\", () => {\n    if (histIdx >= 0) navigate(historyStack[histIdx], false);\n    else navigate(urlInput.value, false);\n  });\n  $(\"reconnect\").addEventListener(\"click\", () => {\n    adv.classList.remove(\"open\");\n    connectWisp();\n  });\n  $(\"gear\").addEventListener(\"click\", (e) => {\n    e.stopPropagation();\n    adv.classList.toggle(\"open\");\n  });\n  document.addEventListener(\"click\", (e) => {\n    if (!adv.contains(e.target) && e.target !== $(\"gear\")) adv.classList.remove(\"open\");\n  });\n\n  try {\n    const NYX_DEFAULT = \"wss://copium-wisp-9529463.onrender.com/wisp/\";\n    const saved = localStorage.getItem(\"nyx_wisp\");\n    const legacy = new Set([\"wss://anura.pro/\", \"wss://wisp.mercurywork.shop/\"]);\n    if (saved && !legacy.has(saved)) {\n      const opts = [...wispSelect.options].map((o) => o.value);\n      if (opts.includes(saved)) wispSelect.value = saved;\n      else { wispSelect.value = \"custom\"; customWrap.hidden = false; wispCustom.value = saved; }\n    } else {\n      wispSelect.value = NYX_DEFAULT;\n      try { localStorage.setItem(\"nyx_wisp\", NYX_DEFAULT); } catch (_) {}\n    }\n  } catch (_) {}\n\n  (async () => {\n    const ok = await connectWisp();\n    if (ok) navigate(urlInput.value || \"https://example.com\");\n  })();\n  <\/script>\n</body>\n</html>\n";
+    // ===== Safari in-window browser (Scramjet v2 + Wisp; libcurl fallback) =====
+    const NYX_PROXY_HTML = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Start Page</title>\n  <style>\n    :root {\n      color-scheme: light dark;\n      --bg: #e8e8ed;\n      --card: #ffffff;\n      --text: #1d1d1f;\n      --muted: #6e6e73;\n      --accent: #007aff;\n      font-family: -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI\", system-ui, sans-serif;\n    }\n    * { box-sizing: border-box; }\n    html, body { margin: 0; width: 100%; height: 100%; background: var(--bg); color: var(--text); }\n    .page { height: 100%; display: flex; flex-direction: column; }\n    #content { flex: 1; min-height: 0; position: relative; }\n    #view { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; display: none; }\n    #start {\n      height: 100%; overflow: auto;\n      display: flex; flex-direction: column; align-items: center;\n      padding: 48px 24px 40px;\n    }\n    .start-search-wrap {\n      width: min(560px, 92%);\n      margin-bottom: 36px;\n    }\n    .start-search {\n      width: 100%; height: 40px; border-radius: 12px;\n      border: none; background: rgba(255,255,255,0.85);\n      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);\n      padding: 0 16px 0 40px; font-size: 15px; color: var(--text); outline: none;\n      background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238e8e93' viewBox='0 0 24 24'%3E%3Cpath d='M11 4a7 7 0 015.52 11.27l4.1 4.1a1 1 0 01-1.41 1.42l-4.1-4.1A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z'/%3E%3C/svg%3E\");\n      background-repeat: no-repeat; background-position: 14px center;\n    }\n    .start-search:focus { box-shadow: 0 0 0 3px rgba(0,122,255,0.25), 0 1px 3px rgba(0,0,0,0.08); }\n    .favorites-label {\n      width: min(720px, 96%);\n      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;\n      margin: 0 0 18px; color: var(--text);\n    }\n    .favorites {\n      width: min(720px, 96%);\n      display: grid;\n      grid-template-columns: repeat(8, minmax(0, 1fr));\n      gap: 18px 12px;\n      justify-items: center;\n    }\n    @media (max-width: 700px) {\n      .favorites { grid-template-columns: repeat(4, minmax(0, 1fr)); }\n    }\n    .fav {\n      display: flex; flex-direction: column; align-items: center; gap: 8px;\n      border: none; background: transparent; cursor: pointer; padding: 0;\n      color: var(--text); font: inherit;\n    }\n    .fav-icon {\n      width: 56px; height: 56px; border-radius: 14px;\n      background: #fff;\n      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);\n      display: grid; place-items: center;\n      font-size: 22px; font-weight: 700;\n      overflow: hidden;\n    }\n    .fav-icon img { width: 28px; height: 28px; object-fit: contain; }\n    .fav-icon.apple { background: #fff; }\n    .fav-icon.icloud { background: #fff; }\n    .fav-icon.yahoo { background: #6001d2; color: #fff; font-size: 11px; font-weight: 800; }\n    .fav-icon.bing { background: #00809d; color: #fff; }\n    .fav-icon.google { background: #fff; }\n    .fav-icon.wiki { background: #fff; }\n    .fav-icon.fb { background: #1877f2; color: #fff; font-size: 26px; }\n    .fav-icon.tw { background: #e7e7e8; color: #1d1d1f; font-weight: 800; }\n    .fav span { font-size: 12px; color: var(--muted); }\n    .boot {\n      position: absolute; inset: 0; display: none; place-items: center;\n      background: var(--bg); z-index: 2;\n    }\n    .boot.show { display: grid; }\n    .boot-inner { text-align: center; color: var(--muted); font-size: 14px; }\n    .spinner {\n      width: 28px; height: 28px; margin: 0 auto 12px;\n      border: 2.5px solid rgba(0,0,0,.1); border-top-color: var(--accent);\n      border-radius: 50%; animation: spin .7s linear infinite;\n    }\n    @keyframes spin { to { transform: rotate(360deg); } }\n    .whats-new {\n      position: absolute; inset: 0; display: grid; place-items: center;\n      background: rgba(0,0,0,0.18); z-index: 5;\n    }\n    .whats-new.hidden { display: none; }\n    .whats-new-card {\n      width: min(560px, 92%);\n      background: #fff; border-radius: 16px;\n      box-shadow: 0 20px 50px rgba(0,0,0,0.25);\n      padding: 28px 28px 24px; position: relative;\n    }\n    .whats-new-card h2 {\n      margin: 0 0 22px; text-align: center; font-size: 22px; font-weight: 700;\n    }\n    .whats-new-grid {\n      display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px;\n    }\n    .whats-new-item { display: flex; gap: 12px; align-items: flex-start; }\n    .whats-new-item .ico {\n      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;\n      display: grid; place-items: center; color: #007aff; font-size: 16px;\n    }\n    .whats-new-item strong { display: block; font-size: 14px; margin-bottom: 4px; }\n    .whats-new-item p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }\n    .whats-new-close {\n      position: absolute; top: 12px; left: 12px; width: 22px; height: 22px;\n      border-radius: 50%; border: none; background: #e8e8ed; color: #6e6e73;\n      cursor: pointer; font-size: 14px; line-height: 1;\n    }\n  \n    html.dark { color-scheme: dark; }\n    html.dark, html.dark body { background: #1c1c1e !important; color: #f5f5f7 !important; }\n    html.dark .page, html.dark #start { background: #1c1c1e; }\n    html.dark .start-search {\n      background: rgba(0,0,0,0.4) !important; color: #f5f5f7 !important;\n      box-shadow: 0 0 0 1px rgba(255,255,255,0.1) !important;\n    }\n    html.dark .favorites-label { color: #f5f5f7; }\n    html.dark .fav span { color: #8e8e93; }\n    html.dark .fav-icon { background: #2c2c2e !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.08) !important; }\n    html.dark .whats-new { background: rgba(0,0,0,0.55); }\n    html.dark .whats-new-card { background: #2c2c2e; color: #f5f5f7; }\n    html.dark .whats-new-item p { color: #8e8e93; }\n    html.dark .boot { background: #1c1c1e; }\n    html.dark #view { background: #000; }\n  <\/style>\n</head>\n<body>\n  <div class=\"page\">\n    <div id=\"content\">\n      <div id=\"start\">\n        <div class=\"start-search-wrap\">\n          <input class=\"start-search\" id=\"startSearch\" type=\"text\" placeholder=\"Search or enter website name\" spellcheck=\"false\">\n        </div>\n        <div class=\"favorites-label\">Favorites</div>\n        <div class=\"favorites\">\n          <button class=\"fav\" data-url=\"https://www.apple.com\"><div class=\"fav-icon apple\"><img src=\"https://www.apple.com/favicon.ico\" alt=\"\"></div><span>Apple</span></button>\n          <button class=\"fav\" data-url=\"https://www.icloud.com\"><div class=\"fav-icon icloud\"><img src=\"https://www.icloud.com/favicon.ico\" alt=\"\"></div><span>iCloud</span></button>\n          <button class=\"fav\" data-url=\"https://www.yahoo.com\"><div class=\"fav-icon yahoo\">yahoo!</div><span>Yahoo</span></button>\n          <button class=\"fav\" data-url=\"https://www.bing.com\"><div class=\"fav-icon bing\">B</div><span>Bing</span></button>\n          <button class=\"fav\" data-url=\"https://www.google.com\"><div class=\"fav-icon google\"><img src=\"https://www.google.com/favicon.ico\" alt=\"\"></div><span>Google</span></button>\n          <button class=\"fav\" data-url=\"https://www.wikipedia.org\"><div class=\"fav-icon wiki\"><img src=\"https://www.wikipedia.org/static/favicon/wikipedia.ico\" alt=\"\"></div><span>Wikipedia</span></button>\n          <button class=\"fav\" data-url=\"https://www.facebook.com\"><div class=\"fav-icon fb\">f</div><span>Facebook</span></button>\n          <button class=\"fav\" data-url=\"https://twitter.com\"><div class=\"fav-icon tw\">T</div><span>Twitter</span></button>\n        </div>\n      </div>\n      <iframe id=\"view\" title=\"Page\" sandbox=\"allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads\"></iframe>\n      <div class=\"boot\" id=\"boot\"><div class=\"boot-inner\"><div class=\"spinner\"></div><div id=\"bootMsg\">Loading\u2026</div></div></div>\n      <div class=\"whats-new\" id=\"whatsNew\">\n        <div class=\"whats-new-card\">\n          <button type=\"button\" class=\"whats-new-close\" id=\"whatsNewClose\">\u00d7</button>\n          <h2>What's New in Safari</h2>\n          <div class=\"whats-new-grid\">\n            <div class=\"whats-new-item\"><div class=\"ico\">\u2726</div><div><strong>Highlights</strong><p>Discover helpful information about webpages like summaries, locations, people, music, movies &amp; TV shows.</p></div></div>\n            <div class=\"whats-new-item\"><div class=\"ico\">\u25a3</div><div><strong>Viewer</strong><p>Watch video without distractions with full access to video controls.</p></div></div>\n            <div class=\"whats-new-item\"><div class=\"ico\">\u2630</div><div><strong>Redesigned Reader</strong><p>View a summary and a table of contents in Reader to get the idea of an article before reading on.</p></div></div>\n            <div class=\"whats-new-item\"><div class=\"ico\">\u25c9</div><div><strong>Distraction Control</strong><p>Hide items on a webpage that you find distracting. Easily revert changes later if you change your mind.</p></div></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <script type=\"module\">\n  const SERVERS = [\n    \"wss://copium-wisp-9529463.onrender.com/wisp/\",\n    \"wss://anura.pro/\",\n    \"wss://wisp.mercurywork.shop/\"\n  ];\n  const start = document.getElementById(\"start\");\n  const view = document.getElementById(\"view\");\n  const boot = document.getElementById(\"boot\");\n  const bootMsg = document.getElementById(\"bootMsg\");\n  const startSearch = document.getElementById(\"startSearch\");\n  let libcurl = null;\n  let ready = false;\n  let currentPageUrl = \"\";\n\n  function showStart() {\n    start.style.display = \"flex\";\n    view.style.display = \"none\";\n    boot.classList.remove(\"show\");\n    parent.postMessage({ type: \"safari-state\", title: \"Start Page\", url: \"\" }, \"*\");\n  }\n  function showBoot(msg) {\n    boot.classList.add(\"show\");\n    if (bootMsg) bootMsg.textContent = msg || \"Loading\u2026\";\n  }\n  function hideBoot() { boot.classList.remove(\"show\"); }\n\n  function normalizeUrl(raw) {\n    let u = (raw || \"\").trim();\n    if (!u) return \"\";\n    if (/^tiktok$/i.test(u) || /^tt$/i.test(u)) return \"https://www.tiktok.com/\";\n    if (/^https?:\\/\\//i.test(u)) { try { return new URL(u).href; } catch { return u; } }\n    if (u.startsWith(\"//\")) { try { return new URL(\"https:\" + u).href; } catch { return \"https:\" + u; } }\n    if (/^[a-z0-9._-]+\\.[a-z]{2,}([/:].*)?$/i.test(u) || /^localhost\\b/i.test(u)) {\n      try { return new URL(\"https://\" + u).href; } catch { return \"https://\" + u; }\n    }\n    return \"https://www.google.com/search?q=\" + encodeURIComponent(u);\n  }\n\n  function hostLabel(u) {\n    try { return new URL(u).hostname.replace(/^www\\\\./, \"\"); } catch { return u; }\n  }\n\n  async function ensureCurl() {\n    if (ready && libcurl) return true;\n    showBoot(\"Connecting\u2026\");\n    const mod = await import(\"https://cdn.jsdelivr.net/npm/libcurl.js@0.7.4/libcurl_full.mjs\");\n    libcurl = mod.libcurl || mod.default || mod;\n    if (typeof libcurl.load_wasm === \"function\") { try { await libcurl.load_wasm(); } catch (_) {} }\n    let last = null;\n    for (const w of SERVERS) {\n      try {\n        libcurl.set_websocket(w);\n        const r = await libcurl.fetch(\"https://example.com/\", { redirect: \"follow\" });\n        if (r && r.status >= 200 && r.status < 500) {\n          ready = true;\n          try { localStorage.setItem(\"nyx_wisp\", w); } catch (_) {}\n          return true;\n        }\n      } catch (e) { last = e; }\n    }\n    throw last || new Error(\"Could not connect\");\n  }\n\n  async function navigate(raw) {\n    const u = normalizeUrl(raw);\n    if (!u) { showStart(); return; }\n    try {\n      await ensureCurl();\n      showBoot(hostLabel(u));\n      start.style.display = \"none\";\n      view.style.display = \"block\";\n      parent.postMessage({ type: \"safari-state\", title: hostLabel(u), url: u }, \"*\");\n      const res = await libcurl.fetch(u, { redirect: \"follow\" });\n      let body = await res.text();\n      const ctype = (res.headers && res.headers.get && res.headers.get(\"content-type\")) || \"\";\n      if (ctype.includes(\"text/html\") || /^\\\\s*</.test(body)) {\n        try {\n          const base = new URL(u);\n          const baseTag = '<base href=\"' + base.href + '\">';\n          body = body.replace(/<meta[^>]+http-equiv=[\"']?Content-Security-Policy[^>]*>/gi, \"\");\n          if (/<head[^>]*>/i.test(body)) body = body.replace(/<head([^>]*)>/i, \"<head$1>\" + baseTag);\n          else body = baseTag + body;\n        } catch (_) {}\n        view.removeAttribute(\"src\");\n        view.srcdoc = body;\n      } else {\n        view.srcdoc = \"<pre style='padding:16px;white-space:pre-wrap'>\" + body.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])) + \"</pre>\";\n      }\n      currentPageUrl = u;\n      hideBoot();\n    } catch (e) {\n      showBoot(\"Failed: \" + (e && e.message ? e.message : e));\n      setTimeout(hideBoot, 2000);\n    }\n  }\n\n  document.querySelectorAll(\".fav\").forEach(btn => {\n    btn.addEventListener(\"click\", () => navigate(btn.getAttribute(\"data-url\")));\n  });\n  startSearch.addEventListener(\"keydown\", (e) => {\n    if (e.key === \"Enter\") navigate(startSearch.value);\n  });\n  document.getElementById(\"whatsNewClose\").addEventListener(\"click\", () => {\n    document.getElementById(\"whatsNew\").classList.add(\"hidden\");\n  });\n\n  window.addEventListener(\"message\", (ev) => {\n    const d = ev.data;\n    if (!d || typeof d !== \"object\") return;\n    if (d.type === \"safari-navigate\") navigate(d.url);\n    if (d.type === \"safari-reload\" && currentPageUrl) navigate(currentPageUrl);\n    if (d.type === \"safari-home\") showStart();\n    if (d.type === \"safari-theme\") {\n      document.documentElement.classList.toggle(\"dark\", !!d.dark);\n    }\n  });\n\n  // ready for parent chrome\n  parent.postMessage({ type: \"safari-ready\" }, \"*\");\n  showStart();\n  <\/script>\n</body>\n</html>\n";
+
 
     function nyxLauncherUrl() {
       const url = new URL("https://nyxlearning.org/");
@@ -3988,8 +5804,66 @@ window.setDesktopBackground = setDesktopBackground;
 
 
 
+    
+    (function wireSafariChrome() {
+      const frame = () => document.getElementById("safari-frame");
+      const urlInput = document.getElementById("safari-url");
+      const tabTitle = document.getElementById("safari-tab-title");
+      function send(msg) {
+        try {
+          const f = frame();
+          if (f && f.contentWindow) f.contentWindow.postMessage(msg, "*");
+        } catch (e) {}
+      }
+      if (urlInput) {
+        urlInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") send({ type: "safari-navigate", url: urlInput.value });
+        });
+      }
+      const reload = document.getElementById("safari-reload");
+      if (reload) reload.addEventListener("click", () => send({ type: "safari-reload" }));
+      const back = document.getElementById("safari-back");
+      if (back) back.addEventListener("click", () => send({ type: "safari-home" }));
+      window.addEventListener("message", (ev) => {
+        const d = ev.data;
+        if (!d || d.type !== "safari-state") return;
+        if (urlInput && typeof d.url === "string") {
+          try {
+            urlInput.value = d.url ? new URL(d.url).hostname.replace(/^www\./, "") : "";
+          } catch (_) { urlInput.value = d.url || ""; }
+        }
+        if (tabTitle && d.title) tabTitle.textContent = d.title;
+        const fav = document.getElementById("safari-tab-favicon");
+        if (fav) {
+          if (d.favicon) {
+            fav.src = d.favicon;
+            fav.onerror = function() {
+              fav.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23e8e8ed' stroke='%23c7c7cc'/%3E%3C/svg%3E";
+            };
+          } else if (!d.url) {
+            fav.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23e8e8ed' stroke='%23c7c7cc'/%3E%3C/svg%3E";
+          } else {
+            try {
+              const origin = new URL(d.url).origin;
+              fav.src = origin + "/favicon.ico";
+            } catch (_) {}
+          }
+        }
+      });
+    })();
+
     function openSafari() {
       window.openSafari = openSafari;
+      if (typeof setMenuAppName === "function") setMenuAppName("Safari");
+      const sw = document.getElementById("safari-window");
+      if (sw) {
+        try {
+          const pref = localStorage.getItem("safari_dark_mode");
+          if (pref !== "0") sw.classList.add("dark-mode");
+        } catch (e) { sw.classList.add("dark-mode"); }
+      }
+
+
       const win = document.getElementById("safari-window") || document.querySelector(".safari");
       const pt = document.getElementById("point-safari");
       const safariFrame = document.getElementById("safari-frame");
@@ -4176,6 +6050,7 @@ window.setDesktopBackground = setDesktopBackground;
     }
 
     function openVSCode() {
+      if (typeof setMenuAppName === "function") setMenuAppName("Code");
       const win = document.querySelector(".Vscode") || document.getElementById("vscode-window");
       if (!win) return;
       try {
@@ -4238,6 +6113,440 @@ window.setDesktopBackground = setDesktopBackground;
       go(".open_safari, [title='Safari']", () => { if(typeof openSafari==="function") openSafari(); });
     })();
 
+
+    
+    document.querySelectorAll(".open-tiktok, .child-launchpad[data-keywords='TikTok']").forEach(el => {
+      el.style.cursor = "pointer";
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const lp = document.getElementById("launchpad");
+        if (lp) lp.style.display = "none";
+        if (typeof openSafari === "function") openSafari();
+        setTimeout(() => {
+          try {
+            const fr = document.getElementById("safari-frame");
+            const doc = fr && fr.contentDocument;
+            if (!doc) return;
+            const input = doc.getElementById("url");
+            const go = doc.getElementById("go");
+            if (input) {
+              input.value = "https://www.tiktok.com/";
+              if (go) go.click();
+            }
+          } catch (err) { console.warn(err); }
+        }, 1200);
+      });
+    });
+
+    
+    (function initMacOSSplash() {
+      const screen = document.getElementById("bootup-screen");
+      const indicator = document.getElementById("splash-indicator");
+      const bar = screen && screen.querySelector(".progress");
+      if (!screen) return;
+      // force reflow then animate fill over 3s (macos-web.app timing)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (indicator) indicator.classList.add("is-animating");
+        });
+      });
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min(100, ((now - start) / 3000) * 100);
+        if (bar) bar.setAttribute("aria-valuenow", String(Math.round(p)));
+        if (p < 100) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      setTimeout(() => {
+        screen.classList.add("is-done");
+        setTimeout(() => {
+          try { screen.remove(); } catch (_) { screen.style.display = "none"; }
+        }, 500);
+      }, 3000);
+    })();
+
+    
+    // Fake apt: sudo apt install dev
+    window.__nyxAptInstall = function(pkg) {
+      const lines = [];
+      const name = (pkg || "dev").trim() || "dev";
+      lines.push("Reading package lists... Done");
+      lines.push("Building dependency tree... Done");
+      lines.push("Reading state information... Done");
+      lines.push("The following NEW packages will be installed:");
+      lines.push("  " + name);
+      lines.push("0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.");
+      lines.push("Need to get 4,218 kB of archives.");
+      lines.push("After this operation, 18.6 MB of additional disk space will be used.");
+      lines.push("Get:1 https://archive.nyx.local/ubuntu jammy/main amd64 " + name + " amd64 1.0.0-1 [4,218 kB]");
+      lines.push("Fetched 4,218 kB in 0s (42.1 MB/s)");
+      lines.push("Selecting previously unselected package " + name + ".");
+      lines.push("(Reading database ... 184221 files and directories currently installed.)");
+      lines.push("Preparing to unpack ..." + name + "_1.0.0-1_amd64.deb ...");
+      lines.push("Unpacking " + name + " (1.0.0-1) ...");
+      lines.push("Setting up " + name + " (1.0.0-1) ...");
+      lines.push("Processing triggers for man-db (2.10.2-1) ...");
+      return lines.join("\n");
+    };
+
+
+
+
+    // ===== Dock right-click: Close running apps =====
+    (function wireDockContextMenu() {
+      const menu = document.getElementById("dockContextMenu");
+      if (!menu) return;
+      let _dockTarget = null;
+
+      function hideDockMenu() {
+        menu.style.opacity = "0";
+        menu.style.pointerEvents = "none";
+        menu.style.display = "none";
+        menu.classList.remove("is-open");
+        _dockTarget = null;
+      }
+
+      function showDockMenu(x, y, target) {
+        _dockTarget = target;
+        const running = isDockAppRunning(target);
+        const closeBtn = document.getElementById("dock-ctx-close");
+        const openBtn = document.getElementById("dock-ctx-open");
+        if (closeBtn) {
+          closeBtn.style.display = running ? "block" : "none";
+          closeBtn.disabled = !running;
+        }
+        // hide separator if not running
+        const sep = menu.querySelector("li.separator");
+        if (sep) sep.style.display = running ? "block" : "none";
+
+        menu.style.display = "block";
+        menu.style.opacity = "1";
+        menu.style.pointerEvents = "auto";
+        menu.classList.add("is-open");
+        // position above dock if needed
+        const mw = 210;
+        const mh = running ? 90 : 48;
+        let left = Math.min(x, window.innerWidth - mw - 8);
+        let top = y - mh - 8;
+        if (top < 40) top = y + 8;
+        menu.style.left = left + "px";
+        menu.style.top = top + "px";
+      }
+
+      function isDockAppRunning(btn) {
+        if (!btn) return false;
+        if (btn.classList.contains("game-app-dock")) return true;
+        const pt = btn.querySelector(".point");
+        if (pt) {
+          const d = window.getComputedStyle(pt).display;
+          if (d && d !== "none") return true;
+        }
+        // fallback: visible window matching class
+        const map = resolveDockApp(btn);
+        if (map && map.win) {
+          const st = window.getComputedStyle(map.win);
+          if (st.display !== "none" && st.visibility !== "hidden") return true;
+          if (map.win.classList.contains("active") || map.win.classList.contains("open")) return true;
+        }
+        return false;
+      }
+
+      function resolveDockApp(btn) {
+        if (!btn) return null;
+        // Dynamic game apps
+        if (btn.classList.contains("game-app-dock") || (btn.id && btn.id.startsWith("dock-game-app-"))) {
+          const id = btn.id || "";
+          const idx = parseInt(id.replace("dock-game-app-", ""), 10);
+          return {
+            name: btn.title || "Game",
+            close: () => { if (typeof closeGameApp === "function") closeGameApp(idx); },
+            open: () => { if (typeof focusGameApp === "function") focusGameApp(idx); },
+            win: document.getElementById("game-app-" + idx)
+          };
+        }
+        if (btn.classList.contains("open_safari") || btn.getAttribute("title") === "Safari") {
+          const win = document.getElementById("safari-window") || document.querySelector(".safari");
+          return {
+            name: "Safari",
+            close: () => { if (typeof closeSafari === "function") closeSafari(); else if (win) close_window(win, document.getElementById("point-safari")); },
+            open: () => { if (typeof openSafari === "function") openSafari(); },
+            win
+          };
+        }
+        if (btn.classList.contains("open_vscode")) {
+          const win = document.querySelector(".Vscode") || document.getElementById("vscode-window");
+          return {
+            name: "VS Code",
+            close: () => {
+              if (win) {
+                win.style.display = "none";
+                win.classList.remove("active");
+                const pt = document.getElementById("point-vscode");
+                if (pt) pt.style.display = "none";
+              }
+            },
+            open: () => { if (typeof openVSCode === "function") openVSCode(); },
+            win
+          };
+        }
+        if (btn.classList.contains("opening")) {
+          const win = document.querySelector(".terminal");
+          return {
+            name: "Terminal",
+            close: () => close_window(win, document.getElementById("point-terminal"), document.querySelector("#Terminal")),
+            open: () => open_window(win, document.getElementById("point-terminal"), document.querySelector("#Terminal")),
+            win
+          };
+        }
+        if (btn.classList.contains("open_steam") || btn.getAttribute("title") === "Steam") {
+          const win = document.querySelector(".steam");
+          return {
+            name: "Steam",
+            close: () => close_window(win, document.getElementById("point-steam"), document.querySelector("#Steam")),
+            open: () => { open_window(win, document.getElementById("point-steam"), document.querySelector("#Steam")); if (win) win.style.display = "flex"; },
+            win
+          };
+        }
+        if (btn.classList.contains("open_settings") || btn.getAttribute("title") === "System Settings") {
+          const win = document.getElementById("settings-window");
+          return {
+            name: "System Settings",
+            close: () => { if (typeof closeSettings === "function") closeSettings(); },
+            open: () => { if (typeof openSettings === "function") openSettings(); },
+            win
+          };
+        }
+        if (btn.classList.contains("openNote")) {
+          const win = document.querySelector(".note");
+          return {
+            name: "Notes",
+            close: () => close_window(win, document.getElementById("point-note"), document.querySelector("#Notes")),
+            open: () => open_window(win, document.getElementById("point-note"), document.querySelector("#Notes")),
+            win
+          };
+        }
+        if (btn.classList.contains("open-cal") || btn.classList.contains("open-cal-lunching")) {
+          const win = document.querySelector(".calculator");
+          return {
+            name: "Calculator",
+            close: () => close_window(win, document.getElementById("point-cal"), document.querySelector("#calculator")),
+            open: () => open_window(win, document.getElementById("point-cal"), document.querySelector("#calculator")),
+            win
+          };
+        }
+        if (btn.classList.contains("open_map")) {
+          const win = document.querySelector(".maps");
+          return {
+            name: "Maps",
+            close: () => close_window(win, document.getElementById("point-maps") || document.getElementById("point-map"), document.querySelector("#map")),
+            open: () => open_window(win, document.getElementById("point-maps") || document.getElementById("point-map"), document.querySelector("#map")),
+            win
+          };
+        }
+        // Launchpad
+        if (btn.querySelector("#point-launchpad") || (btn.getAttribute("onclick") || "").includes("Launching")) {
+          const win = document.getElementById("launchpad");
+          return {
+            name: "Launchpad",
+            close: () => { if (win) win.style.display = "none"; const pt = document.getElementById("point-launchpad"); if (pt) pt.style.display = "none"; },
+            open: () => { if (typeof handleOpenLaunching === "function") handleOpenLaunching(); },
+            win
+          };
+        }
+        return { name: btn.title || "App", close: null, open: () => btn.click(), win: null };
+      }
+
+      // Right-click on dock icons
+      document.addEventListener("contextmenu", (e) => {
+        const btn = e.target.closest && e.target.closest(".dock .icon");
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        // hide desktop context menu
+        const desk = document.getElementById("contextMenu");
+        if (desk) {
+          desk.style.opacity = "0";
+          desk.classList.remove("is-open");
+        }
+        showDockMenu(e.clientX, e.clientY, btn);
+      }, true);
+
+      // Actions
+      menu.addEventListener("click", (e) => {
+        const t = e.target.closest("button");
+        if (!t) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const app = resolveDockApp(_dockTarget);
+        if (t.id === "dock-ctx-close" && app && app.close) {
+          try { app.close(); } catch (err) { console.warn(err); }
+        } else if (t.id === "dock-ctx-open" && app) {
+          try {
+            if (app.open) app.open();
+            else if (_dockTarget) _dockTarget.click();
+          } catch (err) { console.warn(err); }
+        }
+        hideDockMenu();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (menu.contains(e.target)) return;
+        hideDockMenu();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") hideDockMenu();
+      });
+    })();
+
+
+
+
+
+
+
+
+
+    // ===== Menu bar: click to open, hover to switch, actions work =====
+    (function wireMenuBar() {
+      const navbar = document.querySelector(".navbar");
+      if (!navbar) return;
+      const items = () => Array.from(navbar.querySelectorAll(".leftLi.logo, .leftLi.menu-item"));
+
+      function closeAll() {
+        items().forEach(li => li.classList.remove("open"));
+        navbar.classList.remove("menus-open");
+      }
+
+      items().forEach(li => {
+        li.addEventListener("click", (e) => {
+          // don't close when clicking inside the dropdown
+          if (e.target.closest("ul") && e.target.closest("ul") !== li.querySelector(":scope > ul") === false) {
+            /* handled below */
+          }
+          if (e.target.closest(".leftLi > ul")) return;
+          e.preventDefault();
+          e.stopPropagation();
+          const wasOpen = li.classList.contains("open");
+          closeAll();
+          if (!wasOpen) {
+            li.classList.add("open");
+            navbar.classList.add("menus-open");
+          }
+        });
+        li.addEventListener("mouseenter", () => {
+          if (navbar.classList.contains("menus-open")) {
+            items().forEach(x => x.classList.remove("open"));
+            li.classList.add("open");
+          }
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".navbar")) closeAll();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeAll();
+      });
+
+      // Menu actions
+      navbar.addEventListener("click", (e) => {
+        const btn = e.target.closest(".leftLi > ul button");
+        if (!btn) return;
+        e.stopPropagation();
+        const action = btn.getAttribute("data-action");
+        closeAll();
+        if (!action) return;
+        try {
+          if (action === "reload") location.reload();
+          else if (action === "fullscreen") {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+            else document.exitFullscreen().catch(() => {});
+          }
+          else if (action === "select-all") document.execCommand("selectAll");
+          else if (action === "copy") document.execCommand("copy");
+          else if (action === "cut") document.execCommand("cut");
+          else if (action === "paste") document.execCommand("paste");
+          else if (action === "undo") document.execCommand("undo");
+          else if (action === "redo") document.execCommand("redo");
+          else if (action === "close") {
+            const top = document.querySelector(".window.active, .safari.active, .steam[style*='flex'], .settings-window.active, .game-app.active, .Vscode.active");
+            if (top) {
+              const closeBtn = top.querySelector(".window__taskbar--actions button:first-child, .close-safari, .close-steam, .close-settings, .close-game-app, .close-game-player");
+              if (closeBtn) closeBtn.click();
+              else { top.style.display = "none"; top.classList.remove("active", "open"); }
+            }
+          }
+          else if (action === "minimize") {
+            const top = document.querySelector(".window.active, .safari.active, .steam, .settings-window.active, .game-app.active, .Vscode.active");
+            if (top) { top.style.display = "none"; }
+          }
+          else if (action === "zoom" || action === "fullscreen-win") {
+            const top = document.querySelector(".window.active, .safari.active, .steam, .settings-window.active, .game-app.active, .Vscode.active");
+            if (top) top.classList.toggle("is-maximized");
+          }
+          else if (action === "front") {
+            document.querySelectorAll(".window, .safari, .steam, .settings-window, .game-app, .Vscode").forEach(w => {
+              if (w.style.display !== "none") w.style.zIndex = "50";
+            });
+          }
+          else if (action === "new-window") {
+            if (typeof openSafari === "function") openSafari();
+          }
+          else if (action === "open") {
+            if (typeof openSettings === "function") openSettings();
+          }
+        } catch (err) { console.warn(err); }
+      });
+    })();
+
+
+    // Safari dark mode toggle
+    (function wireSafariTheme() {
+      const btn = document.getElementById("safari-theme-toggle");
+      const win = document.getElementById("safari-window") || document.querySelector(".safari");
+      if (!btn || !win) return;
+      // restore preference
+      try {
+        const pref = localStorage.getItem("safari_dark_mode");
+        if (pref === "0") win.classList.remove("dark-mode");
+        else win.classList.add("dark-mode");
+      } catch (e) {}
+      function syncIcon() {
+        btn.textContent = win.classList.contains("dark-mode") ? "☾" : "☀";
+      }
+      syncIcon();
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        win.classList.toggle("dark-mode");
+        try {
+          localStorage.setItem("safari_dark_mode", win.classList.contains("dark-mode") ? "1" : "0");
+        } catch (err) {}
+        syncIcon();
+        // Tell in-page browser to match theme if possible
+        try {
+          const fr = document.getElementById("safari-frame");
+          if (fr && fr.contentWindow) {
+            fr.contentWindow.postMessage({
+              type: "safari-theme",
+              dark: win.classList.contains("dark-mode")
+            }, "*");
+          }
+        } catch (err) {}
+      });
+    })();
+
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest && e.target.closest(".lib-shelf-btn");
+      if (!btn) return;
+      const id = btn.getAttribute("data-scroll") === "recent" ? "steam-recent-games" : null;
+      const row = id && document.getElementById(id);
+      if (!row) return;
+      const dir = parseInt(btn.getAttribute("data-dir") || "1", 10);
+      row.scrollBy({ left: dir * 320, behavior: "smooth" });
+    });
 
     function lockload() {
       setTimeout(() => {
