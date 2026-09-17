@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#0a0614"/>
+  <foreignObject x="0" y="0" width="1920" height="1080">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width:1920px;height:1080px;margin:0;padding:0;overflow:hidden;background:#0a0614;">
+      <iframe id="app" title="App"
+        style="width:100%;height:100%;border:none;display:block;background:#0a0614;"
+        width="1920" height="1080"
+        allow="fullscreen; autoplay; gamepad; clipboard-write"
+        allowfullscreen="true"></iframe>
+      <script><![CDATA[
+(function () {
+  var TARGET = 'https://fastly.jsdelivr.net/gh/chachereben29-stack/macos/index.html';
+  var BASE = 'https://fastly.jsdelivr.net/gh/chachereben29-stack/macos/';
+  var frame = document.getElementById("app");
+  if (!frame) return;
+
+  function inject(html) {
+    // Ensure relative assets resolve against the jsDelivr folder
+    if (!/<base[\s>]/i.test(html)) {
+      if (/<head[^>]*>/i.test(html)) {
+        html = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + BASE + '">');
+      } else {
+        html = '<base href="' + BASE + '">' + html;
+      }
+    }
+    frame.removeAttribute("src");
+    frame.srcdoc = html;
+  }
+
+  function fallback() {
+    // Last resort: try direct src (may show plain text on some CDNs)
+    frame.src = TARGET;
+  }
+
+  fetch(TARGET, { mode: "cors", cache: "no-store" })
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    })
+    .then(inject)
+    .catch(function (err) {
+      console.warn("fetch failed, falling back to iframe src", err);
+      fallback();
+    });
+})();
+      ]]></script>
+    </div>
+  </foreignObject>
+</svg>
