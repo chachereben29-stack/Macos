@@ -16,67 +16,14 @@
   <link rel="preload" as="image" href="https://media.512pixels.net/downloads/macos-wallpapers-6k/15-Sequoia-Light-6K.jpg">
   <link rel="preload" as="image" href="https://media.512pixels.net/downloads/macos-wallpapers-6k/11-Big-Sur-Day-6k.jpg">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
   <link rel="preconnect" href="https://vscode.dev" crossorigin>
 
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-<script>
-/* Rewrite GitHub / raw.githubusercontent asset URLs to jsDelivr CDN */
-(function () {
-  function ghToJsDelivr(url) {
-    if (!url || typeof url !== "string") return url;
-    var u = url.trim();
-    // raw.githubusercontent.com/user/repo/branch/path -> cdn.jsdelivr.net/gh/user/repo@branch/path
-    var m = u.match(/^https?:\/\/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)$/i);
-    if (m) {
-      return "https://cdn.jsdelivr.net/gh/" + m[1] + "/" + m[2] + "@" + m[3] + "/" + m[4];
-    }
-    // github.com/user/repo/raw/branch/path
-    m = u.match(/^https?:\/\/(?:www\.)?github\.com\/([^\/]+)\/([^\/]+)\/raw\/([^\/]+)\/(.+)$/i);
-    if (m) {
-      return "https://cdn.jsdelivr.net/gh/" + m[1] + "/" + m[2] + "@" + m[3] + "/" + m[4];
-    }
-    // github.com/user/repo/blob/branch/path  (asset links)
-    m = u.match(/^https?:\/\/(?:www\.)?github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
-    if (m) {
-      return "https://cdn.jsdelivr.net/gh/" + m[1] + "/" + m[2] + "@" + m[3] + "/" + m[4];
-    }
-    // media.githubusercontent.com / user-images etc. — leave alone (not package assets)
-    return u;
-  }
-  window.nyxGhToJsDelivr = ghToJsDelivr;
-
-  // Patch common loaders so any late github URL becomes jsDelivr
-  try {
-    var desc = Object.getOwnPropertyDescriptor(Image.prototype, "src") ||
-               Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
-    if (desc && desc.set) {
-      Object.defineProperty(HTMLImageElement.prototype, "src", {
-        configurable: true,
-        enumerable: true,
-        get: desc.get,
-        set: function (v) { desc.set.call(this, ghToJsDelivr(v)); }
-      });
-    }
-  } catch (e) {}
-
-  var _fetch = window.fetch;
-  if (_fetch) {
-    window.fetch = function (input, init) {
-      if (typeof input === "string") input = ghToJsDelivr(input);
-      else if (input && typeof input.url === "string") {
-        try { input = new Request(ghToJsDelivr(input.url), input); } catch (e) {}
-      }
-      return _fetch.call(this, input, init);
-    };
-  }
-})();
-</script>
-
 
   <style>
     :root {
@@ -6938,7 +6885,7 @@
       <button type="button" class="dock-open-app-button icon" data-dock-id="launchpad" title="Launchpad" aria-label="Launch Launchpad" onclick="handleOpenLaunching()">
         <p class="tooltip">Launchpad</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/launchpad.png" alt="Launchpad" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/launchpad.png" alt="Launchpad" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
         <div class="point" id="point-launchpad" style="display:none"></div>
@@ -6961,7 +6908,7 @@
       <button type="button" class="dock-open-app-button icon open_safari" data-dock-id="safari" title="Safari" aria-label="Launch Safari" >
         <p class="tooltip">Safari</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png" alt="Safari" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png" alt="Safari" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
         <div class="point" id="point-safari" style="display:none"></div>
@@ -6976,7 +6923,7 @@
       <button type="button" class="dock-open-app-button icon open_vscode" data-dock-id="vscode" title="VS Code" aria-label="Launch VS Code" >
         <p class="tooltip">VS Code</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg" alt="VS Code" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg" alt="VS Code" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
         <div class="point" id="point-vscode" style="display:none"></div>
@@ -6984,7 +6931,7 @@
       <button type="button" class="dock-open-app-button icon opening" data-dock-id="terminal" title="Terminal" aria-label="Launch Terminal" >
         <p class="tooltip">Terminal</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Terminal" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Terminal" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
         <div class="point" id="point-terminal" style="display:none"></div>
@@ -6992,7 +6939,7 @@
       <button type="button" class="dock-open-app-button icon open_steam" data-dock-id="steam" title="Steam" aria-label="Launch Steam" >
         <p class="tooltip">Steam</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png" alt="Steam" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png" alt="Steam" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
         <div class="point" id="point-steam" style="display:none"></div>
@@ -7008,7 +6955,7 @@
       <button type="button" class="dock-open-app-button icon open_settings" data-dock-id="settings" title="System Settings" aria-label="Launch System Settings" >
         <p class="tooltip">System Settings</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png" alt="System Settings" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png" alt="System Settings" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
         <div class="point" id="point-settings" style="display:none"></div>
@@ -7017,7 +6964,7 @@
       <button type="button" class="dock-open-app-button icon" data-dock-id="trash" title="Trash" aria-label="Launch Trash" >
         <p class="tooltip">Trash</p>
         <span class="dock-icon-wrap">
-          <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/bin.png" alt="Trash" draggable="false" />
+          <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/bin.png" alt="Trash" draggable="false" />
         </span>
         <div class="dot" data-open-dot></div>
       </button>
@@ -7034,15 +6981,15 @@
     </div>
     <div class="Apps-container">
       <div class="child-launchpad open-cal-lunching" data-keywords="Calculator">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/calculator.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/calculator.png">
         <strong>Calculator</strong>
       </div>
       <div class="child-launchpad" data-keywords="Calendar">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/calendar.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/calendar.png">
         <strong>Calendar</strong>
       </div>
       <div class="child-launchpad" data-keywords="Safari">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png">
         <strong>Safari</strong>
       </div>
       <div class="child-launchpad open-tiktok" data-keywords="TikTok">
@@ -7050,19 +6997,19 @@
         <strong>TikTok</strong>
       </div>
       <div class="child-launchpad" data-keywords="Messages">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/messages.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/messages.png">
         <strong>Messages</strong>
       </div>
       <div class="child-launchpad" data-keywords="App Store">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/appstore.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/appstore.png">
         <strong>App Store</strong>
       </div>
       <div class="child-launchpad" data-keywords="Contacts">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/contacts.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/contacts.png">
         <strong>Contacts</strong>
       </div>
       <div class="child-launchpad" data-keywords="Siri">
-        <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/siri.png">
+        <img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/siri.png">
         <strong>Siri</strong>
       </div>
       <div class="child-launchpad open_imovie" data-keywords="Apple TV TV video movie film streaming">
@@ -7892,21 +7839,21 @@
       };
 
       const ICON = {
-        terminal: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png",
-        notes: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/notes.png",
-        calculator: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/calculator.png",
-        vscode: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg",
-        maps: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/maps.png",
-        steam: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png",
-        safari: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png",
-        settings: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png",
-        launchpad: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/launchpad.png",
-        finder: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/finder.png",
-        appstore: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/appstore.png",
-        messages: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/message.png",
-        music: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/music.png",
-        mail: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/mail.png",
-        photos: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/photos.png"
+        terminal: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png",
+        notes: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/notes.png",
+        calculator: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/calculator.png",
+        vscode: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg",
+        maps: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/maps.png",
+        steam: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png",
+        safari: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/safari.png",
+        settings: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png",
+        launchpad: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/launchpad.png",
+        finder: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/finder.png",
+        appstore: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/appstore.png",
+        messages: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/message.png",
+        music: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/music.png",
+        mail: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/mail.png",
+        photos: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/photos.png"
       };
 
       const catalog = [
@@ -7946,7 +7893,7 @@
             kind: "Application",
             section: "Applications",
             keywords: "dev developer links proxies games hub toolkit",
-            icon: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png",
+            icon: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png",
             action: function () { if (typeof window.openDevHub === "function") window.openDevHub(); }
           });
         }
@@ -12357,7 +12304,7 @@ window.setDesktopBackground = setDesktopBackground;
             btn.setAttribute("aria-label", "Launch Dev Hub");
             btn.innerHTML = '<p class="tooltip">Dev Hub</p>'
               + '<span class="dock-icon-wrap">'
-              + '<img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Dev Hub" draggable="false" style="width:3.6rem;height:auto;aspect-ratio:1;filter:hue-rotate(90deg) saturate(1.4)">'
+              + '<img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Dev Hub" draggable="false" style="width:3.6rem;height:auto;aspect-ratio:1;filter:hue-rotate(90deg) saturate(1.4)">'
               + '</span>'
               + '<div class="dot" data-open-dot></div>'
               + '<div class="point" id="point-devhub" style="display:none"></div>';
@@ -12393,7 +12340,7 @@ window.setDesktopBackground = setDesktopBackground;
             el.className = "child-launchpad";
             el.id = "lp-devhub";
             el.setAttribute("data-keywords", "Dev Hub developer links proxies games");
-            el.innerHTML = '<img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Dev Hub" style="filter:hue-rotate(90deg) saturate(1.4)"><strong>Dev Hub</strong>';
+            el.innerHTML = '<img src="https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" alt="Dev Hub" style="filter:hue-rotate(90deg) saturate(1.4)"><strong>Dev Hub</strong>';
             el.addEventListener("click", function () {
               const lp = document.getElementById("launchpad");
               if (lp) lp.style.display = "none";
@@ -13333,16 +13280,16 @@ window.setDesktopBackground = setDesktopBackground;
       }
 
       function appMeta(el) {
-        if (el.classList.contains("terminal")) return { name: "Terminal", icon: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" };
+        if (el.classList.contains("terminal")) return { name: "Terminal", icon: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" };
         if (el.classList.contains("note")) return { name: "Notes", icon: "https://macos-web.app/app-icons/notes/512.png" };
         if (el.classList.contains("calculator")) return { name: "Calculator", icon: "https://macos-web.app/app-icons/calculator/512.png" };
-        if (el.classList.contains("Vscode")) return { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg" };
+        if (el.classList.contains("Vscode")) return { name: "VS Code", icon: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/vscode.svg" };
         if (el.classList.contains("maps")) return { name: "Maps", icon: "https://macos-web.app/app-icons/maps/512.png" };
-        if (el.classList.contains("steam")) return { name: "Steam", icon: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png" };
+        if (el.classList.contains("steam")) return { name: "Steam", icon: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png" };
         if (el.classList.contains("safari")) return { name: "Safari", icon: "https://macos-web.app/app-icons/safari/512.png" };
-        if (el.classList.contains("settings-window")) return { name: "System Settings", icon: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png" };
+        if (el.classList.contains("settings-window")) return { name: "System Settings", icon: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png" };
         if (el.classList.contains("imovie-window")) return { name: "Apple TV", icon: "https://macos-web.app/app-icons/tv/512.png" };
-        if (el.classList.contains("devhub-window")) return { name: "Dev Hub", icon: "https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" };
+        if (el.classList.contains("devhub-window")) return { name: "Dev Hub", icon: "https://fastly.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/terminal.png" };
         if (el.classList.contains("game-app")) return { name: el.querySelector("h2") ? el.querySelector("h2").textContent : "Game", icon: "" };
         return { name: "Window", icon: "" };
       }
@@ -13800,7 +13747,7 @@ window.setDesktopBackground = setDesktopBackground;
 
 <script>
 /* Exact port of PuruVJ/macos-web Dock + DockItem magnification
-   https://cdn.jsdelivr.net/gh/PuruVJ/macos-web@main/src/components/Dock/DockItem.svelte */
+   https://github.com/PuruVJ/macos-web/blob/main/src/components/Dock/DockItem.svelte */
 (function () {
   function nyxDockCfg() {
     var base = (typeof window.__nyxDockBaseWidth === "number" ? window.__nyxDockBaseWidth : 57.6);
