@@ -16,14 +16,67 @@
   <link rel="preload" as="image" href="https://media.512pixels.net/downloads/macos-wallpapers-6k/15-Sequoia-Light-6K.jpg">
   <link rel="preload" as="image" href="https://media.512pixels.net/downloads/macos-wallpapers-6k/11-Big-Sur-Day-6k.jpg">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
   <link rel="preconnect" href="https://vscode.dev" crossorigin>
 
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<script>
+/* Rewrite GitHub / raw.githubusercontent asset URLs to jsDelivr CDN */
+(function () {
+  function ghToJsDelivr(url) {
+    if (!url || typeof url !== "string") return url;
+    var u = url.trim();
+    // raw.githubusercontent.com/user/repo/branch/path -> cdn.jsdelivr.net/gh/user/repo@branch/path
+    var m = u.match(/^https?:\/\/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)$/i);
+    if (m) {
+      return "https://cdn.jsdelivr.net/gh/" + m[1] + "/" + m[2] + "@" + m[3] + "/" + m[4];
+    }
+    // github.com/user/repo/raw/branch/path
+    m = u.match(/^https?:\/\/(?:www\.)?github\.com\/([^\/]+)\/([^\/]+)\/raw\/([^\/]+)\/(.+)$/i);
+    if (m) {
+      return "https://cdn.jsdelivr.net/gh/" + m[1] + "/" + m[2] + "@" + m[3] + "/" + m[4];
+    }
+    // github.com/user/repo/blob/branch/path  (asset links)
+    m = u.match(/^https?:\/\/(?:www\.)?github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
+    if (m) {
+      return "https://cdn.jsdelivr.net/gh/" + m[1] + "/" + m[2] + "@" + m[3] + "/" + m[4];
+    }
+    // media.githubusercontent.com / user-images etc. — leave alone (not package assets)
+    return u;
+  }
+  window.nyxGhToJsDelivr = ghToJsDelivr;
+
+  // Patch common loaders so any late github URL becomes jsDelivr
+  try {
+    var desc = Object.getOwnPropertyDescriptor(Image.prototype, "src") ||
+               Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+    if (desc && desc.set) {
+      Object.defineProperty(HTMLImageElement.prototype, "src", {
+        configurable: true,
+        enumerable: true,
+        get: desc.get,
+        set: function (v) { desc.set.call(this, ghToJsDelivr(v)); }
+      });
+    }
+  } catch (e) {}
+
+  var _fetch = window.fetch;
+  if (_fetch) {
+    window.fetch = function (input, init) {
+      if (typeof input === "string") input = ghToJsDelivr(input);
+      else if (input && typeof input.url === "string") {
+        try { input = new Request(ghToJsDelivr(input.url), input); } catch (e) {}
+      }
+      return _fetch.call(this, input, init);
+    };
+  }
+})();
+</script>
+
 
   <style>
     :root {
@@ -13747,7 +13800,7 @@ window.setDesktopBackground = setDesktopBackground;
 
 <script>
 /* Exact port of PuruVJ/macos-web Dock + DockItem magnification
-   https://github.com/PuruVJ/macos-web/blob/main/src/components/Dock/DockItem.svelte */
+   https://cdn.jsdelivr.net/gh/PuruVJ/macos-web@main/src/components/Dock/DockItem.svelte */
 (function () {
   function nyxDockCfg() {
     var base = (typeof window.__nyxDockBaseWidth === "number" ? window.__nyxDockBaseWidth : 57.6);
