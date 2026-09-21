@@ -86,15 +86,15 @@
       position: fixed;
       top: 0; left: 0;
       color: #f5f5f7;
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(48px) saturate(220%);
       -webkit-backdrop-filter: blur(48px) saturate(220%);
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 100;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset;
-      border-bottom: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.16) inset;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Inter", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
@@ -351,8 +351,8 @@
       transform: translateX(-50%);
       backdrop-filter: blur(52px) saturate(220%);
       -webkit-backdrop-filter: blur(52px) saturate(220%);
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.24);
       border-radius: 22px;
       box-shadow:
         0 16px 48px rgba(0, 0, 0, 0.25),
@@ -2166,6 +2166,59 @@
     .settings-window .window__taskbar--actions button:nth-child(2) { background: #ffbd2e; }
     .settings-window .window__taskbar--actions button:nth-child(3) { background: #27c93f; }
 
+    .cloak-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .cloak-card {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .cloak-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #f5f5f7;
+    }
+    .cloak-card p {
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: 0.75;
+      margin: 0 0 12px;
+    }
+    .cloak-card code {
+      font-size: 12px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.35);
+      font-family: ui-monospace, "Roboto Mono", monospace;
+    }
+    .cloak-btn {
+      height: 34px;
+      padding: 0 16px;
+      border: none;
+      border-radius: 8px;
+      background: #0a84ff;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cloak-btn:hover { background: #0071e3; }
+    .cloak-btn:active { transform: scale(0.98); }
+    .cloak-note {
+      margin-top: 14px;
+      font-size: 12px;
+      opacity: 0.55;
+      line-height: 1.4;
+    }
+
+
   
     .steam-play-btn {
       background: #2EBA42 !important;
@@ -2494,6 +2547,217 @@
 
   
     
+
+    /* ===== iMovie ===== */
+    .imovie-window {
+      display: none;
+      position: absolute;
+      top: 8%;
+      left: 10%;
+      width: min(980px, 94vw);
+      height: min(640px, 86vh);
+      background: #1c1c1e;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      z-index: 70;
+      flex-direction: column;
+      overflow: hidden;
+      color: #f5f5f7;
+      font-family: "Inter", "Lexend", system-ui, sans-serif;
+    }
+    .imovie-window.active,
+    .imovie-window[style*="flex"] {
+      display: flex !important;
+    }
+    .imovie-window .window__taskbar {
+      background: #2c2c2e !important;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 40px;
+      flex-shrink: 0;
+    }
+    .imovie-window .window__taskbar--content h2 {
+      color: #f5f5f7 !important;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .imovie-window .window__taskbar--actions button {
+      width: 12px; height: 12px; border-radius: 50%; border: none; cursor: pointer; padding: 0;
+    }
+    .imovie-window .window__taskbar--actions button:nth-child(1) { background: #ff5f56; }
+    .imovie-window .window__taskbar--actions button:nth-child(2) { background: #ffbd2e; }
+    .imovie-window .window__taskbar--actions button:nth-child(3) { background: #27c93f; }
+    .imovie-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #111113;
+    }
+    .imovie-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #1a1a1c;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .imovie-toolbar button {
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 7px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #eee;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .imovie-toolbar button:hover { background: rgba(255,255,255,0.14); }
+    .imovie-toolbar button.primary {
+      background: linear-gradient(180deg, #ff6b8a, #e11d48);
+      color: #fff;
+    }
+    .imovie-toolbar button.primary:hover { filter: brightness(1.08); }
+    .imovie-toolbar .spacer { flex: 1; }
+    .imovie-toolbar .hint {
+      font-size: 11px;
+      color: #8e8e93;
+    }
+    .imovie-main {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+    .imovie-media {
+      width: 200px;
+      background: #161618;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .imovie-media h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8e8e93;
+      padding: 12px 12px 8px;
+      margin: 0;
+    }
+    .imovie-clips {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .imovie-clip {
+      background: #222226;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .imovie-clip:hover, .imovie-clip.active {
+      border-color: #e11d48;
+    }
+    .imovie-clip video, .imovie-clip .clip-thumb {
+      width: 100%;
+      height: 72px;
+      object-fit: cover;
+      display: block;
+      background: #0a0a0b;
+    }
+    .imovie-clip .clip-meta {
+      padding: 6px 8px;
+      font-size: 11px;
+      color: #ccc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .imovie-preview {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0b;
+      position: relative;
+      min-width: 0;
+    }
+    .imovie-preview video {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      background: #000;
+    }
+    .imovie-preview .empty {
+      text-align: center;
+      color: #6e6e73;
+      font-size: 14px;
+      padding: 24px;
+    }
+    .imovie-preview .empty strong {
+      display: block;
+      font-size: 18px;
+      color: #a1a1a6;
+      margin-bottom: 8px;
+    }
+    .imovie-timeline {
+      height: 110px;
+      background: #161618;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+      padding: 10px 14px;
+      overflow-x: auto;
+    }
+    .imovie-timeline h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8e8e93;
+      margin: 0 0 8px;
+    }
+    .imovie-timeline-track {
+      display: flex;
+      gap: 6px;
+      align-items: stretch;
+      min-height: 56px;
+    }
+    .imovie-tl-clip {
+      flex: 0 0 140px;
+      background: linear-gradient(180deg, #3f1d2a, #2a1219);
+      border: 1px solid rgba(225,29,72,0.45);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 11px;
+      color: #fecdd3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .imovie-tl-clip:hover { border-color: #fb7185; }
+    .imovie-tl-empty {
+      flex: 1;
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6e6e73;
+      font-size: 12px;
+    }
+
     /* ===== Dev Hub (unlocked via: sudo apt install dev) ===== */
     .devhub-window {
       display: none;
@@ -2616,6 +2880,103 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    .devhub-wisp {
+      margin-bottom: 22px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(10,132,255,0.12);
+      border: 1px solid rgba(10,132,255,0.28);
+    }
+    .devhub-wisp h3 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #0a84ff;
+      margin: 0 0 8px;
+      border: none;
+      padding: 0;
+    }
+    .devhub-wisp p.hint {
+      font-size: 12px;
+      color: #8e8e93;
+      margin: 0 0 12px;
+      line-height: 1.4;
+    }
+    .devhub-wisp-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .devhub-wisp-row input {
+      flex: 1;
+      min-width: 180px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.35);
+      color: #f5f5f7;
+      padding: 0 12px;
+      font-size: 13px;
+      font-family: ui-monospace, "Roboto Mono", monospace;
+      outline: none;
+    }
+    .devhub-wisp-row input:focus {
+      border-color: rgba(10,132,255,0.7);
+      box-shadow: 0 0 0 3px rgba(10,132,255,0.2);
+    }
+    .devhub-wisp-row button {
+      height: 34px;
+      padding: 0 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .devhub-wisp-row button.save {
+      background: #0a84ff;
+      color: #fff;
+    }
+    .devhub-wisp-row button.save:hover { background: #0071e3; }
+    .devhub-wisp-row button.reset {
+      background: rgba(255,255,255,0.1);
+      color: #f5f5f7;
+    }
+    .devhub-wisp-row button.reset:hover { background: rgba(255,255,255,0.18); }
+    .devhub-wisp-status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #8e8e93;
+      font-family: ui-monospace, "Roboto Mono", monospace;
+      word-break: break-all;
+    }
+    .devhub-wisp-status strong { color: #30d158; font-weight: 600; }
+    .devhub-wisp-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .devhub-wisp-presets button {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #c7c7cc;
+      cursor: pointer;
+      font-family: ui-monospace, monospace;
+    }
+    .devhub-wisp-presets button:hover {
+      background: rgba(10,132,255,0.25);
+      border-color: rgba(10,132,255,0.4);
+      color: #fff;
+    }
+
     .devhub-badge {
       display: inline-block;
       font-size: 10px;
@@ -4886,7 +5247,7 @@
       </div>
       <div class="login-name">Nyx</div>
       <div class="login-field" id="login-field">
-        <input type="password" id="login-password" placeholder="Password" autocomplete="off" spellcheck="false">
+        <input type="password" id="login-password" placeholder="Enter Password" autocomplete="off" spellcheck="false">
         <div class="login-go" id="login-go" title="Sign in">➔</div>
       </div>
       <div class="login-hint" id="login-hint">Touch ID or Enter Password</div>
@@ -5049,6 +5410,10 @@
       <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/steam3.png" alt="Steam">
       <div class="point" id="point-steam"></div>
     </button>
+    <button class="icon open_imovie" title="iMovie">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/62/16/21/621621f2-83f1-15c8-49e4-1b8fe602731f/iMovieAppIcon-0-85-220-0-6-0-0-2x-sRGB-0-0.png/512x512bb.png" alt="iMovie" style="border-radius:12px">
+      <div class="point" id="point-imovie"></div>
+    </button>
     <button class="icon open_settings" title="System Settings">
       <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/dock/preferences.png" alt="Preferences">
       <div class="point" id="point-settings"></div>
@@ -5099,6 +5464,10 @@
       <div class="child-launchpad" data-keywords="Siri">
         <img src="https://cdn.jsdelivr.net/gh/chachereben29-stack/Mac-OS-clone/icon/Launchpad/siri.png">
         <strong>Siri</strong>
+      </div>
+      <div class="child-launchpad open_imovie" data-keywords="iMovie video editor movie film">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/62/16/21/621621f2-83f1-15c8-49e4-1b8fe602731f/iMovieAppIcon-0-85-220-0-6-0-0-2x-sRGB-0-0.png/512x512bb.png" alt="iMovie" style="border-radius:18px">
+        <strong>iMovie</strong>
       </div>
     </div>
   </div>
@@ -5439,7 +5808,52 @@
 
     
     <!-- SYSTEM SETTINGS -->
-    <div class="settings-window window" id="settings-window">
+    
+  <!-- iMovie -->
+  <div class="window imovie-window" id="imovie-window">
+    <div class="window__taskbar">
+      <div class="window__taskbar--actions">
+        <button type="button" class="close-imovie" title="Close"></button>
+        <button type="button" class="min-imovie" title="Minimize"></button>
+        <button type="button" class="full-imovie" title="Maximize"></button>
+      </div>
+      <div class="window__taskbar--content"><h2>iMovie</h2></div>
+    </div>
+    <div class="imovie-body">
+      <div class="imovie-toolbar">
+        <button type="button" class="primary" id="imovie-import">Import Media</button>
+        <button type="button" id="imovie-play">Play</button>
+        <button type="button" id="imovie-pause">Pause</button>
+        <button type="button" id="imovie-clear">Clear Project</button>
+        <input type="file" id="imovie-file" accept="video/*,audio/*,image/*" multiple hidden>
+        <div class="spacer"></div>
+        <span class="hint">Import clips → add to timeline → play</span>
+      </div>
+      <div class="imovie-main">
+        <div class="imovie-media">
+          <h4>Media</h4>
+          <div class="imovie-clips" id="imovie-clips">
+            <div class="imovie-tl-empty" style="min-height:80px;margin:4px">No media yet</div>
+          </div>
+        </div>
+        <div class="imovie-preview" id="imovie-preview">
+          <div class="empty" id="imovie-empty">
+            <strong>iMovie</strong>
+            Import a video to start editing
+          </div>
+          <video id="imovie-video" controls playsinline style="display:none"></video>
+        </div>
+      </div>
+      <div class="imovie-timeline">
+        <h4>Timeline</h4>
+        <div class="imovie-timeline-track" id="imovie-timeline">
+          <div class="imovie-tl-empty">Drag clips here from Media (click a clip to add)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="settings-window window" id="settings-window">
       <div class="window__taskbar">
         <div class="window__taskbar--actions">
           <button type="button" class="close-settings" title="Close"></button>
@@ -5452,6 +5866,7 @@
         <div class="settings-sidebar">
           <button type="button" class="settings-nav active" data-panel="wallpaper">Wallpaper</button>
           <button type="button" class="settings-nav" data-panel="general">General</button>
+          <button type="button" class="settings-nav" data-panel="privacy">Privacy</button>
           <button type="button" class="settings-nav" data-panel="about">About</button>
         </div>
         <div class="settings-content">
@@ -5464,6 +5879,23 @@
             <h3>General</h3>
             <p class="sub">Appearance and desktop options.</p>
             <p style="font-size:13px;opacity:0.8;line-height:1.5">Wallpaper is managed under the Wallpaper tab. Right‑click the desktop for quick access as well.</p>
+          </div>
+          <div id="settings-panel-privacy" style="display:none">
+            <h3>Privacy</h3>
+            <p class="sub">Tab cloaking — open this desktop in a disguised window so the address bar shows a blank or blob URL.</p>
+            <div class="cloak-cards">
+              <div class="cloak-card">
+                <div class="cloak-card-title">about:blank cloak</div>
+                <p>Opens a new window at <code>about:blank</code> and embeds this page inside it. The tab URL reads <code>about:blank</code>.</p>
+                <button type="button" class="cloak-btn" id="cloak-about-blank">Open about:blank cloak</button>
+              </div>
+              <div class="cloak-card">
+                <div class="cloak-card-title">Blob cloak</div>
+                <p>Opens a new window with a <code>blob:</code> URL that embeds this page. The tab shows a blob address instead of the real site.</p>
+                <button type="button" class="cloak-btn" id="cloak-blob">Open blob cloak</button>
+              </div>
+            </div>
+            <p class="cloak-note">Allow pop-ups for this site if the window is blocked. Cloaking only affects the new window’s URL bar.</p>
           </div>
           <div id="settings-panel-about" style="display:none">
             <h3>About This Mac</h3>
@@ -5685,6 +6117,7 @@
         { name: "Maps", kind: "Application", section: "Applications", keywords: "location gps navigation", icon: ICON.maps, action: openApp.maps },
         { name: "Steam", kind: "Application", section: "Applications", keywords: "games gaming play library", icon: ICON.steam, action: openApp.steam },
         { name: "Safari", kind: "Application", section: "Applications", keywords: "browser web internet www", icon: ICON.safari, action: openApp.safari },
+        { name: "iMovie", kind: "Application", section: "Applications", keywords: "video editor movie film imovie", icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/62/16/21/621621f2-83f1-15c8-49e4-1b8fe602731f/iMovieAppIcon-0-85-220-0-6-0-0-2x-sRGB-0-0.png/512x512bb.png", action: () => { try { if (typeof openIMovie === "function") openIMovie(); } catch (e) {} } },
         { name: "System Settings", kind: "System", section: "System", keywords: "preferences wallpaper desktop background config", icon: ICON.settings, action: openApp.settings },
         { name: "Launchpad", kind: "System", section: "System", keywords: "apps grid all applications", icon: ICON.launchpad, action: openApp.launchpad },
         { name: "Finder", kind: "Application", section: "Applications", keywords: "files folder disk", icon: ICON.finder, action: () => {} },
@@ -5938,12 +6371,37 @@
     
     // Spotlight input + keyboard
     (function initSpotlight() {
+      // Caps Lock acts as a hold-modifier only (Spotlight: Caps+F). preventDefault
+      // stops most browsers from toggling real Caps Lock on/off.
+      let capsModHeld = false;
+
+      function isTypingTarget(t) {
+        if (!t) return false;
+        const tag = (t.tagName || "").toLowerCase();
+        return tag === "input" || tag === "textarea" || tag === "select" || !!t.isContentEditable;
+      }
+
       document.addEventListener("keydown", (e) => {
-        // Cmd/Ctrl + Space
+        if (e.code === "CapsLock") {
+          e.preventDefault();
+          e.stopPropagation();
+          capsModHeld = true;
+          return;
+        }
+        // Cmd/Ctrl + Space (classic Spotlight)
         if ((e.metaKey || e.ctrlKey) && e.code === "Space") {
           e.preventDefault();
           handleopen_spotlight();
           return;
+        }
+        // Hold Caps Lock + F → Spotlight (does not require Caps Lock LED/state on)
+        if (e.code === "KeyF" && capsModHeld && !e.metaKey && !e.ctrlKey && !e.altKey) {
+          if (!isTypingTarget(e.target)) {
+            e.preventDefault();
+            e.stopPropagation();
+            handleopen_spotlight();
+            return;
+          }
         }
         const sp = document.getElementById("spotlight") || spotlight_serach;
         const open = sp && sp.style.display === "flex";
@@ -5967,7 +6425,16 @@
           e.preventDefault();
           if (typeof spotlightActivateSelected === "function") spotlightActivateSelected();
         }
-      });
+      }, true);
+
+      document.addEventListener("keyup", (e) => {
+        if (e.code === "CapsLock") {
+          e.preventDefault();
+          e.stopPropagation();
+          capsModHeld = false;
+        }
+      }, true);
+
       function wireInput() {
         const inp = document.getElementById("spotlight-input");
         if (!inp || inp._spotlightWired) return;
@@ -7022,6 +7489,52 @@
               }
             }
           }
+
+          else if (/^wisp\b/i.test(command)) {
+            const parts = command.trim().split(/\s+/);
+            const sub = (parts[1] || "status").toLowerCase();
+            const arg = parts.slice(2).join(" ").trim();
+            const getW = typeof window.getWispServer === "function" ? window.getWispServer : function(){ try { return localStorage.getItem("nyx_wisp")||""; } catch(e){ return ""; } };
+            const setW = typeof window.setWispServer === "function" ? window.setWispServer : function(u){ try { if(!u) localStorage.removeItem("nyx_wisp"); else localStorage.setItem("nyx_wisp", u); } catch(e){} return u||""; };
+            if (sub === "status" || sub === "show" || sub === "get") {
+              const cur = getW();
+              output = cur
+                ? "wisp: using ONLY this server (no fallback)<br>  <span class='color_green'>" + cur.replace(/</g,"&lt;") + "</span><br>Key: <span class='color_blue'>nyx_wisp</span>. Reopen Safari to apply.<br>"
+                : "wisp: no override — built-in list with fallback<br>Set exclusive server: <span class='color_blue'>wisp set wss://host/wisp/</span><br>";
+            } else if (sub === "set" || sub === "use") {
+              if (!arg) {
+                output = "usage: wisp set &lt;wss://host/path&gt;<br>example: wisp set wss://wisp.example.com/wisp/<br>";
+              } else {
+                let u = arg;
+                if (!/^wss?:\/\//i.test(u) && /^[\w.-]+(:\d+)?(\/.*)?$/i.test(u)) u = "wss://" + u;
+                setW(u);
+                output = "wisp: set to <span class='color_green'>" + String(getW()).replace(/</g,"&lt;") + "</span><br>Reopen Safari (or navigate) to reconnect with the new server.<br>";
+              }
+            } else if (sub === "reset" || sub === "clear" || sub === "rm" || sub === "remove") {
+              setW("");
+              output = "wisp: override cleared — default server list will be used<br>";
+            } else if (sub === "list" || sub === "servers") {
+              output = "Built-in Wisp servers:<br>"
+                + "  wss://wisp.mercurywork.shop/<br>"
+                + "  wss://wisp.mercurywork.shop/wisp/<br>"
+                + "  wss://anura.pro/<br>"
+                + "  wss://glseries.net/wisp/<br>"
+                + "  wss://wisp.terbiumon.top/wisp/<br>"
+                + "  wss://copium-wisp-9529463.onrender.com/wisp/<br>"
+                + "  wss://wisp.smartfoloo.space/<br>"
+                + "Override: " + (getW() ? "<span class='color_green'>" + getW().replace(/</g,"&lt;") + "</span>" : "(none)") + "<br>";
+            } else if (sub === "help" || sub === "-h" || sub === "--help") {
+              output = "wisp — manage Safari proxy Wisp WebSocket server<br>"
+                + "  wisp status          show current override<br>"
+                + "  wisp set &lt;url&gt;       set custom wss:// server<br>"
+                + "  wisp reset           clear override<br>"
+                + "  wisp list            show built-in servers<br>"
+                + "Dev Hub also has a GUI for this when <span class='color_blue'>sudo apt install dev</span> is active.<br>";
+            } else {
+              output = "wisp: unknown subcommand '" + sub.replace(/</g,"&lt;") + "' — try <span class='color_blue'>wisp help</span><br>";
+            }
+          }
+
           else if (/^sudo\s+apt(?:-get)?\s+(install|remove|purge)\b/i.test(command)) {
             const mApt = command.match(/^sudo\s+apt(?:-get)?\s+(install|remove|purge)\s+(\S+)/i);
             const action = (mApt && mApt[1] || "install").toLowerCase();
@@ -7316,12 +7829,80 @@ window.setDesktopBackground = setDesktopBackground;
         document.querySelectorAll(".settings-nav").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         const panel = btn.dataset.panel;
-        ["wallpaper", "general", "about"].forEach(p => {
+        ["wallpaper", "general", "privacy", "about"].forEach(p => {
           const el = document.getElementById("settings-panel-" + p);
           if (el) el.style.display = p === panel ? "block" : "none";
         });
       });
     });
+
+    // Tab cloaking (about:blank + blob)
+    function buildCloakShell(srcUrl) {
+      const title = document.title || "Mac OS";
+      return "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+        + "<title>" + title.replace(/</g, "") + "</title>"
+        + "<style>html,body{margin:0;height:100%;overflow:hidden;background:#000}iframe{border:0;width:100%;height:100%;display:block}</style>"
+        + "</head><body>"
+        + "<iframe src=\"" + srcUrl.replace(/"/g, "&quot;") + "\" allow=\"fullscreen *\" allowfullscreen></iframe>"
+        + "</body></html>";
+    }
+    function cloakAboutBlank() {
+      const url = location.href;
+      const win = window.open("about:blank", "_blank");
+      if (!win) {
+        alert("Popup blocked — allow pop-ups for this site, then try again.");
+        return;
+      }
+      try {
+        win.document.open();
+        win.document.write(buildCloakShell(url));
+        win.document.close();
+      } catch (err) {
+        try {
+          win.location.href = url;
+        } catch (e2) {
+          alert("Could not write about:blank cloak.");
+        }
+      }
+    }
+    function cloakBlob() {
+      const url = location.href;
+      const html = buildCloakShell(url);
+      const blob = new Blob([html], { type: "text/html" });
+      const blobUrl = URL.createObjectURL(blob);
+      const win = window.open(blobUrl, "_blank");
+      if (!win) {
+        URL.revokeObjectURL(blobUrl);
+        alert("Popup blocked — allow pop-ups for this site, then try again.");
+        return;
+      }
+      // Revoke later so the blob stays valid for the new window
+      setTimeout(function () { try { URL.revokeObjectURL(blobUrl); } catch (e) {} }, 60000);
+    }
+    window.cloakAboutBlank = cloakAboutBlank;
+    window.cloakBlob = cloakBlob;
+    (function wireCloakButtons() {
+      function bind() {
+        const a = document.getElementById("cloak-about-blank");
+        const b = document.getElementById("cloak-blob");
+        if (a && !a._wired) {
+          a._wired = true;
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            cloakAboutBlank();
+          });
+        }
+        if (b && !b._wired) {
+          b._wired = true;
+          b.addEventListener("click", function (e) {
+            e.preventDefault();
+            cloakBlob();
+          });
+        }
+      }
+      bind();
+      setTimeout(bind, 500);
+    })();
     let _wallpaperGridBuilt = false;
     let _wpIO = null;
     const _wpLoadQueue = [];
@@ -7461,7 +8042,7 @@ window.setDesktopBackground = setDesktopBackground;
 
 
     // ===== Safari: Scramjet v2 stack via Wisp transport (libcurl) + DuckDuckGo =====
-    const NYX_PROXY_HTML = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Start Page</title>\n<style>\n:root{color-scheme:light dark;--bg:#e8e8ed;--text:#1d1d1f;--muted:#6e6e73;--accent:#007aff;font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",system-ui,sans-serif}\n*{box-sizing:border-box}\nhtml,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text)}\n.page{height:100%;display:flex;flex-direction:column}\n#content{flex:1;min-height:0;position:relative}\n#view{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}\n#start{height:100%;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:48px 24px 40px}\n.start-search-wrap{width:min(560px,92%);margin-bottom:20px;position:relative}\n.start-search{width:100%;height:44px;border-radius:12px;border:none;background:rgba(255,255,255,.9);box-shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.04);padding:0 88px 0 40px;font-size:15px;color:var(--text);outline:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238e8e93' viewBox='0 0 24 24'%3E%3Cpath d='M11 4a7 7 0 015.52 11.27l4.1 4.1a1 1 0 01-1.41 1.42l-4.1-4.1A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:14px center}\n.start-search:focus{box-shadow:0 0 0 3px rgba(0,122,255,.25),0 1px 3px rgba(0,0,0,.08)}\n.search-go{position:absolute;right:6px;top:6px;height:32px;padding:0 14px;border:none;border-radius:8px;background:#007aff;color:#fff;font-weight:600;font-size:13px;cursor:pointer}\n.search-go:hover{background:#0066d6}\n.favorites-label{width:min(720px,96%);font-size:22px;font-weight:700;margin:16px 0 18px}\n.favorites{width:min(720px,96%);display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px 12px;justify-items:center}\n@media(max-width:700px){.favorites{grid-template-columns:repeat(4,minmax(0,1fr))}}\n.fav{display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;padding:0;color:var(--text);font:inherit}\n.fav-icon{width:56px;height:56px;border-radius:14px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.04);display:grid;place-items:center;font-size:22px;font-weight:700;overflow:hidden}\n.fav-icon img{width:28px;height:28px;object-fit:contain}\n.fav-icon.bing{background:#00809d;color:#fff}\n.fav-icon.fb{background:#1877f2;color:#fff;font-size:26px}\n.fav-icon.tw{background:#e7e7e8;color:#1d1d1f;font-weight:800}\n.fav span{font-size:12px;color:var(--muted)}\n.boot{position:absolute;inset:0;display:none;place-items:center;background:rgba(255,255,255,.55);backdrop-filter:blur(14px);z-index:2}\n.boot.show{display:grid}\n.boot-inner{text-align:center;color:var(--muted);font-size:13px}\n.spinner{width:26px;height:26px;margin:0 auto 10px;border:2px solid rgba(0,0,0,.08);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}\n@keyframes spin{to{transform:rotate(360deg)}}\n.proxy-status{margin-top:24px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}\n.proxy-status .dot{width:8px;height:8px;border-radius:50%;background:#8e8e93}\n.proxy-status.ready .dot{background:#30d158}\n.proxy-status.error .dot{background:#ff453a}\nhtml.dark,html.dark body{background:#1c1c1e!important;color:#f5f5f7!important}\nhtml.dark #start{background:#1c1c1e}\nhtml.dark .start-search{background:rgba(0,0,0,.4)!important;color:#f5f5f7!important;box-shadow:0 0 0 1px rgba(255,255,255,.1)!important}\nhtml.dark .fav-icon{background:#2c2c2e!important}\nhtml.dark .boot{background:rgba(28,28,30,.55)}\n</style>\n</head>\n<body>\n<div class=\"page\"><div id=\"content\">\n<div id=\"start\">\n  <div class=\"start-search-wrap\">\n    <input class=\"start-search\" id=\"startSearch\" type=\"text\" placeholder=\"Search DuckDuckGo or enter URL\" spellcheck=\"false\" autocomplete=\"off\">\n    <button type=\"button\" class=\"search-go\" id=\"startSearchGo\">Search</button>\n  </div>\n  <div class=\"favorites-label\">Favorites</div>\n  <div class=\"favorites\">\n    <button class=\"fav\" data-url=\"https://www.apple.com\"><div class=\"fav-icon\"><img src=\"https://www.apple.com/favicon.ico\" alt=\"\"></div><span>Apple</span></button>\n    <button class=\"fav\" data-url=\"https://www.icloud.com\"><div class=\"fav-icon\"><img src=\"https://www.icloud.com/favicon.ico\" alt=\"\"></div><span>iCloud</span></button>\n    <button class=\"fav\" data-url=\"search:DuckDuckGo\"><div class=\"fav-icon\" style=\"font-size:18px\">🦆</div><span>DuckDuckGo</span></button>\n    <button class=\"fav\" data-url=\"https://www.wikipedia.org\"><div class=\"fav-icon\"><img src=\"https://www.wikipedia.org/static/favicon/wikipedia.ico\" alt=\"\"></div><span>Wikipedia</span></button>\n    <button class=\"fav\" data-url=\"https://www.google.com\"><div class=\"fav-icon\"><img src=\"https://www.google.com/favicon.ico\" alt=\"\"></div><span>Google</span></button>\n    <button class=\"fav\" data-url=\"https://www.bing.com\"><div class=\"fav-icon bing\">B</div><span>Bing</span></button>\n    <button class=\"fav\" data-url=\"https://www.facebook.com\"><div class=\"fav-icon fb\">f</div><span>Facebook</span></button>\n    <button class=\"fav\" data-url=\"https://x.com\"><div class=\"fav-icon tw\">X</div><span>X</span></button>\n  </div>\n  <div class=\"proxy-status\" id=\"proxyStatus\"><span class=\"dot\"></span><span id=\"proxyStatusText\">Connecting proxy…</span></div>\n</div>\n<iframe id=\"view\" title=\"Page\" sandbox=\"allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads\"></iframe>\n<div class=\"boot\" id=\"boot\"><div class=\"boot-inner\"><div class=\"spinner\"></div><div id=\"bootMsg\">Loading…</div></div></div>\n</div></div>\n\n<script>\n(function () {\n  const SERVERS = [\n    \"wss://wisp.mercurywork.shop/\",\n    \"wss://wisp.mercurywork.shop/wisp/\",\n    \"wss://anura.pro/\",\n    \"wss://glseries.net/wisp/\",\n    \"wss://wisp.terbiumon.top/wisp/\",\n    \"wss://copium-wisp-9529463.onrender.com/wisp/\",\n    \"wss://wisp.smartfoloo.space/\"\n  ];\n  const start = document.getElementById(\"start\");\n  const view = document.getElementById(\"view\");\n  const boot = document.getElementById(\"boot\");\n  const bootMsg = document.getElementById(\"bootMsg\");\n  const startSearch = document.getElementById(\"startSearch\");\n  const goBtn = document.getElementById(\"startSearchGo\");\n  const proxyStatus = document.getElementById(\"proxyStatus\");\n  const proxyStatusText = document.getElementById(\"proxyStatusText\");\n  let libcurl = null;\n  let ready = false;\n  let currentPageUrl = \"\";\n  let curlPromise = null;\n\n  function setStatus(state, text) {\n    if (proxyStatus) {\n      proxyStatus.classList.remove(\"ready\", \"error\");\n      if (state) proxyStatus.classList.add(state);\n    }\n    if (proxyStatusText) proxyStatusText.textContent = text || \"\";\n  }\n  function showStart() {\n    start.style.display = \"flex\";\n    view.style.display = \"none\";\n    boot.classList.remove(\"show\");\n    try { parent.postMessage({ type: \"safari-state\", title: \"Start Page\", url: \"\" }, \"*\"); } catch (e) {}\n  }\n  function showBoot(msg) {\n    boot.classList.add(\"show\");\n    if (bootMsg) bootMsg.textContent = msg || \"Loading…\";\n  }\n  function hideBoot() { boot.classList.remove(\"show\"); }\n\n  function isProbablyUrl(u) {\n    if (/^https?:\\/\\//i.test(u)) return true;\n    if (u.startsWith(\"//\")) return true;\n    if (/^localhost\\b/i.test(u)) return true;\n    return /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+([/:?#].*)?$/i.test(u);\n  }\n\n  function normalizeUrl(raw) {\n    var u = String(raw || \"\").trim();\n    if (!u) return \"\";\n    if (/^search:/i.test(u)) return \"search:\" + u.slice(7).trim();\n    if (/^tiktok$/i.test(u) || /^tt$/i.test(u)) return \"https://www.tiktok.com/\";\n    if (/^https?:\\/\\//i.test(u)) {\n      try { return new URL(u).href; } catch (e) { return u; }\n    }\n    if (u.startsWith(\"//\")) {\n      try { return new URL(\"https:\" + u).href; } catch (e) { return \"https:\" + u; }\n    }\n    if (isProbablyUrl(u)) {\n      try { return new URL(\"https://\" + u).href; } catch (e) { return \"https://\" + u; }\n    }\n    return \"search:\" + u;\n  }\n\n  function hostLabel(u) {\n    if (/^search:/i.test(u)) return \"Search\";\n    try { return new URL(u).hostname.replace(/^www\\./, \"\"); } catch (e) { return u; }\n  }\n\n  function esc(s) {\n    return String(s || \"\").replace(/[&<>\"']/g, function (c) {\n      return ({ \"&\": \"&amp;\", \"<\": \"&lt;\", \">\": \"&gt;\", '\"': \"&quot;\", \"'\": \"&#39;\" })[c];\n    });\n  }\n\n  async function ensureCurl() {\n    if (ready && libcurl) return true;\n    if (curlPromise) return curlPromise;\n    curlPromise = (async function () {\n      setStatus(\"\", \"Connecting proxy…\");\n      var mod = null;\n      var imports = [\n        \"https://cdn.jsdelivr.net/npm/libcurl.js@0.7.1/libcurl_full.mjs\",\n        \"https://cdn.jsdelivr.net/npm/libcurl.js@0.7.4/libcurl_full.mjs\",\n        \"https://cdn.jsdelivr.net/npm/libcurl.js@latest/libcurl_full.mjs\"\n      ];\n      for (var i = 0; i < imports.length; i++) {\n        try { mod = await import(imports[i]); break; } catch (e) {}\n      }\n      if (!mod) throw new Error(\"libcurl load failed\");\n      libcurl = mod.libcurl || mod.default || mod;\n      if (typeof libcurl.load_wasm === \"function\") {\n        try { await libcurl.load_wasm(); } catch (e) {}\n      }\n      var servers = SERVERS.slice();\n      try {\n        var saved = localStorage.getItem(\"nyx_wisp\");\n        if (saved) servers = [saved].concat(servers.filter(function (x) { return x !== saved; }));\n      } catch (e) {}\n      var last = null;\n      for (var s = 0; s < servers.length; s++) {\n        try {\n          libcurl.set_websocket(servers[s]);\n          var r = await Promise.race([\n            libcurl.fetch(\"https://example.com/\", { redirect: \"follow\" }),\n            new Promise(function (_, rej) { setTimeout(function () { rej(new Error(\"timeout\")); }, 5000); })\n          ]);\n          if (r && r.status >= 200 && r.status < 500) {\n            ready = true;\n            try { localStorage.setItem(\"nyx_wisp\", servers[s]); } catch (e) {}\n            setStatus(\"ready\", \"Proxy ready\");\n            return true;\n          }\n        } catch (e) { last = e; }\n      }\n      setStatus(\"error\", \"Proxy offline — will retry\");\n      throw last || new Error(\"Wisp connect failed\");\n    })();\n    try {\n      return await curlPromise;\n    } catch (e) {\n      curlPromise = null;\n      throw e;\n    }\n  }\n\n  async function proxyFetch(url, opts) {\n    await ensureCurl();\n    var headers = Object.assign({\n      \"User-Agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15\",\n      \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\",\n      \"Accept-Language\": \"en-US,en;q=0.9\"\n    }, (opts && opts.headers) || {});\n    var fetchOpts = Object.assign({ redirect: \"follow\" }, opts || {}, { headers: headers });\n    return Promise.race([\n      libcurl.fetch(url, fetchOpts),\n      new Promise(function (_, rej) { setTimeout(function () { rej(new Error(\"timeout\")); }, 25000); })\n    ]);\n  }\n\n  function decodeUddg(href) {\n    try {\n      var u = new URL(href, \"https://duckduckgo.com\");\n      var uddg = u.searchParams.get(\"uddg\");\n      if (uddg) return decodeURIComponent(uddg);\n    } catch (e) {}\n    try {\n      var m = String(href).match(/[?&]uddg=([^&]+)/);\n      if (m) return decodeURIComponent(m[1]);\n    } catch (e) {}\n    return href;\n  }\n\n  function parseDdgHtml(html) {\n    var results = [];\n    var reA = /class=\"result__a\"[^>]*href=\"([^\"]+)\"[^>]*>([\\s\\S]*?)<\\/a>/gi;\n    var m;\n    while ((m = reA.exec(html))) {\n      var href = decodeUddg(m[1].replace(/&amp;/g, \"&\"));\n      var title = m[2].replace(/<[^>]+>/g, \"\").trim();\n      if (href && title && !/^https?:\\/\\/(duckduckgo|www\\.duckduckgo)\\.com/i.test(href)) {\n        results.push({ href: href, title: title, snippet: \"\" });\n      }\n    }\n    var snippets = [];\n    var reS = /class=\"result__snippet\"[^>]*>([\\s\\S]*?)<\\/(?:a|td|div)>/gi;\n    while ((m = reS.exec(html))) {\n      snippets.push(m[1].replace(/<[^>]+>/g, \"\").trim());\n    }\n    for (var i = 0; i < results.length && i < snippets.length; i++) {\n      results[i].snippet = snippets[i];\n    }\n    if (!results.length) {\n      var reU = /href=\"([^\"]*uddg=[^\"]+)\"[^>]*>([\\s\\S]*?)<\\/a>/gi;\n      var seen = {};\n      while ((m = reU.exec(html))) {\n        href = decodeUddg(m[1].replace(/&amp;/g, \"&\"));\n        title = m[2].replace(/<[^>]+>/g, \"\").trim();\n        if (!title || title.length < 3) continue;\n        if (seen[href]) continue;\n        seen[href] = 1;\n        if (/^https?:\\/\\//i.test(href)) results.push({ href: href, title: title, snippet: \"\" });\n      }\n    }\n    return results;\n  }\n\n  async function searchDuckDuckGo(query) {\n    var q = String(query || \"\").trim();\n    if (!q) return { query: q, abstract: null, results: [] };\n\n    var abstract = null;\n    var related = [];\n    try {\n      var apiUrl = \"https://api.duckduckgo.com/?q=\" + encodeURIComponent(q)\n        + \"&format=json&no_redirect=1&no_html=1&skip_disambig=1\";\n      var res = await proxyFetch(apiUrl, { headers: { \"Accept\": \"application/json\" } });\n      var text = await res.text();\n      var data = JSON.parse(text);\n      if (data.AbstractText || data.Heading) {\n        abstract = {\n          heading: data.Heading || q,\n          text: data.AbstractText || \"\",\n          url: data.AbstractURL || \"\",\n          source: data.AbstractSource || \"\"\n        };\n      }\n      function walk(arr) {\n        (arr || []).forEach(function (item) {\n          if (item.Topics) walk(item.Topics);\n          else if (item.FirstURL && item.Text) {\n            related.push({\n              href: item.FirstURL,\n              title: (item.Text.split(\" - \")[0] || item.Text),\n              snippet: item.Text\n            });\n          }\n        });\n      }\n      walk(data.RelatedTopics);\n      if (Array.isArray(data.Results)) {\n        data.Results.forEach(function (r) {\n          if (r.FirstURL && r.Text) related.push({ href: r.FirstURL, title: r.Text, snippet: \"\" });\n        });\n      }\n    } catch (e) {\n      console.warn(\"DDG API failed\", e);\n    }\n\n    var htmlResults = [];\n    try {\n      var htmlUrl = \"https://html.duckduckgo.com/html/?q=\" + encodeURIComponent(q);\n      var res2 = await proxyFetch(htmlUrl, {\n        headers: { \"Accept\": \"text/html\", \"Referer\": \"https://html.duckduckgo.com/\" }\n      });\n      var html = await res2.text();\n      if (!/anomaly-modal|bots use DuckDuckGo/i.test(html)) {\n        htmlResults = parseDdgHtml(html);\n      }\n    } catch (e) {\n      console.warn(\"DDG HTML failed\", e);\n    }\n\n    var seen = {};\n    var results = [];\n    htmlResults.concat(related).forEach(function (r) {\n      if (!r || !r.href) return;\n      var key = r.href.split(\"#\")[0];\n      if (seen[key]) return;\n      seen[key] = 1;\n      results.push(r);\n    });\n    return { query: q, abstract: abstract, results: results.slice(0, 12) };\n  }\n\n  function renderSearchPage(data) {\n    var q = data.query || \"\";\n    var abs = data.abstract;\n    var results = data.results || [];\n    var absHtml = \"\";\n    if (abs && (abs.text || abs.heading)) {\n      absHtml = '<div class=\"card abstract\">'\n        + '<div class=\"abs-title\">' + esc(abs.heading) + '</div>'\n        + (abs.text ? '<p>' + esc(abs.text) + '</p>' : '')\n        + (abs.url ? '<a class=\"abs-link\" data-nav=\"' + esc(abs.url) + '\" href=\"' + esc(abs.url) + '\">' + esc(abs.source || abs.url) + '</a>' : '')\n        + '</div>';\n    }\n    var list = \"\";\n    if (results.length) {\n      list = results.map(function (r) {\n        var host = \"\";\n        try { host = new URL(r.href).hostname.replace(/^www\\./, \"\"); } catch (e) { host = r.href; }\n        return '<div class=\"card result\">'\n          + '<a class=\"title\" data-nav=\"' + esc(r.href) + '\" href=\"' + esc(r.href) + '\">' + esc(r.title) + '</a>'\n          + '<div class=\"url\">' + esc(host) + '</div>'\n          + (r.snippet ? '<div class=\"snippet\">' + esc(r.snippet) + '</div>' : '')\n          + '</div>';\n      }).join(\"\");\n    } else {\n      list = '<div class=\"card empty\">No web results for this query. Try different words, or enter a full URL.</div>';\n    }\n\n    return '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">'\n      + '<title>' + esc(q) + ' — DuckDuckGo</title>'\n      + '<style>'\n      + 'body{margin:0;font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",system-ui,sans-serif;background:#f5f5f7;color:#1d1d1f;padding:16px 18px 40px}'\n      + '.bar{display:flex;gap:8px;align-items:center;margin-bottom:18px;position:sticky;top:0;background:#f5f5f7;padding:8px 0 12px;z-index:2}'\n      + '.bar input{flex:1;height:40px;border-radius:10px;border:1px solid #d2d2d7;padding:0 14px;font-size:15px;background:#fff;color:inherit;outline:none}'\n      + '.bar input:focus{border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.2)}'\n      + '.bar button{height:40px;padding:0 16px;border:none;border-radius:10px;background:#de5833;color:#fff;font-weight:600;cursor:pointer;font-size:14px}'\n      + '.brand{font-size:12px;color:#6e6e73;margin-bottom:10px}'\n      + '.card{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}'\n      + '.abstract .abs-title{font-size:18px;font-weight:700;margin-bottom:6px}'\n      + '.abstract p{margin:0 0 8px;line-height:1.45;color:#3a3a3c;font-size:14px}'\n      + '.abs-link,.title{color:#0060df;text-decoration:none;cursor:pointer}'\n      + '.title{font-size:16px;font-weight:600;display:inline-block;margin-bottom:2px}'\n      + '.title:hover,.abs-link:hover{text-decoration:underline}'\n      + '.url{font-size:12px;color:#0d7a3f;margin-bottom:4px}'\n      + '.snippet{font-size:13px;color:#3a3a3c;line-height:1.4}'\n      + '.empty{color:#6e6e73;text-align:center;padding:28px 16px}'\n      + '@media(prefers-color-scheme:dark){body{background:#1c1c1e;color:#f5f5f7}.bar{background:#1c1c1e}.bar input{background:#2c2c2e;border-color:#3a3a3c;color:#f5f5f7}.card{background:#2c2c2e;border-color:#3a3a3c}.abstract p,.snippet{color:#c7c7cc}.title,.abs-link{color:#0a84ff}}'\n      + '</style></head><body>'\n      + '<div class=\"brand\">DuckDuckGo Search</div>'\n      + '<div class=\"bar\"><input id=\"q\" type=\"search\" value=\"' + esc(q) + '\" placeholder=\"Search DuckDuckGo\">'\n      + '<button type=\"button\" id=\"go\">Search</button></div>'\n      + absHtml + list\n      + '<script>(function(){function send(u){try{parent.postMessage({type:\"safari-navigate\",url:u},\"*\")}catch(e){}}'\n      + 'document.getElementById(\"go\").onclick=function(){var v=document.getElementById(\"q\").value.trim();if(v)send(\"search:\"+v)};'\n      + 'document.getElementById(\"q\").addEventListener(\"keydown\",function(e){if(e.key===\"Enter\"){e.preventDefault();document.getElementById(\"go\").click()}});'\n      + 'document.addEventListener(\"click\",function(e){var a=e.target.closest&&e.target.closest(\"[data-nav]\");if(!a)return;e.preventDefault();send(a.getAttribute(\"data-nav\"))},true);'\n      + '})();<\\/script></body></html>';\n  }\n\n  function rewriteHtml(body, pageUrl) {\n    try {\n      var base = new URL(pageUrl);\n      body = body.replace(/<meta[^>]+http-equiv=[\"']?Content-Security-Policy[^>]*>/gi, \"\");\n      body = body.replace(/<base[^>]*>/gi, \"\");\n      var baseTag = '<base href=\"' + base.href + '\">';\n      if (/<head[^>]*>/i.test(body)) body = body.replace(/<head([^>]*)>/i, \"<head$1>\" + baseTag);\n      else body = baseTag + body;\n      var bridge = '<script>(function(){function abs(u){try{return new URL(u,document.baseURI||location.href).href}catch(e){return u}}'\n        + 'document.addEventListener(\"click\",function(e){var a=e.target&&e.target.closest&&e.target.closest(\"a[href]\");if(!a)return;'\n        + 'var h=a.getAttribute(\"href\");if(!h||h.charAt(0)===\"#\")return;if(/^javascript:/i.test(h))return;'\n        + 'e.preventDefault();e.stopPropagation();try{parent.postMessage({type:\"safari-navigate\",url:abs(h)},\"*\")}catch(err){}},true);'\n        + 'document.addEventListener(\"submit\",function(e){var f=e.target;if(!f)return;e.preventDefault();e.stopPropagation();'\n        + 'try{var action=f.getAttribute(\"action\")||location.href;var u=new URL(action,document.baseURI||location.href);'\n        + 'if((f.method||\"get\").toLowerCase()===\"get\"){var fd=new FormData(f);fd.forEach(function(v,k){u.searchParams.set(k,v)})}'\n        + 'parent.postMessage({type:\"safari-navigate\",url:u.href},\"*\")}catch(err){}},true);'\n        + '})();<\\/script>';\n      if (/<body[^>]*>/i.test(body)) body = body.replace(/<body([^>]*)>/i, \"<body$1>\" + bridge);\n      else body = body + bridge;\n    } catch (e) {}\n    return body;\n  }\n\n  async function navigate(raw) {\n    var u = normalizeUrl(raw);\n    if (!u) { showStart(); return; }\n    showBoot(\"Loading…\");\n    try {\n      if (/^search:/i.test(u)) {\n        var q = u.slice(7).trim() || \"DuckDuckGo\";\n        start.style.display = \"none\";\n        view.style.display = \"block\";\n        try { parent.postMessage({ type: \"safari-state\", title: q + \" — Search\", url: \"search:\" + q }, \"*\"); } catch (e) {}\n        var data = await searchDuckDuckGo(q);\n        view.removeAttribute(\"src\");\n        view.srcdoc = renderSearchPage(data);\n        currentPageUrl = \"search:\" + q;\n        hideBoot();\n        return;\n      }\n\n      await ensureCurl();\n      start.style.display = \"none\";\n      view.style.display = \"block\";\n      try { parent.postMessage({ type: \"safari-state\", title: hostLabel(u), url: u }, \"*\"); } catch (e) {}\n      var res = await proxyFetch(u);\n      var body = await res.text();\n      var ctype = (res.headers && res.headers.get && res.headers.get(\"content-type\")) || \"\";\n      var finalUrl = (res.url && String(res.url)) || u;\n      if (ctype.indexOf(\"text/html\") !== -1 || /^\\s*</.test(body)) {\n        body = rewriteHtml(body, finalUrl);\n        view.removeAttribute(\"src\");\n        view.srcdoc = body;\n      } else {\n        view.srcdoc = \"<pre style='padding:16px;white-space:pre-wrap;font-family:ui-monospace,monospace'>\" + esc(body) + \"</pre>\";\n      }\n      currentPageUrl = finalUrl;\n      try { parent.postMessage({ type: \"safari-state\", title: hostLabel(finalUrl), url: finalUrl }, \"*\"); } catch (e) {}\n      hideBoot();\n    } catch (e) {\n      console.warn(\"navigate failed\", e);\n      showBoot(\"Couldn't load — check proxy\");\n      setStatus(\"error\", \"Load failed\");\n      setTimeout(hideBoot, 2200);\n    }\n  }\n\n  function goFromSearch() {\n    if (!startSearch) return;\n    var v = startSearch.value;\n    if (!String(v || \"\").trim()) {\n      startSearch.focus();\n      return;\n    }\n    navigate(v);\n  }\n\n  // Wire events immediately (do not wait for proxy)\n  if (startSearch) {\n    startSearch.addEventListener(\"keydown\", function (e) {\n      if (e.key === \"Enter\") {\n        e.preventDefault();\n        e.stopPropagation();\n        goFromSearch();\n      }\n    });\n  }\n  if (goBtn) {\n    goBtn.addEventListener(\"click\", function (e) {\n      e.preventDefault();\n      e.stopPropagation();\n      goFromSearch();\n    });\n  }\n  document.querySelectorAll(\".fav\").forEach(function (btn) {\n    btn.addEventListener(\"click\", function () {\n      var url = btn.getAttribute(\"data-url\");\n      if (url === \"search:DuckDuckGo\") {\n        if (startSearch) startSearch.focus();\n        return;\n      }\n      navigate(url);\n    });\n  });\n  window.addEventListener(\"message\", function (ev) {\n    var d = ev.data;\n    if (!d || typeof d !== \"object\") return;\n    if (d.type === \"safari-navigate\") navigate(d.url);\n    if (d.type === \"safari-reload\" && currentPageUrl) navigate(currentPageUrl);\n    if (d.type === \"safari-home\") showStart();\n    if (d.type === \"safari-theme\") {\n      document.documentElement.classList.toggle(\"dark\", !!d.dark);\n    }\n  });\n\n  try { parent.postMessage({ type: \"safari-ready\" }, \"*\"); } catch (e) {}\n  showStart();\n  ensureCurl().then(function () {\n    setStatus(\"ready\", \"Proxy ready\");\n  }).catch(function () {\n    setStatus(\"error\", \"Proxy offline — will retry on search\");\n  });\n})();\n<\/script>\n</body>\n</html>\n";
+    const NYX_PROXY_HTML = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Start Page</title>\n<style>\n:root{color-scheme:light dark;--bg:#e8e8ed;--text:#1d1d1f;--muted:#6e6e73;--accent:#007aff;font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",system-ui,sans-serif}\n*{box-sizing:border-box}\nhtml,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text)}\n.page{height:100%;display:flex;flex-direction:column}\n#content{flex:1;min-height:0;position:relative}\n#view{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}\n#start{height:100%;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:48px 24px 40px}\n.start-search-wrap{width:min(560px,92%);margin-bottom:20px;position:relative}\n.start-search{width:100%;height:44px;border-radius:12px;border:none;background:rgba(255,255,255,.9);box-shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.04);padding:0 88px 0 40px;font-size:15px;color:var(--text);outline:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238e8e93' viewBox='0 0 24 24'%3E%3Cpath d='M11 4a7 7 0 015.52 11.27l4.1 4.1a1 1 0 01-1.41 1.42l-4.1-4.1A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:14px center}\n.start-search:focus{box-shadow:0 0 0 3px rgba(0,122,255,.25),0 1px 3px rgba(0,0,0,.08)}\n.search-go{position:absolute;right:6px;top:6px;height:32px;padding:0 14px;border:none;border-radius:8px;background:#007aff;color:#fff;font-weight:600;font-size:13px;cursor:pointer}\n.search-go:hover{background:#0066d6}\n.favorites-label{width:min(720px,96%);font-size:22px;font-weight:700;margin:16px 0 18px}\n.favorites{width:min(720px,96%);display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px 12px;justify-items:center}\n@media(max-width:700px){.favorites{grid-template-columns:repeat(4,minmax(0,1fr))}}\n.fav{display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;padding:0;color:var(--text);font:inherit}\n.fav-icon{width:56px;height:56px;border-radius:14px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.04);display:grid;place-items:center;font-size:22px;font-weight:700;overflow:hidden}\n.fav-icon img{width:28px;height:28px;object-fit:contain}\n.fav-icon.bing{background:#00809d;color:#fff}\n.fav-icon.fb{background:#1877f2;color:#fff;font-size:26px}\n.fav-icon.tw{background:#e7e7e8;color:#1d1d1f;font-weight:800}\n.fav span{font-size:12px;color:var(--muted)}\n.boot{position:absolute;inset:0;display:none;place-items:center;background:rgba(255,255,255,.55);backdrop-filter:blur(14px);z-index:2}\n.boot.show{display:grid}\n.boot-inner{text-align:center;color:var(--muted);font-size:13px}\n.spinner{width:26px;height:26px;margin:0 auto 10px;border:2px solid rgba(0,0,0,.08);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}\n@keyframes spin{to{transform:rotate(360deg)}}\n.proxy-status{margin-top:24px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}\n.proxy-status .dot{width:8px;height:8px;border-radius:50%;background:#8e8e93}\n.proxy-status.ready .dot{background:#30d158}\n.proxy-status.error .dot{background:#ff453a}\nhtml.dark,html.dark body{background:#1c1c1e!important;color:#f5f5f7!important}\nhtml.dark #start{background:#1c1c1e}\nhtml.dark .start-search{background:rgba(0,0,0,.4)!important;color:#f5f5f7!important;box-shadow:0 0 0 1px rgba(255,255,255,.1)!important}\nhtml.dark .fav-icon{background:#2c2c2e!important}\nhtml.dark .boot{background:rgba(28,28,30,.55)}\n</style>\n</head>\n<body>\n<div class=\"page\"><div id=\"content\">\n<div id=\"start\">\n  <div class=\"start-search-wrap\">\n    <input class=\"start-search\" id=\"startSearch\" type=\"text\" placeholder=\"Search DuckDuckGo or enter URL\" spellcheck=\"false\" autocomplete=\"off\">\n    <button type=\"button\" class=\"search-go\" id=\"startSearchGo\">Search</button>\n  </div>\n  <div class=\"favorites-label\">Favorites</div>\n  <div class=\"favorites\">\n    <button class=\"fav\" data-url=\"https://www.apple.com\"><div class=\"fav-icon\"><img src=\"https://www.apple.com/favicon.ico\" alt=\"\"></div><span>Apple</span></button>\n    <button class=\"fav\" data-url=\"https://www.icloud.com\"><div class=\"fav-icon\"><img src=\"https://www.icloud.com/favicon.ico\" alt=\"\"></div><span>iCloud</span></button>\n    <button class=\"fav\" data-url=\"search:DuckDuckGo\"><div class=\"fav-icon\" style=\"font-size:18px\">🦆</div><span>DuckDuckGo</span></button>\n    <button class=\"fav\" data-url=\"https://www.wikipedia.org\"><div class=\"fav-icon\"><img src=\"https://www.wikipedia.org/static/favicon/wikipedia.ico\" alt=\"\"></div><span>Wikipedia</span></button>\n    <button class=\"fav\" data-url=\"https://www.google.com\"><div class=\"fav-icon\"><img src=\"https://www.google.com/favicon.ico\" alt=\"\"></div><span>Google</span></button>\n    <button class=\"fav\" data-url=\"https://www.bing.com\"><div class=\"fav-icon bing\">B</div><span>Bing</span></button>\n    <button class=\"fav\" data-url=\"https://www.facebook.com\"><div class=\"fav-icon fb\">f</div><span>Facebook</span></button>\n    <button class=\"fav\" data-url=\"https://x.com\"><div class=\"fav-icon tw\">X</div><span>X</span></button>\n  </div>\n  <div class=\"proxy-status\" id=\"proxyStatus\"><span class=\"dot\"></span><span id=\"proxyStatusText\">Connecting proxy…</span></div>\n</div>\n<iframe id=\"view\" title=\"Page\" sandbox=\"allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads\"></iframe>\n<div class=\"boot\" id=\"boot\"><div class=\"boot-inner\"><div class=\"spinner\"></div><div id=\"bootMsg\">Loading…</div></div></div>\n</div></div>\n\n<script>\n(function () {\n  const SERVERS = [\n    \"wss://wisp.mercurywork.shop/\",\n    \"wss://wisp.mercurywork.shop/wisp/\",\n    \"wss://anura.pro/\",\n    \"wss://glseries.net/wisp/\",\n    \"wss://wisp.terbiumon.top/wisp/\",\n    \"wss://copium-wisp-9529463.onrender.com/wisp/\",\n    \"wss://wisp.smartfoloo.space/\"\n  ];\n  const start = document.getElementById(\"start\");\n  const view = document.getElementById(\"view\");\n  const boot = document.getElementById(\"boot\");\n  const bootMsg = document.getElementById(\"bootMsg\");\n  const startSearch = document.getElementById(\"startSearch\");\n  const goBtn = document.getElementById(\"startSearchGo\");\n  const proxyStatus = document.getElementById(\"proxyStatus\");\n  const proxyStatusText = document.getElementById(\"proxyStatusText\");\n  let libcurl = null;\n  let ready = false;\n  let currentPageUrl = \"\";\n  let curlPromise = null;\n\n  function setStatus(state, text) {\n    if (proxyStatus) {\n      proxyStatus.classList.remove(\"ready\", \"error\");\n      if (state) proxyStatus.classList.add(state);\n    }\n    if (proxyStatusText) proxyStatusText.textContent = text || \"\";\n  }\n  function showStart() {\n    start.style.display = \"flex\";\n    view.style.display = \"none\";\n    boot.classList.remove(\"show\");\n    try { parent.postMessage({ type: \"safari-state\", title: \"Start Page\", url: \"\" }, \"*\"); } catch (e) {}\n  }\n  function showBoot(msg) {\n    boot.classList.add(\"show\");\n    if (bootMsg) bootMsg.textContent = msg || \"Loading…\";\n  }\n  function hideBoot() { boot.classList.remove(\"show\"); }\n\n  function isProbablyUrl(u) {\n    if (/^https?:\\/\\//i.test(u)) return true;\n    if (u.startsWith(\"//\")) return true;\n    if (/^localhost\\b/i.test(u)) return true;\n    return /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+([/:?#].*)?$/i.test(u);\n  }\n\n  function normalizeUrl(raw) {\n    var u = String(raw || \"\").trim();\n    if (!u) return \"\";\n    if (/^search:/i.test(u)) return \"search:\" + u.slice(7).trim();\n    if (/^tiktok$/i.test(u) || /^tt$/i.test(u)) return \"https://www.tiktok.com/\";\n    if (/^https?:\\/\\//i.test(u)) {\n      try { return new URL(u).href; } catch (e) { return u; }\n    }\n    if (u.startsWith(\"//\")) {\n      try { return new URL(\"https:\" + u).href; } catch (e) { return \"https:\" + u; }\n    }\n    if (isProbablyUrl(u)) {\n      try { return new URL(\"https://\" + u).href; } catch (e) { return \"https://\" + u; }\n    }\n    return \"search:\" + u;\n  }\n\n  function hostLabel(u) {\n    if (/^search:/i.test(u)) return \"Search\";\n    try { return new URL(u).hostname.replace(/^www\\./, \"\"); } catch (e) { return u; }\n  }\n\n  function esc(s) {\n    return String(s || \"\").replace(/[&<>\"']/g, function (c) {\n      return ({ \"&\": \"&amp;\", \"<\": \"&lt;\", \">\": \"&gt;\", '\"': \"&quot;\", \"'\": \"&#39;\" })[c];\n    });\n  }\n\n  async function ensureCurl() {\n    if (ready && libcurl) return true;\n    if (curlPromise) return curlPromise;\n    curlPromise = (async function () {\n      setStatus(\"\", \"Connecting proxy…\");\n      var mod = null;\n      var imports = [\n        \"https://cdn.jsdelivr.net/npm/libcurl.js@0.7.1/libcurl_full.mjs\",\n        \"https://cdn.jsdelivr.net/npm/libcurl.js@0.7.4/libcurl_full.mjs\",\n        \"https://cdn.jsdelivr.net/npm/libcurl.js@latest/libcurl_full.mjs\"\n      ];\n      for (var i = 0; i < imports.length; i++) {\n        try { mod = await import(imports[i]); break; } catch (e) {}\n      }\n      if (!mod) throw new Error(\"libcurl load failed\");\n      libcurl = mod.libcurl || mod.default || mod;\n      if (typeof libcurl.load_wasm === \"function\") {\n        try { await libcurl.load_wasm(); } catch (e) {}\n      }\n      var servers = SERVERS.slice();\n      var forced = false;\n      try {\n        var saved = localStorage.getItem(\"nyx_wisp\");\n        if (saved && String(saved).trim()) {\n          servers = [String(saved).trim()];\n          forced = true;\n        }\n      } catch (e) {}\n      var last = null;\n      for (var s = 0; s < servers.length; s++) {\n        try {\n          libcurl.set_websocket(servers[s]);\n          var r = await Promise.race([\n            libcurl.fetch(\"https://example.com/\", { redirect: \"follow\" }),\n            new Promise(function (_, rej) { setTimeout(function () { rej(new Error(\"timeout\")); }, 5000); })\n          ]);\n          if (r && r.status >= 200 && r.status < 500) {\n            ready = true;\n            try { localStorage.setItem(\"nyx_wisp_last\", servers[s]); } catch (e) {}\n            setStatus(\"ready\", forced\n              ? (\"Proxy ready (custom) — \" + servers[s])\n              : (\"Proxy ready — \" + servers[s]));\n            try { parent.postMessage({ type: \"safari-wisp\", server: servers[s], forced: forced }, \"*\"); } catch (e) {}\n            return true;\n          }\n        } catch (e) { last = e; }\n      }\n      setStatus(\"error\", forced\n        ? (\"Custom Wisp failed — \" + servers[0])\n        : \"Proxy offline — will retry\");\n      throw last || new Error(\"Wisp connect failed\");\n    })();\n    try {\n      return await curlPromise;\n    } catch (e) {\n      curlPromise = null;\n      throw e;\n    }\n  }\n\n  async function proxyFetch(url, opts) {\n    await ensureCurl();\n    var headers = Object.assign({\n      \"User-Agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15\",\n      \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\",\n      \"Accept-Language\": \"en-US,en;q=0.9\"\n    }, (opts && opts.headers) || {});\n    var fetchOpts = Object.assign({ redirect: \"follow\" }, opts || {}, { headers: headers });\n    return Promise.race([\n      libcurl.fetch(url, fetchOpts),\n      new Promise(function (_, rej) { setTimeout(function () { rej(new Error(\"timeout\")); }, 25000); })\n    ]);\n  }\n\n  function decodeUddg(href) {\n    try {\n      var u = new URL(href, \"https://duckduckgo.com\");\n      var uddg = u.searchParams.get(\"uddg\");\n      if (uddg) return decodeURIComponent(uddg);\n    } catch (e) {}\n    try {\n      var m = String(href).match(/[?&]uddg=([^&]+)/);\n      if (m) return decodeURIComponent(m[1]);\n    } catch (e) {}\n    return href;\n  }\n\n  function parseDdgHtml(html) {\n    var results = [];\n    var reA = /class=\"result__a\"[^>]*href=\"([^\"]+)\"[^>]*>([\\s\\S]*?)<\\/a>/gi;\n    var m;\n    while ((m = reA.exec(html))) {\n      var href = decodeUddg(m[1].replace(/&amp;/g, \"&\"));\n      var title = m[2].replace(/<[^>]+>/g, \"\").trim();\n      if (href && title && !/^https?:\\/\\/(duckduckgo|www\\.duckduckgo)\\.com/i.test(href)) {\n        results.push({ href: href, title: title, snippet: \"\" });\n      }\n    }\n    var snippets = [];\n    var reS = /class=\"result__snippet\"[^>]*>([\\s\\S]*?)<\\/(?:a|td|div)>/gi;\n    while ((m = reS.exec(html))) {\n      snippets.push(m[1].replace(/<[^>]+>/g, \"\").trim());\n    }\n    for (var i = 0; i < results.length && i < snippets.length; i++) {\n      results[i].snippet = snippets[i];\n    }\n    if (!results.length) {\n      var reU = /href=\"([^\"]*uddg=[^\"]+)\"[^>]*>([\\s\\S]*?)<\\/a>/gi;\n      var seen = {};\n      while ((m = reU.exec(html))) {\n        href = decodeUddg(m[1].replace(/&amp;/g, \"&\"));\n        title = m[2].replace(/<[^>]+>/g, \"\").trim();\n        if (!title || title.length < 3) continue;\n        if (seen[href]) continue;\n        seen[href] = 1;\n        if (/^https?:\\/\\//i.test(href)) results.push({ href: href, title: title, snippet: \"\" });\n      }\n    }\n    return results;\n  }\n\n  async function searchDuckDuckGo(query) {\n    var q = String(query || \"\").trim();\n    if (!q) return { query: q, abstract: null, results: [] };\n\n    var abstract = null;\n    var related = [];\n    try {\n      var apiUrl = \"https://api.duckduckgo.com/?q=\" + encodeURIComponent(q)\n        + \"&format=json&no_redirect=1&no_html=1&skip_disambig=1\";\n      var res = await proxyFetch(apiUrl, { headers: { \"Accept\": \"application/json\" } });\n      var text = await res.text();\n      var data = JSON.parse(text);\n      if (data.AbstractText || data.Heading) {\n        abstract = {\n          heading: data.Heading || q,\n          text: data.AbstractText || \"\",\n          url: data.AbstractURL || \"\",\n          source: data.AbstractSource || \"\"\n        };\n      }\n      function walk(arr) {\n        (arr || []).forEach(function (item) {\n          if (item.Topics) walk(item.Topics);\n          else if (item.FirstURL && item.Text) {\n            related.push({\n              href: item.FirstURL,\n              title: (item.Text.split(\" - \")[0] || item.Text),\n              snippet: item.Text\n            });\n          }\n        });\n      }\n      walk(data.RelatedTopics);\n      if (Array.isArray(data.Results)) {\n        data.Results.forEach(function (r) {\n          if (r.FirstURL && r.Text) related.push({ href: r.FirstURL, title: r.Text, snippet: \"\" });\n        });\n      }\n    } catch (e) {\n      console.warn(\"DDG API failed\", e);\n    }\n\n    var htmlResults = [];\n    try {\n      var htmlUrl = \"https://html.duckduckgo.com/html/?q=\" + encodeURIComponent(q);\n      var res2 = await proxyFetch(htmlUrl, {\n        headers: { \"Accept\": \"text/html\", \"Referer\": \"https://html.duckduckgo.com/\" }\n      });\n      var html = await res2.text();\n      if (!/anomaly-modal|bots use DuckDuckGo/i.test(html)) {\n        htmlResults = parseDdgHtml(html);\n      }\n    } catch (e) {\n      console.warn(\"DDG HTML failed\", e);\n    }\n\n    var seen = {};\n    var results = [];\n    htmlResults.concat(related).forEach(function (r) {\n      if (!r || !r.href) return;\n      var key = r.href.split(\"#\")[0];\n      if (seen[key]) return;\n      seen[key] = 1;\n      results.push(r);\n    });\n    return { query: q, abstract: abstract, results: results.slice(0, 12) };\n  }\n\n  function renderSearchPage(data) {\n    var q = data.query || \"\";\n    var abs = data.abstract;\n    var results = data.results || [];\n    var absHtml = \"\";\n    if (abs && (abs.text || abs.heading)) {\n      absHtml = '<div class=\"card abstract\">'\n        + '<div class=\"abs-title\">' + esc(abs.heading) + '</div>'\n        + (abs.text ? '<p>' + esc(abs.text) + '</p>' : '')\n        + (abs.url ? '<a class=\"abs-link\" data-nav=\"' + esc(abs.url) + '\" href=\"' + esc(abs.url) + '\">' + esc(abs.source || abs.url) + '</a>' : '')\n        + '</div>';\n    }\n    var list = \"\";\n    if (results.length) {\n      list = results.map(function (r) {\n        var host = \"\";\n        try { host = new URL(r.href).hostname.replace(/^www\\./, \"\"); } catch (e) { host = r.href; }\n        return '<div class=\"card result\">'\n          + '<a class=\"title\" data-nav=\"' + esc(r.href) + '\" href=\"' + esc(r.href) + '\">' + esc(r.title) + '</a>'\n          + '<div class=\"url\">' + esc(host) + '</div>'\n          + (r.snippet ? '<div class=\"snippet\">' + esc(r.snippet) + '</div>' : '')\n          + '</div>';\n      }).join(\"\");\n    } else {\n      list = '<div class=\"card empty\">No web results for this query. Try different words, or enter a full URL.</div>';\n    }\n\n    return '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">'\n      + '<title>' + esc(q) + ' — DuckDuckGo</title>'\n      + '<style>'\n      + 'body{margin:0;font-family:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"Segoe UI\",system-ui,sans-serif;background:#f5f5f7;color:#1d1d1f;padding:16px 18px 40px}'\n      + '.bar{display:flex;gap:8px;align-items:center;margin-bottom:18px;position:sticky;top:0;background:#f5f5f7;padding:8px 0 12px;z-index:2}'\n      + '.bar input{flex:1;height:40px;border-radius:10px;border:1px solid #d2d2d7;padding:0 14px;font-size:15px;background:#fff;color:inherit;outline:none}'\n      + '.bar input:focus{border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.2)}'\n      + '.bar button{height:40px;padding:0 16px;border:none;border-radius:10px;background:#de5833;color:#fff;font-weight:600;cursor:pointer;font-size:14px}'\n      + '.brand{font-size:12px;color:#6e6e73;margin-bottom:10px}'\n      + '.card{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}'\n      + '.abstract .abs-title{font-size:18px;font-weight:700;margin-bottom:6px}'\n      + '.abstract p{margin:0 0 8px;line-height:1.45;color:#3a3a3c;font-size:14px}'\n      + '.abs-link,.title{color:#0060df;text-decoration:none;cursor:pointer}'\n      + '.title{font-size:16px;font-weight:600;display:inline-block;margin-bottom:2px}'\n      + '.title:hover,.abs-link:hover{text-decoration:underline}'\n      + '.url{font-size:12px;color:#0d7a3f;margin-bottom:4px}'\n      + '.snippet{font-size:13px;color:#3a3a3c;line-height:1.4}'\n      + '.empty{color:#6e6e73;text-align:center;padding:28px 16px}'\n      + '@media(prefers-color-scheme:dark){body{background:#1c1c1e;color:#f5f5f7}.bar{background:#1c1c1e}.bar input{background:#2c2c2e;border-color:#3a3a3c;color:#f5f5f7}.card{background:#2c2c2e;border-color:#3a3a3c}.abstract p,.snippet{color:#c7c7cc}.title,.abs-link{color:#0a84ff}}'\n      + '</style></head><body>'\n      + '<div class=\"brand\">DuckDuckGo Search</div>'\n      + '<div class=\"bar\"><input id=\"q\" type=\"search\" value=\"' + esc(q) + '\" placeholder=\"Search DuckDuckGo\">'\n      + '<button type=\"button\" id=\"go\">Search</button></div>'\n      + absHtml + list\n      + '<script>(function(){function send(u){try{parent.postMessage({type:\"safari-navigate\",url:u},\"*\")}catch(e){}}'\n      + 'document.getElementById(\"go\").onclick=function(){var v=document.getElementById(\"q\").value.trim();if(v)send(\"search:\"+v)};'\n      + 'document.getElementById(\"q\").addEventListener(\"keydown\",function(e){if(e.key===\"Enter\"){e.preventDefault();document.getElementById(\"go\").click()}});'\n      + 'document.addEventListener(\"click\",function(e){var a=e.target.closest&&e.target.closest(\"[data-nav]\");if(!a)return;e.preventDefault();send(a.getAttribute(\"data-nav\"))},true);'\n      + '})();<\\/script></body></html>';\n  }\n\n  function rewriteHtml(body, pageUrl) {\n    try {\n      var base = new URL(pageUrl);\n      body = body.replace(/<meta[^>]+http-equiv=[\"']?Content-Security-Policy[^>]*>/gi, \"\");\n      body = body.replace(/<base[^>]*>/gi, \"\");\n      var baseTag = '<base href=\"' + base.href + '\">';\n      if (/<head[^>]*>/i.test(body)) body = body.replace(/<head([^>]*)>/i, \"<head$1>\" + baseTag);\n      else body = baseTag + body;\n      var bridge = '<script>(function(){function abs(u){try{return new URL(u,document.baseURI||location.href).href}catch(e){return u}}'\n        + 'document.addEventListener(\"click\",function(e){var a=e.target&&e.target.closest&&e.target.closest(\"a[href]\");if(!a)return;'\n        + 'var h=a.getAttribute(\"href\");if(!h||h.charAt(0)===\"#\")return;if(/^javascript:/i.test(h))return;'\n        + 'e.preventDefault();e.stopPropagation();try{parent.postMessage({type:\"safari-navigate\",url:abs(h)},\"*\")}catch(err){}},true);'\n        + 'document.addEventListener(\"submit\",function(e){var f=e.target;if(!f)return;e.preventDefault();e.stopPropagation();'\n        + 'try{var action=f.getAttribute(\"action\")||location.href;var u=new URL(action,document.baseURI||location.href);'\n        + 'if((f.method||\"get\").toLowerCase()===\"get\"){var fd=new FormData(f);fd.forEach(function(v,k){u.searchParams.set(k,v)})}'\n        + 'parent.postMessage({type:\"safari-navigate\",url:u.href},\"*\")}catch(err){}},true);'\n        + '})();<\\/script>';\n      if (/<body[^>]*>/i.test(body)) body = body.replace(/<body([^>]*)>/i, \"<body$1>\" + bridge);\n      else body = body + bridge;\n    } catch (e) {}\n    return body;\n  }\n\n  async function navigate(raw) {\n    var u = normalizeUrl(raw);\n    if (!u) { showStart(); return; }\n    showBoot(\"Loading…\");\n    try {\n      if (/^search:/i.test(u)) {\n        var q = u.slice(7).trim() || \"DuckDuckGo\";\n        start.style.display = \"none\";\n        view.style.display = \"block\";\n        try { parent.postMessage({ type: \"safari-state\", title: q + \" — Search\", url: \"search:\" + q }, \"*\"); } catch (e) {}\n        var data = await searchDuckDuckGo(q);\n        view.removeAttribute(\"src\");\n        view.srcdoc = renderSearchPage(data);\n        currentPageUrl = \"search:\" + q;\n        hideBoot();\n        return;\n      }\n\n      await ensureCurl();\n      start.style.display = \"none\";\n      view.style.display = \"block\";\n      try { parent.postMessage({ type: \"safari-state\", title: hostLabel(u), url: u }, \"*\"); } catch (e) {}\n      var res = await proxyFetch(u);\n      var body = await res.text();\n      var ctype = (res.headers && res.headers.get && res.headers.get(\"content-type\")) || \"\";\n      var finalUrl = (res.url && String(res.url)) || u;\n      if (ctype.indexOf(\"text/html\") !== -1 || /^\\s*</.test(body)) {\n        body = rewriteHtml(body, finalUrl);\n        view.removeAttribute(\"src\");\n        view.srcdoc = body;\n      } else {\n        view.srcdoc = \"<pre style='padding:16px;white-space:pre-wrap;font-family:ui-monospace,monospace'>\" + esc(body) + \"</pre>\";\n      }\n      currentPageUrl = finalUrl;\n      try { parent.postMessage({ type: \"safari-state\", title: hostLabel(finalUrl), url: finalUrl }, \"*\"); } catch (e) {}\n      hideBoot();\n    } catch (e) {\n      console.warn(\"navigate failed\", e);\n      showBoot(\"Couldn't load — check proxy\");\n      setStatus(\"error\", \"Load failed\");\n      setTimeout(hideBoot, 2200);\n    }\n  }\n\n  function goFromSearch() {\n    if (!startSearch) return;\n    var v = startSearch.value;\n    if (!String(v || \"\").trim()) {\n      startSearch.focus();\n      return;\n    }\n    navigate(v);\n  }\n\n  // Wire events immediately (do not wait for proxy)\n  if (startSearch) {\n    startSearch.addEventListener(\"keydown\", function (e) {\n      if (e.key === \"Enter\") {\n        e.preventDefault();\n        e.stopPropagation();\n        goFromSearch();\n      }\n    });\n  }\n  if (goBtn) {\n    goBtn.addEventListener(\"click\", function (e) {\n      e.preventDefault();\n      e.stopPropagation();\n      goFromSearch();\n    });\n  }\n  document.querySelectorAll(\".fav\").forEach(function (btn) {\n    btn.addEventListener(\"click\", function () {\n      var url = btn.getAttribute(\"data-url\");\n      if (url === \"search:DuckDuckGo\") {\n        if (startSearch) startSearch.focus();\n        return;\n      }\n      navigate(url);\n    });\n  });\n  window.addEventListener(\"message\", function (ev) {\n    var d = ev.data;\n    if (!d || typeof d !== \"object\") return;\n    if (d.type === \"safari-navigate\") navigate(d.url);\n    if (d.type === \"safari-reload\" && currentPageUrl) navigate(currentPageUrl);\n    if (d.type === \"safari-home\") showStart();\n    if (d.type === \"safari-theme\") {\n      document.documentElement.classList.toggle(\"dark\", !!d.dark);\n    }\n  });\n\n  try { parent.postMessage({ type: \"safari-ready\" }, \"*\"); } catch (e) {}\n  showStart();\n  ensureCurl().then(function () {\n    setStatus(\"ready\", \"Proxy ready\");\n  }).catch(function () {\n    setStatus(\"error\", \"Proxy offline — will retry on search\");\n  });\n})();\n<\/script>\n</body>\n</html>\n";
 
 
     function nyxLauncherUrl() {
@@ -7809,6 +8390,7 @@ window.setDesktopBackground = setDesktopBackground;
       go(".open_vscode", () => { if(typeof openVSCode==="function") openVSCode(); });
       go(".open_settings, .open_settings_menu, [title='System Settings']", () => { if(typeof openSettings==="function") openSettings(); });
       go(".open_safari, [title='Safari']", () => { if(typeof openSafari==="function") openSafari(); });
+      go(".open_imovie, [title='iMovie']", () => { if(typeof openIMovie==="function") openIMovie(); });
     })();
 
 
@@ -7975,15 +8557,7 @@ window.setDesktopBackground = setDesktopBackground;
 
       window.setLoginPassword = setStoredPassword;
       window.verifyLoginPassword = function (plain) {
-        const typed = String(plain || "");
-        // User-set / default stored password
-        if (hashPass(typed) === getStoredPassHash()) return true;
-        // Additional accepted passwords
-        const EXTRA = ["skibidinoah", "nyx"];
-        for (let i = 0; i < EXTRA.length; i++) {
-          if (typed === EXTRA[i]) return true;
-        }
-        return false;
+        return hashPass(plain) === getStoredPassHash();
       };
       window.getDefaultLoginHint = function () {
         try {
@@ -7992,7 +8566,7 @@ window.setDesktopBackground = setDesktopBackground;
             return "Enter Password";
           }
         } catch (e) {}
-        return "password nyx";
+        return "Password: nyx";
       };
 
       function attemptSignIn() {
@@ -8104,6 +8678,196 @@ window.setDesktopBackground = setDesktopBackground;
 
 
     
+
+    // ===== iMovie =====
+    (function initIMovie() {
+      const clips = []; // { id, name, url, type }
+      let activeId = null;
+      let timelineIds = [];
+
+      function $(id) { return document.getElementById(id); }
+
+      function openIMovie() {
+        if (typeof setMenuAppName === "function") setMenuAppName("iMovie");
+        const win = $("imovie-window");
+        if (!win) return;
+        try {
+          if (typeof navbar !== "undefined" && navbar) navbar.style.display = "flex";
+          if (typeof launchpad !== "undefined" && launchpad) launchpad.style.display = "none";
+          if (typeof container !== "undefined" && container) container.style.display = "flex";
+        } catch (e) {}
+        win.style.display = "flex";
+        win.classList.add("active");
+        win.style.zIndex = "80";
+        const pt = $("point-imovie");
+        if (pt) pt.style.display = "block";
+        try {
+          if (window.jQuery && !win._dragWired) {
+            win._dragWired = true;
+            window.jQuery(win).draggable({
+              handle: ".window__taskbar",
+              cancel: "button, input, video, .imovie-body, .imovie-clip, .imovie-tl-clip",
+              containment: "window"
+            });
+          }
+        } catch (e) {}
+      }
+      function closeIMovie() {
+        const win = $("imovie-window");
+        if (!win) return;
+        const vid = $("imovie-video");
+        if (vid) { try { vid.pause(); } catch (e) {} }
+        win.style.display = "none";
+        win.classList.remove("active", "is-maximized");
+        const pt = $("point-imovie");
+        if (pt) pt.style.display = "none";
+      }
+      window.openIMovie = openIMovie;
+      window.closeIMovie = closeIMovie;
+
+      function renderClips() {
+        const box = $("imovie-clips");
+        if (!box) return;
+        if (!clips.length) {
+          box.innerHTML = '<div class="imovie-tl-empty" style="min-height:80px;margin:4px">No media yet</div>';
+          return;
+        }
+        box.innerHTML = clips.map(c => {
+          const isVid = (c.type || "").startsWith("video");
+          const thumb = isVid
+            ? '<video class="clip-thumb" src="' + c.url + '" muted preload="metadata"></video>'
+            : (c.type || "").startsWith("image")
+              ? '<img class="clip-thumb" src="' + c.url + '" alt="">'
+              : '<div class="clip-thumb" style="display:flex;align-items:center;justify-content:center;color:#888;font-size:12px">Audio</div>';
+          return '<div class="imovie-clip' + (c.id === activeId ? ' active' : '') + '" data-id="' + c.id + '">'
+            + thumb + '<div class="clip-meta">' + c.name.replace(/</g, "&lt;") + '</div></div>';
+        }).join("");
+        box.querySelectorAll(".imovie-clip").forEach(el => {
+          el.addEventListener("click", () => {
+            const id = el.getAttribute("data-id");
+            addToTimeline(id);
+            previewClip(id);
+          });
+        });
+      }
+
+      function renderTimeline() {
+        const track = $("imovie-timeline");
+        if (!track) return;
+        if (!timelineIds.length) {
+          track.innerHTML = '<div class="imovie-tl-empty">Click a media clip to add it to the timeline</div>';
+          return;
+        }
+        track.innerHTML = timelineIds.map(id => {
+          const c = clips.find(x => x.id === id);
+          if (!c) return "";
+          return '<div class="imovie-tl-clip" data-id="' + id + '"><strong>' + c.name.replace(/</g, "&lt;") + '</strong><span style="opacity:0.7;margin-top:4px">Click to preview</span></div>';
+        }).join("");
+        track.querySelectorAll(".imovie-tl-clip").forEach(el => {
+          el.addEventListener("click", () => previewClip(el.getAttribute("data-id")));
+        });
+      }
+
+      function previewClip(id) {
+        const c = clips.find(x => x.id === id);
+        if (!c) return;
+        activeId = id;
+        renderClips();
+        const empty = $("imovie-empty");
+        const vid = $("imovie-video");
+        if (!vid) return;
+        if ((c.type || "").startsWith("video") || (c.type || "").startsWith("audio")) {
+          if (empty) empty.style.display = "none";
+          vid.style.display = "block";
+          vid.src = c.url;
+          vid.play().catch(() => {});
+        } else if ((c.type || "").startsWith("image")) {
+          if (empty) {
+            empty.style.display = "block";
+            empty.innerHTML = '<img src="' + c.url + '" style="max-width:90%;max-height:280px;border-radius:8px" alt=""><div style="margin-top:10px;color:#a1a1a6">' + c.name.replace(/</g, "&lt;") + '</div>';
+          }
+          vid.style.display = "none";
+          try { vid.pause(); } catch (e) {}
+        }
+      }
+
+      function addToTimeline(id) {
+        if (!id) return;
+        timelineIds.push(id);
+        renderTimeline();
+      }
+
+      function importFiles(fileList) {
+        Array.from(fileList || []).forEach(f => {
+          const url = URL.createObjectURL(f);
+          const id = "c" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+          clips.push({ id, name: f.name, url, type: f.type || "video/mp4" });
+        });
+        renderClips();
+        if (clips.length) {
+          const last = clips[clips.length - 1];
+          addToTimeline(last.id);
+          previewClip(last.id);
+        }
+      }
+
+      document.addEventListener("click", (e) => {
+        const t = e.target;
+        if (!t || !t.closest) return;
+        if (t.closest(".close-imovie") || t.closest(".min-imovie")) {
+          e.preventDefault();
+          closeIMovie();
+        } else if (t.closest(".full-imovie")) {
+          e.preventDefault();
+          const win = $("imovie-window");
+          if (win) win.classList.toggle("is-maximized");
+        } else if (t.closest(".open_imovie")) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lp = document.getElementById("launchpad");
+          if (lp) lp.style.display = "none";
+          openIMovie();
+        }
+      }, true);
+
+      const importBtn = $("imovie-import");
+      const fileInput = $("imovie-file");
+      if (importBtn && fileInput) {
+        importBtn.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", () => {
+          importFiles(fileInput.files);
+          fileInput.value = "";
+        });
+      }
+      const playBtn = $("imovie-play");
+      const pauseBtn = $("imovie-pause");
+      const clearBtn = $("imovie-clear");
+      if (playBtn) playBtn.addEventListener("click", () => {
+        const vid = $("imovie-video");
+        if (vid && vid.style.display !== "none") vid.play().catch(() => {});
+      });
+      if (pauseBtn) pauseBtn.addEventListener("click", () => {
+        const vid = $("imovie-video");
+        if (vid) try { vid.pause(); } catch (e) {}
+      });
+      if (clearBtn) clearBtn.addEventListener("click", () => {
+        const vid = $("imovie-video");
+        if (vid) { try { vid.pause(); vid.removeAttribute("src"); vid.load(); } catch (e) {} vid.style.display = "none"; }
+        clips.forEach(c => { try { URL.revokeObjectURL(c.url); } catch (e) {} });
+        clips.length = 0;
+        timelineIds = [];
+        activeId = null;
+        const empty = $("imovie-empty");
+        if (empty) {
+          empty.style.display = "block";
+          empty.innerHTML = "<strong>iMovie</strong>Import a video to start editing";
+        }
+        renderClips();
+        renderTimeline();
+      });
+    })();
+
+
     // ===== Dev Mode + Dev Hub app =====
     (function initDevMode() {
       const DEV_LINKS = [
@@ -8161,12 +8925,75 @@ window.setDesktopBackground = setDesktopBackground;
         }, 450);
       }
 
+      function getWispServer() {
+        try {
+          return localStorage.getItem("nyx_wisp") || "";
+        } catch (e) { return ""; }
+      }
+      function setWispServer(url) {
+        url = String(url || "").trim();
+        if (url && !/^wss?:\/\//i.test(url)) {
+          // allow host-only input → assume wss://
+          if (/^[\w.-]+(:\d+)?(\/.*)?$/i.test(url)) url = "wss://" + url;
+        }
+        try {
+          if (!url) localStorage.removeItem("nyx_wisp");
+          else localStorage.setItem("nyx_wisp", url);
+        } catch (e) {}
+        // Reload Safari proxy iframe so it picks up the new server on next connect
+        try {
+          const fr = document.getElementById("safari-frame");
+          if (fr && typeof NYX_PROXY_HTML !== "undefined") {
+            fr.removeAttribute("src");
+            fr.srcdoc = NYX_PROXY_HTML;
+          }
+        } catch (e) {}
+        return getWispServer();
+      }
+      window.getWispServer = getWispServer;
+      window.setWispServer = setWispServer;
+
+      const WISP_PRESETS = [
+        "wss://wisp.mercurywork.shop/",
+        "wss://wisp.mercurywork.shop/wisp/",
+        "wss://anura.pro/",
+        "wss://glseries.net/wisp/",
+        "wss://wisp.terbiumon.top/wisp/",
+        "wss://copium-wisp-9529463.onrender.com/wisp/",
+        "wss://wisp.smartfoloo.space/"
+      ];
+
       function renderDevHubBody() {
         const body = document.getElementById("devhub-body");
         if (!body) return;
+        const current = getWispServer();
         let html = "<h1>Dev Hub</h1>"
           + "<p class=\"lede\">Developer toolkit unlocked via <code>sudo apt install dev</code>. "
           + "Click any link to open it in Safari (proxied). Run <code>sudo apt remove dev</code> to hide this app.</p>";
+
+        // Wisp proxy server editor (dev-mode only)
+        html += '<div class="devhub-wisp">'
+          + '<h3>Wisp Proxy Server</h3>'
+          + '<p class="hint">Safari’s browser uses a Wisp WebSocket proxy. When set, the custom <code>wss://</code> URL is used <strong>exclusively</strong> (no fallback). Reset clears it so the built-in list is used. Stored in <code>localStorage.nyx_wisp</code>.</p>'
+          + '<div class="devhub-wisp-row">'
+          + '<input type="text" id="devhub-wisp-input" spellcheck="false" autocomplete="off" '
+          + 'placeholder="wss://your-wisp-server.example/wisp/" value="'
+          + String(current).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;") + '">'
+          + '<button type="button" class="save" id="devhub-wisp-save">Save</button>'
+          + '<button type="button" class="reset" id="devhub-wisp-reset">Reset</button>'
+          + '</div>'
+          + '<div class="devhub-wisp-status" id="devhub-wisp-status">'
+          + (current
+              ? 'Using ONLY: <strong>' + String(current).replace(/&/g,"&amp;").replace(/</g,"&lt;") + '</strong> (no fallback)'
+              : 'Built-in server list (fallback enabled)')
+          + '</div>'
+          + '<div class="devhub-wisp-presets">';
+        WISP_PRESETS.forEach(function (u) {
+          html += '<button type="button" class="devhub-wisp-preset" data-url="'
+            + String(u).replace(/"/g, "&quot;") + '">' + String(u).replace(/</g, "&lt;") + "</button>";
+        });
+        html += "</div></div>";
+
         DEV_LINKS.forEach(function (sec) {
           html += '<div class="devhub-section"><h3>' + sec.section + "</h3><div class=\"devhub-links\">";
           sec.items.forEach(function (it) {
@@ -8179,10 +9006,53 @@ window.setDesktopBackground = setDesktopBackground;
           html += "</div></div>";
         });
         body.innerHTML = html;
+
         body.querySelectorAll(".devhub-link").forEach(function (btn) {
           btn.addEventListener("click", function (e) {
             e.preventDefault();
             openDevLink(btn.getAttribute("data-url"));
+          });
+        });
+
+        function refreshStatus() {
+          const st = document.getElementById("devhub-wisp-status");
+          const inp = document.getElementById("devhub-wisp-input");
+          const cur = getWispServer();
+          if (inp) inp.value = cur;
+          if (st) {
+            st.innerHTML = cur
+              ? 'Using ONLY: <strong>' + String(cur).replace(/&/g,"&amp;").replace(/</g,"&lt;") + '</strong> (no fallback). Reopen Safari to apply.'
+              : "Built-in server list (fallback enabled)";
+          }
+        }
+        const saveBtn = document.getElementById("devhub-wisp-save");
+        const resetBtn = document.getElementById("devhub-wisp-reset");
+        const inp = document.getElementById("devhub-wisp-input");
+        if (saveBtn && inp) {
+          saveBtn.addEventListener("click", function () {
+            setWispServer(inp.value);
+            refreshStatus();
+          });
+          inp.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              setWispServer(inp.value);
+              refreshStatus();
+            }
+          });
+        }
+        if (resetBtn) {
+          resetBtn.addEventListener("click", function () {
+            setWispServer("");
+            refreshStatus();
+          });
+        }
+        body.querySelectorAll(".devhub-wisp-preset").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const u = btn.getAttribute("data-url") || "";
+            if (inp) inp.value = u;
+            setWispServer(u);
+            refreshStatus();
           });
         });
       }
@@ -8204,7 +9074,7 @@ window.setDesktopBackground = setDesktopBackground;
             win._dragWired = true;
             $(win).draggable({
               handle: ".window__taskbar",
-              cancel: "button, a, .devhub-link, .devhub-body",
+              cancel: "button, a, input, .devhub-link, .devhub-body, .devhub-wisp",
               containment: "window"
             });
           }
